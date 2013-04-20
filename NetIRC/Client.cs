@@ -44,13 +44,21 @@ namespace NetIRC
             private set;
         }
 
+        private ClientUser User
+        {
+            get;
+            set;
+        }
+
         public Client()
         {
 
         }
 
-        public async void Connect(string server, int port, bool ssl)
+        public async void Connect(string server, int port, bool ssl, ClientUser user)
         {
+            this.User = user;
+
             this.TcpClient = new TcpClient();
             await this.TcpClient.ConnectAsync(server, port);
 
@@ -62,12 +70,14 @@ namespace NetIRC
             Thread readThread = new Thread(ReadStream);
             readThread.Start();
 
-            this.Writer.WriteLine("USER test - frogbox.es :test");
-            this.Writer.WriteLine("NICK test");
+            this.Send(new Messages.UserMessage(this.User));
+            this.Send(new Messages.NickMessage(this.User));
         }
 
         private void ReadStream()
         {
+            List<string> messageList = new List<string>();
+
             while (this.TcpClient != null && this.TcpClient.Connected)
             {
                 string line = this.Reader.ReadLine();
@@ -79,6 +89,11 @@ namespace NetIRC
 
                 Console.WriteLine("[] < " + line);
             }
+        }
+
+        public void Send(Messages.Message message)
+        {
+            message.Send(this.Writer);
         }
     }
 }
