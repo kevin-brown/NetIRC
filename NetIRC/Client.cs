@@ -87,13 +87,33 @@ namespace NetIRC
                     continue;
                 }
 
-                Console.WriteLine("[] < " + line);
+                Console.WriteLine(string.Format("[{0:HH:mm:ss}] < {1}", DateTime.Now, line));
             }
         }
 
         public void Send(Messages.Message message)
         {
-            message.Send(this.Writer);
+            MemoryStream stream = new MemoryStream();
+
+            message.Send(new StreamWriter(stream) { AutoFlush = true });
+
+            StreamReader reader = new StreamReader(stream);
+            stream.Position = 0;
+
+            while (true)
+            {
+                string line = reader.ReadLine();
+
+                if (string.IsNullOrEmpty(line))
+                {
+                    break;
+                }
+
+                Console.WriteLine(string.Format("[{0:HH:mm:ss}] > {1}", DateTime.Now, line));
+                this.Writer.WriteLine(line);
+            }
+
+            stream.Close();
         }
     }
 }
