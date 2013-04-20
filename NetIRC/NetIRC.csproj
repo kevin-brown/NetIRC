@@ -44,16 +44,16 @@
     <Compile Include="ClientUser.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\ReceiveMessage.cs" />
+    <Compile Include="Messages\Receive\PingMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
+    <Compile Include="Messages\Send\PongMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Messages\Receive\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

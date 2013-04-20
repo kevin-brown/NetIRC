@@ -60,7 +60,7 @@ namespace NetIRC
 
         private void RegisterMessages()
         {
-            this.RegisteredMessages.Add(typeof(Messages.Send.NickMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
@@ -105,7 +105,7 @@ namespace NetIRC
                     if (shouldProcess)
                     {
                         MethodInfo processMessage = messageType.GetMethod("ProcessMessage");
-                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[1] { line });
+                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[2] { line, this });
                     }
                 }
             }

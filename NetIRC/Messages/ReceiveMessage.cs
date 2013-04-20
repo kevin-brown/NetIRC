@@ -4,6 +4,6 @@ namespace NetIRC.Messages
 {
     public interface ReceiveMessage
     {
-        bool CheckMessage(String message, Server server);
+        void ProcessMessage(String message, Client client);
     }
 }
