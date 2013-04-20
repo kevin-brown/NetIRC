@@ -61,6 +61,7 @@ namespace NetIRC
         private void RegisterMessages()
         {
             this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
@@ -70,6 +71,7 @@ namespace NetIRC
             this.TcpClient = new TcpClient();
             await this.TcpClient.ConnectAsync(server, port);
 
+            this.Server = new Server(server, port);
             this.Stream = this.TcpClient.GetStream();
 
             this.Reader = new StreamReader(this.Stream);
