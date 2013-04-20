@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.Sockets;
 
 namespace NetIRC
@@ -12,6 +13,12 @@ namespace NetIRC
         }
 
         public Server Server
+        {
+            get;
+            private set;
+        }
+
+        public List<Channel> Channels
         {
             get;
             private set;

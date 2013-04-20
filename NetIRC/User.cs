@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace NetIRC
 {
@@ -23,6 +24,12 @@ namespace NetIRC
         }
 
         public string RealName
+        {
+            get;
+            private set;
+        }
+
+        public List<Channel> Channels
         {
             get;
             private set;
