@@ -8,7 +8,7 @@ namespace NetIRC
 {
     public class Client
     {
-        private TcpClient Client
+        private TcpClient TcpClient
         {
             get;
             set;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NetIRC
 {
-    class User
+    public class User
     {
         public string NickName
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace NetIRC
 {
-    class Channel
+    public class Channel
     {
         public string Topic
         {

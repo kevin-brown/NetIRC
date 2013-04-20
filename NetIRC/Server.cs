@@ -2,7 +2,7 @@
 
 namespace NetIRC
 {
-    class Server
+    public class Server
     {
         public string HostName
         {
