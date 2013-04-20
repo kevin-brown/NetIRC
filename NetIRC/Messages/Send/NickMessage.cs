@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace NetIRC.Messages
+namespace NetIRC.Messages.Send
 {
-    class NickMessage : Message
+    class NickMessage : SendMessage
     {
         private User User;
 
@@ -15,6 +15,11 @@ namespace NetIRC.Messages
         public void Send(StreamWriter writer)
         {
             writer.WriteLine("NICK " + this.User.NickName);
+        }
+
+        public bool CheckMessage(string message, Server server)
+        {
+            throw new NotImplementedException();
         }
     }
 }

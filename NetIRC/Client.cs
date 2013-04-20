@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
+using System.Reflection;
 using System.Threading;
 
 namespace NetIRC
@@ -50,9 +51,16 @@ namespace NetIRC
             set;
         }
 
+        private List<Type> RegisteredMessages = new List<Type>();
+
         public Client()
         {
+            this.RegisterMessages();
+        }
 
+        private void RegisterMessages()
+        {
+            this.RegisteredMessages.Add(typeof(Messages.Send.NickMessage));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
@@ -70,8 +78,8 @@ namespace NetIRC
             Thread readThread = new Thread(ReadStream);
             readThread.Start();
 
-            this.Send(new Messages.UserMessage(this.User));
-            this.Send(new Messages.NickMessage(this.User));
+            this.Send(new Messages.Send.UserMessage(this.User));
+            this.Send(new Messages.Send.NickMessage(this.User));
         }
 
         private void ReadStream()
@@ -88,10 +96,22 @@ namespace NetIRC
                 }
 
                 Console.WriteLine(string.Format("[{0:HH:mm:ss}] < {1}", DateTime.Now, line));
+
+                foreach (Type messageType in this.RegisteredMessages)
+                {
+                    MethodInfo checkMessage = messageType.GetMethod("CheckMessage");
+                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] {line, this.Server});
+
+                    if (shouldProcess)
+                    {
+                        MethodInfo processMessage = messageType.GetMethod("ProcessMessage");
+                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[1] { line });
+                    }
+                }
             }
         }
 
-        public void Send(Messages.Message message)
+        public void Send(Messages.SendMessage message)
         {
             MemoryStream stream = new MemoryStream();
 
