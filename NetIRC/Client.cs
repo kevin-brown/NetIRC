@@ -51,24 +51,33 @@ namespace NetIRC
 
         public async void Connect(string server, int port, bool ssl)
         {
-            this.Client = new TcpClient();
-            await this.Client.ConnectAsync(server, port);
+            this.TcpClient = new TcpClient();
+            await this.TcpClient.ConnectAsync(server, port);
 
-            this.Stream = this.Client.GetStream();
+            this.Stream = this.TcpClient.GetStream();
 
             this.Reader = new StreamReader(this.Stream);
-            this.Writer = new StreamWriter(this.Stream);
+            this.Writer = new StreamWriter(this.Stream) { NewLine = "\r\n", AutoFlush = true };
 
             Thread readThread = new Thread(ReadStream);
+            readThread.Start();
+
+            this.Writer.WriteLine("USER test - frogbox.es :test");
+            this.Writer.WriteLine("NICK test");
         }
 
-        private async void ReadStream()
+        private void ReadStream()
         {
-            while (this.Client != null && this.Client.Connected)
+            while (this.TcpClient != null && this.TcpClient.Connected)
             {
-                string line = await this.Reader.ReadLineAsync();
+                string line = this.Reader.ReadLine();
 
-                Console.WriteLine(line);
+                if (String.IsNullOrEmpty(line))
+                {
+                    continue;
+                }
+
+                Console.WriteLine("[] < " + line);
             }
         }
     }
