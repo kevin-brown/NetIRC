@@ -1,12 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net.Sockets;
 
 namespace NetIRC
 {
     public class Client
     {
+        private TcpClient Client
+        {
+            get;
+            set;
+        }
+
+        public Server Server
+        {
+            get;
+            private set;
+        }
+
+        public Client()
+        {
+
+        }
+
+        public void Connect()
+        {
+
+        }
     }
 }
