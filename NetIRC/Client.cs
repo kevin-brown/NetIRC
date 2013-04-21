@@ -102,6 +102,7 @@ namespace NetIRC
         public void JoinChannel(Channel channel)
         {
             this.Send(new Messages.Send.JoinMessage("#" + channel.Name));
+            this.Send(new Messages.Send.TopicMessage("#" + channel.Name));
         }
 
         public void LeaveChannel(string name)
