@@ -19,6 +19,16 @@ namespace NetIRC.Messages.Receive.Numerics
 
             oldUser.HostName = parts[5];
             oldUser.UserName = parts[4];
+
+            string realName = "";
+
+            for (int i = 10; i < parts.Length; i++)
+            {
+                realName += parts[i] + " ";
+            }
+
+            realName = realName.Trim();
+            oldUser.RealName = realName;
         }
     }
 }
