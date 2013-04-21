@@ -32,6 +32,11 @@ namespace NetIRC
 
         internal void AddUser(User user)
         {
+            if (this.Users.ContainsKey(user.NickName))
+            {
+                return;
+            }
+
             this.Users.Add(user.NickName, user);
         }
     }

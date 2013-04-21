@@ -47,6 +47,7 @@
     <Compile Include="Messages\ReceiveNumericMessage.cs" />
     <Compile Include="Messages\ReceiveUserMessage.cs" />
     <Compile Include="Messages\Receive\JoinMessage.cs" />
+    <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\WelcomeMessage.cs" />
     <Compile Include="Messages\Receive\PingMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />

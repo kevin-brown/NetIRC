@@ -65,6 +65,7 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
@@ -89,9 +90,14 @@ namespace NetIRC
 
         public void JoinChannel(string name)
         {
-            this.Send(new Messages.Send.JoinMessage("#" + name));
+            this.JoinChannel(new Channel(name));
+        }
 
-            this.Channels.Add(name, new Channel(name));
+        public void JoinChannel(Channel channel)
+        {
+            this.Send(new Messages.Send.JoinMessage("#" + channel.Name));
+
+            this.Channels.Add(channel.Name, channel);
         }
 
         private void ReadStream()
