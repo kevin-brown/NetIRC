@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="Channel.cs" />
     <Compile Include="ChannelFactory.cs" />
+    <Compile Include="ChannelTopic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="ClientUser.cs" />
     <Compile Include="Messages\Message.cs" />

@@ -26,6 +26,13 @@ namespace NetIRC
             internal set;
         }
 
+        internal void ClearTopic()
+        {
+            this.Message = null;
+            this.Author = null;
+            this.LastUpdated = DateTime.Now;
+        }
+
         public override string ToString()
         {
             if (this.Author != null)
