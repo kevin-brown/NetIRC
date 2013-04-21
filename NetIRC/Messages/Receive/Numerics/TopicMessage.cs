@@ -20,7 +20,7 @@ namespace NetIRC.Messages.Receive.Numerics
             Channel channel = ChannelFactory.FromName(parts[3].Substring(1));
             string topic = String.Join(" ", parts.Skip(4)).Substring(1);
 
-            channel.Topic = topic;
+            channel.Topic.Message = topic;
         }
     }
 }

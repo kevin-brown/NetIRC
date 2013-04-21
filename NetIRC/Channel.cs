@@ -11,11 +11,7 @@ namespace NetIRC
             private set;
         }
 
-        public string Topic
-        {
-            get;
-            internal set;
-        }
+        public readonly ChannelTopic Topic = new ChannelTopic();
 
         public Dictionary<string, User> Users
         {

@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace NetIRC
 {
-    class UserFactory
+    internal class UserFactory
     {
         private static Dictionary<string, User> Store = new Dictionary<string, User>();
 

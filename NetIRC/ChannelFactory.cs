@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC
 {
-    class ChannelFactory
+    internal class ChannelFactory
     {
         private static Dictionary<string, Channel> Store = new Dictionary<string, Channel>();
 
