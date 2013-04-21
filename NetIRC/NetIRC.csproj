@@ -61,6 +61,7 @@
     <Compile Include="Messages\Receive\PingMessage.cs" />
     <Compile Include="Messages\Receive\TopicMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
+    <Compile Include="Messages\Send\ChatMessage.cs" />
     <Compile Include="Messages\Send\JoinMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
