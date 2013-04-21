@@ -9,6 +9,18 @@ namespace NetIRC
     {
         private static Dictionary<string, User> Store = new Dictionary<string, User>();
 
+        internal static User ChangeNick(string original, string future)
+        {
+            User user = FromNick(original);
+
+            Store[future] = user;
+            Store.Remove(user.NickName);
+
+            user.NickName = future;
+
+            return user;
+        }
+
         public static User FromNick(string nick)
         {
             if (Store.ContainsKey(nick))

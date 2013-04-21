@@ -65,6 +65,7 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.PartMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.NickMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
