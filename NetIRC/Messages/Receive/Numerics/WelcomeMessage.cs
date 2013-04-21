@@ -11,7 +11,7 @@ namespace NetIRC.Messages.Receive.Numerics
 
         public override void ProcessMessage(string message, Client client)
         {
-            Console.WriteLine("RAWR");
+            
         }
     }
 }

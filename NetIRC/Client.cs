@@ -39,7 +39,7 @@ namespace NetIRC
             private set;
         }
 
-        public List<Channel> Channels
+        public Dictionary<string, Channel> Channels
         {
             get;
             private set;
@@ -55,6 +55,8 @@ namespace NetIRC
 
         public Client()
         {
+            this.Channels = new Dictionary<string, Channel>();
+
             this.RegisterMessages();
         }
 
@@ -62,6 +64,7 @@ namespace NetIRC
         {
             this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
@@ -82,6 +85,13 @@ namespace NetIRC
 
             this.Send(new Messages.Send.UserMessage(this.User));
             this.Send(new Messages.Send.NickMessage(this.User));
+        }
+
+        public void JoinChannel(string name)
+        {
+            this.Send(new Messages.Send.JoinMessage("#" + name));
+
+            this.Channels.Add(name, new Channel(name));
         }
 
         private void ReadStream()

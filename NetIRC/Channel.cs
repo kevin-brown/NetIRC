@@ -5,16 +5,34 @@ namespace NetIRC
 {
     public class Channel
     {
+        public string Name
+        {
+            get;
+            private set;
+        }
+
         public string Topic
         {
             get;
             private set;
         }
 
-        public List<User> Users
+        public Dictionary<string, User> Users
         {
             get;
             private set;
+        }
+
+        public Channel(string name)
+        {
+            this.Name = name;
+
+            this.Users = new Dictionary<string, User>();
+        }
+
+        internal void AddUser(User user)
+        {
+            this.Users.Add(user.NickName, user);
         }
     }
 }
