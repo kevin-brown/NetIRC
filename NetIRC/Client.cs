@@ -63,8 +63,10 @@ namespace NetIRC
         private void RegisterMessages()
         {
             this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.PartMessage));
+
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
         }
 

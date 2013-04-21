@@ -39,5 +39,13 @@ namespace NetIRC
 
             this.Users.Add(user.NickName, user);
         }
+
+        internal void RemoveUser(User user)
+        {
+            if (this.Users.ContainsKey(user.NickName))
+            {
+                this.Users.Remove(user.NickName);
+            }
+        }
     }
 }
