@@ -37,6 +37,8 @@ namespace NetIRC
                 return;
             }
 
+            this.TriggerOnJoin(user);
+
             user.Channels.Add(this);
         }
 
@@ -44,6 +46,8 @@ namespace NetIRC
         {
             if (this.Users.ContainsKey(user.NickName))
             {
+                this.TriggerOnLeave(user);
+
                 user.Channels.Remove(this);
             }
         }
@@ -51,6 +55,28 @@ namespace NetIRC
         internal Messages.SendMessage SendWho()
         {
             return new Messages.Send.WhoMessage("#" + this.Name);
+        }
+
+        public delegate void OnJoinHandler(Channel source, User user);
+        public event OnJoinHandler OnJoin;
+
+        internal void TriggerOnJoin(User user)
+        {
+            if (OnJoin != null)
+            {
+                OnJoin(this, user);
+            }
+        }
+
+        public delegate void OnLeaveHandler(Channel source, User user);
+        public event OnLeaveHandler OnLeave;
+
+        internal void TriggerOnLeave(User user)
+        {
+            if (OnLeave != null)
+            {
+                OnLeave(this, user);
+            }
         }
 
         public delegate void OnMessageHandler(Channel source, User user, string message);
