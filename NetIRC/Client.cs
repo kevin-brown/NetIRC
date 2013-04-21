@@ -73,6 +73,8 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WhoMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicInfo));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)

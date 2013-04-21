@@ -37,7 +37,7 @@ namespace NetIRC
         {
             if (this.Author != null)
             {
-                return string.Format("{0} set by {1} on {2}", this.Message, this.Author.NickName, this.LastUpdated);
+                return string.Format("\"{0}\" set by {1} on {2}", this.Message, this.Author.NickName, this.LastUpdated);
             }
             else
             {
