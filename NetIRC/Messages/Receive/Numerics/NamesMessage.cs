@@ -28,7 +28,7 @@ namespace NetIRC.Messages.Receive.Numerics
                     parts[i] = parts[i].Substring(1);
                 }
 
-                User user = new User(parts[i]);
+                User user = UserFactory.FromNick(parts[i]);
 
                 channel.AddUser(user);
             }

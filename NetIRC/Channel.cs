@@ -19,15 +19,15 @@ namespace NetIRC
 
         public Dictionary<string, User> Users
         {
-            get;
-            private set;
+            get
+            {
+                return UserFactory.InChannel(this.Name);
+            }
         }
 
         public Channel(string name)
         {
             this.Name = name;
-
-            this.Users = new Dictionary<string, User>();
         }
 
         internal void AddUser(User user)
@@ -37,14 +37,14 @@ namespace NetIRC
                 return;
             }
 
-            this.Users.Add(user.NickName, user);
+            user.Channels.Add(this);
         }
 
         internal void RemoveUser(User user)
         {
             if (this.Users.ContainsKey(user.NickName))
             {
-                this.Users.Remove(user.NickName);
+                user.Channels.Remove(this);
             }
         }
 

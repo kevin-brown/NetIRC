@@ -29,11 +29,7 @@ namespace NetIRC
             internal set;
         }
 
-        public List<Channel> Channels
-        {
-            get;
-            private set;
-        }
+        public readonly List<Channel> Channels = new List<Channel>();
 
         public User()
         {
