@@ -22,6 +22,8 @@ namespace NetIRC.Messages.Receive
             channel.Topic.Message = topic;
             channel.Topic.Author = user;
             channel.Topic.LastUpdated = DateTime.Now;
+
+            channel.TriggerOnTopicChange(channel.Topic);
         }
     }
 }

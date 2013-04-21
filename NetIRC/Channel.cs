@@ -85,5 +85,16 @@ namespace NetIRC
                 OnMessage(this, user, message);
             }
         }
+
+        public delegate void OnTopicChangeHandler(Channel source, ChannelTopic topic);
+        public event OnTopicChangeHandler OnTopicChange;
+
+        internal void TriggerOnTopicChange(ChannelTopic topic)
+        {
+            if (OnTopicChange != null)
+            {
+                OnTopicChange(this, topic);
+            }
+        }
     }
 }

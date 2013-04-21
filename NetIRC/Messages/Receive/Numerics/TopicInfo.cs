@@ -26,6 +26,8 @@ namespace NetIRC.Messages.Receive.Numerics
 
             channel.Topic.Author = user;
             channel.Topic.LastUpdated = time.ToLocalTime();
+
+            channel.TriggerOnTopicChange(channel.Topic);
         }
     }
 }
