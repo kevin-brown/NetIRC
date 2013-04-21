@@ -100,8 +100,16 @@ namespace NetIRC
         public void JoinChannel(Channel channel)
         {
             this.Send(new Messages.Send.JoinMessage("#" + channel.Name));
+        }
 
-            this.Channels.Add(channel.Name, channel);
+        public void LeaveChannel(string name)
+        {
+            this.LeaveChannel(this.Channels[name]);
+        }
+
+        public void LeaveChannel(Channel channel)
+        {
+            this.Send(new Messages.Send.PartMessage("#" + channel.Name));
         }
 
         private void ReadStream()
