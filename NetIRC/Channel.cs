@@ -52,5 +52,16 @@ namespace NetIRC
         {
             return new Messages.Send.WhoMessage("#" + this.Name);
         }
+
+        public delegate void OnMessageHandler(Channel source, User user, string message);
+        public event OnMessageHandler OnMessage;
+
+        internal void TriggerOnMessage(User user, string message)
+        {
+            if (OnMessage != null)
+            {
+                OnMessage(this, user, message);
+            }
+        }
     }
 }

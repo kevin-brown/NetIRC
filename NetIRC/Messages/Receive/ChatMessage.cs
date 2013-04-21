@@ -31,9 +31,11 @@ namespace NetIRC.Messages.Receive
 
             string[] parts = message.Split(' ');
 
+            Channel channel = ChannelFactory.FromName(parts[2].Substring(1));
+
             string line = String.Join(" ", parts.Skip(3).ToArray()).Substring(1);
 
-            Console.WriteLine("{0} said {1}", user.NickName, line);
+            channel.TriggerOnMessage(user, line);
         }
     }
 }
