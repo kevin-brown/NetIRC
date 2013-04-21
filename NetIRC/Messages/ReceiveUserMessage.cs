@@ -31,7 +31,7 @@ namespace NetIRC.Messages
             string[] parts = message.Split(' ');
             string userMask = parts[0].Substring(1);
 
-            return User.FromUserMask(userMask);
+            return UserFactory.FromUserMask(userMask);
         }
 
         abstract public void ProcessMessage(string message, Client client);
