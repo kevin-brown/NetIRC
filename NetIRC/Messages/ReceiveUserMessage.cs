@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.RegularExpressions;
 
 namespace NetIRC.Messages
 {
@@ -32,14 +31,7 @@ namespace NetIRC.Messages
             string[] parts = message.Split(' ');
             string userMask = parts[0].Substring(1);
 
-            Match matches = Regex.Match(userMask, @"^([A-Za-z0-9\-]+)!([A-Za-z0-9\-\~]+)\@([A-Za-z0-9\.\-]+)", RegexOptions.IgnoreCase);
-
-            if (!matches.Success)
-            {
-                return null;
-            }
-
-            return new User(matches.Groups[1].Value, matches.Groups[3].Value, matches.Groups[2].Value);
+            return User.FromUserMask(userMask);
         }
 
         abstract public void ProcessMessage(string message, Client client);

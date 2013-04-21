@@ -32,6 +32,8 @@ namespace NetIRC.Messages.Receive.Numerics
 
                 channel.AddUser(user);
             }
+
+            client.Send(channel.SendWho());
         }
     }
 }

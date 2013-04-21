@@ -17,6 +17,8 @@ namespace NetIRC.Messages.Receive
             User user = this.GetUser(message);
 
             channel.AddUser(user);
+
+            client.Send(channel.SendWho());
         }
     }
 }

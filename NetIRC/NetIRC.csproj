@@ -49,6 +49,7 @@
     <Compile Include="Messages\Receive\JoinMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\WelcomeMessage.cs" />
+    <Compile Include="Messages\Receive\Numerics\WhoMessage.cs" />
     <Compile Include="Messages\Receive\PartMessage.cs" />
     <Compile Include="Messages\Receive\PingMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\PongMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />
+    <Compile Include="Messages\Send\WhoMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />
     <Compile Include="User.cs" />

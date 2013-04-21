@@ -47,5 +47,10 @@ namespace NetIRC
                 this.Users.Remove(user.NickName);
             }
         }
+
+        internal Messages.SendMessage SendWho()
+        {
+            return new Messages.Send.WhoMessage("#" + this.Name);
+        }
     }
 }

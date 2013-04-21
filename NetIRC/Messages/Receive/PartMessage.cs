@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace NetIRC.Messages.Receive
 {
@@ -18,6 +17,8 @@ namespace NetIRC.Messages.Receive
             User user = this.GetUser(message);
 
             channel.RemoveUser(user);
+
+            client.Send(channel.SendWho());
         }
     }
 }

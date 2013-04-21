@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace NetIRC
 {
@@ -8,25 +9,25 @@ namespace NetIRC
         public string NickName
         {
             get;
-            private set;
+            internal set;
         }
 
         public string UserName
         {
             get;
-            private set;
+            internal set;
         }
 
         public string HostName
         {
             get;
-            private set;
+            internal set;
         }
 
         public string RealName
         {
             get;
-            private set;
+            internal set;
         }
 
         public List<Channel> Channels
@@ -59,6 +60,18 @@ namespace NetIRC
             this.NickName = nick;
             this.RealName = real;
             this.UserName = user;
+        }
+
+        public static User FromUserMask(string userMask)
+        {
+            Match matches = Regex.Match(userMask, @"^([A-Za-z0-9\-]+)!([A-Za-z0-9\-\~]+)\@([A-Za-z0-9\.\-]+)", RegexOptions.IgnoreCase);
+
+            if (!matches.Success)
+            {
+                return null;
+            }
+
+            return new User(matches.Groups[1].Value, matches.Groups[3].Value, matches.Groups[2].Value);
         }
     }
 }
