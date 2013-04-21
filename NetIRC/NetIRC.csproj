@@ -51,6 +51,7 @@
     <Compile Include="Messages\Receive\JoinMessage.cs" />
     <Compile Include="Messages\Receive\NickMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />
+    <Compile Include="Messages\Receive\Numerics\TopicMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\WelcomeMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\WhoMessage.cs" />
     <Compile Include="Messages\Receive\PartMessage.cs" />

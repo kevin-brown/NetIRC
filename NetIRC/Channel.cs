@@ -14,7 +14,7 @@ namespace NetIRC
         public string Topic
         {
             get;
-            private set;
+            internal set;
         }
 
         public Dictionary<string, User> Users
