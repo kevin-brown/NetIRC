@@ -41,8 +41,10 @@ namespace NetIRC
 
         public Dictionary<string, Channel> Channels
         {
-            get;
-            private set;
+            get
+            {
+                return ChannelFactory.HasUser(UserFactory.FromNick(this.User.NickName));
+            }
         }
 
         private ClientUser User
@@ -55,8 +57,6 @@ namespace NetIRC
 
         public Client()
         {
-            this.Channels = new Dictionary<string, Channel>();
-
             this.RegisterMessages();
         }
 
@@ -94,7 +94,7 @@ namespace NetIRC
 
         public void JoinChannel(string name)
         {
-            this.JoinChannel(new Channel(name));
+            this.JoinChannel(ChannelFactory.FromName(name));
         }
 
         public void JoinChannel(Channel channel)
@@ -104,7 +104,7 @@ namespace NetIRC
 
         public void LeaveChannel(string name)
         {
-            this.LeaveChannel(this.Channels[name]);
+            this.LeaveChannel(ChannelFactory.FromName(name));
         }
 
         public void LeaveChannel(Channel channel)

@@ -22,5 +22,10 @@ namespace NetIRC
 
             return channel;
         }
+
+        public static Dictionary<string, Channel> HasUser(User user)
+        {
+            return Store.Where(c => c.Value.Users.ContainsKey(user.NickName)).ToDictionary(c => c.Key, c => c.Value);
+        }
     }
 }

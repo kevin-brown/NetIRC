@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive.Numerics
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = client.Channels[parts[3].ToLower().Substring(1)];
+            Channel channel = ChannelFactory.FromName(parts[3].ToLower().Substring(1));
 
             User oldUser = UserFactory.FromNick(parts[7]);
 

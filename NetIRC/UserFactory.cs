@@ -58,7 +58,7 @@ namespace NetIRC
 
         public static Dictionary<string, User> InChannel(string channel)
         {
-            return Store.Where(u => (u.Value.Channels.Count(c => c.Name == channel) > 0)).ToDictionary(u => u.Key, u => u.Value);
+            return Store.Where(u => u.Value.Channels.Contains(ChannelFactory.FromName(channel))).ToDictionary(u => u.Key, u => u.Value);
         }
     }
 }
