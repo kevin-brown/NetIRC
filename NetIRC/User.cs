@@ -56,5 +56,16 @@ namespace NetIRC
             this.RealName = real;
             this.UserName = user;
         }
+
+        public delegate void OnNickChangeHandler(User user, string original);
+        public event OnNickChangeHandler OnNickChange;
+
+        public void TriggerOnNickChange(string original)
+        {
+            if (OnNickChange != null)
+            {
+                OnNickChange(this, original);
+            }
+        }
     }
 }

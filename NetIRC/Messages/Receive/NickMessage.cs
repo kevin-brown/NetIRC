@@ -13,11 +13,15 @@ namespace NetIRC.Messages.Receive
         {
             string[] parts = message.Split(' ');
 
-            User user = this.GetUser(message);
+            string user = this.GetUser(message).NickName;
 
             string nick = parts[2];
 
-            UserFactory.ChangeNick(user.NickName, nick);
+            UserFactory.ChangeNick(user, nick);
+
+            User newUser = UserFactory.FromNick(nick);
+
+            newUser.TriggerOnNickChange(user);
         }
     }
 }
