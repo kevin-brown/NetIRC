@@ -67,5 +67,16 @@ namespace NetIRC
                 OnNickChange(this, original);
             }
         }
+
+        public delegate void OnVersionHandler(User target, User source);
+        public event OnVersionHandler OnVersion;
+
+        public void TriggerOnVersion(User source)
+        {
+            if (OnVersion != null)
+            {
+                OnVersion(this, source);
+            }
+        }
     }
 }
