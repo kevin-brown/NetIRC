@@ -51,6 +51,7 @@
     <Compile Include="Messages\ReceiveUserMessage.cs" />
     <Compile Include="Messages\Receive\ChatMessage.cs" />
     <Compile Include="Messages\Receive\CTCP\ActionMessage.cs" />
+    <Compile Include="Messages\Receive\CTCP\VersionMessage.cs" />
     <Compile Include="Messages\Receive\JoinMessage.cs" />
     <Compile Include="Messages\Receive\NickMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />

@@ -20,6 +20,11 @@ namespace NetIRC.Messages
         {
             string[] parts = message.Split(' ');
 
+            if (parts.Length == 4)
+            {
+                parts[3] = parts[3].Substring(0, parts[3].Length - 1);
+            }
+
             return parts[3].Substring(2).ToLower() == ctcp.ToLower();
         }
 
