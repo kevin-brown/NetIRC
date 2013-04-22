@@ -86,6 +86,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnActionHandler(Channel source, User user, string action);
+        public event OnActionHandler OnAction;
+
+        internal void TriggerOnAction(User user, string action)
+        {
+            if (OnAction != null)
+            {
+                OnAction(this, user, action);
+            }
+        }
+
         public delegate void OnTopicChangeHandler(Channel source, ChannelTopic topic);
         public event OnTopicChangeHandler OnTopicChange;
 

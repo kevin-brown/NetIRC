@@ -20,7 +20,7 @@ namespace NetIRC.Messages
         {
             string[] parts = message.Split(' ');
 
-            return parts[3].Substring(1).ToLower() == ctcp.ToLower();
+            return parts[3].Substring(2).ToLower() == ctcp.ToLower();
         }
 
         public static bool IsCTCP(string message)
