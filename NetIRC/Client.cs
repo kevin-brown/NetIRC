@@ -47,10 +47,10 @@ namespace NetIRC
             }
         }
 
-        private ClientUser User
+        public User User
         {
             get;
-            set;
+            private set;
         }
 
         private List<Type> RegisteredMessages = new List<Type>();
@@ -82,7 +82,9 @@ namespace NetIRC
 
         public async void Connect(string server, int port, bool ssl, ClientUser user)
         {
-            this.User = user;
+            this.User = UserFactory.FromNick(user.NickName);
+            this.User.RealName = user.RealName;
+            this.User.UserName = user.UserName;
 
             this.TcpClient = new TcpClient();
             await this.TcpClient.ConnectAsync(server, port);
