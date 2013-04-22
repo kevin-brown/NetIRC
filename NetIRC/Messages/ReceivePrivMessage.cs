@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetIRC.Messages
 {
@@ -18,6 +14,13 @@ namespace NetIRC.Messages
             }
 
             return ChannelFactory.FromName(parts[2].Substring(1));
+        }
+
+        public static bool CheckCTCP(string message, string ctcp)
+        {
+            string[] parts = message.Split(' ');
+
+            return parts[3].Substring(1).ToLower() == ctcp.ToLower();
         }
 
         public static bool IsCTCP(string message)
