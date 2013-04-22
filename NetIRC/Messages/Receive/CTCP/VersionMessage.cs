@@ -7,7 +7,8 @@ namespace NetIRC.Messages.Receive.CTCP
     {
         public static bool CheckMessage(string message, Server server)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
+            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG") &&
+                !ReceiveUserMessage.CheckCommand(message, "NOTICE"))
             {
                 return false;
             }
