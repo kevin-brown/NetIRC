@@ -6,23 +6,13 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive
 {
-    class ChatMessage : ReceiveUserMessage
+    class ChatMessage : ReceivePrivMessage
     {
         public static bool CheckMessage(string message, Server server)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
-            {
-                return false;
-            }
-
-            string[] parts = message.Split(' ');
-
-            if (!parts[2].Contains("#"))
-            {
-                return false;
-            }
-
-            return true;
+            return ReceiveUserMessage.CheckCommand(message, "PRIVMSG") &&
+                (ReceivePrivMessage.GetChannel(message) != null) &&
+                !ReceivePrivMessage.IsCTCP(message);
         }
 
         public override void ProcessMessage(string message, Client client)

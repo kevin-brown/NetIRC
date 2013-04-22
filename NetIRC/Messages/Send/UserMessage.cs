@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Send
 
         public void Send(StreamWriter writer)
         {
-            writer.WriteLine("USER " + this.User.UserName + " - - :" + this.User.RealName);
+            writer.WriteLine("USER " + this.User.UserName + " 8 - :" + this.User.RealName);
         }
 
         public bool CheckMessage(string message, Server server)
