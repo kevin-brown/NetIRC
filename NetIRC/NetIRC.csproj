@@ -66,12 +66,14 @@
     <Compile Include="Messages\Receive\QuitMessage.cs" />
     <Compile Include="Messages\Receive\TopicMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
+    <Compile Include="Messages\Send\AwayMessage.cs" />
     <Compile Include="Messages\Send\ChatMessage.cs" />
     <Compile Include="Messages\Send\CTCP\ActionMessage.cs" />
     <Compile Include="Messages\Send\CTCP\VersionMessage.cs" />
     <Compile Include="Messages\Send\CTCP\VersionReplyMessage.cs" />
     <Compile Include="Messages\Send\JoinMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
+    <Compile Include="Messages\Send\NotAwayMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
     <Compile Include="Messages\Send\PongMessage.cs" />
     <Compile Include="Messages\Send\QuitMessage.cs" />
