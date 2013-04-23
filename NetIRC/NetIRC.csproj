@@ -67,6 +67,7 @@
     <Compile Include="Messages\SendMessage.cs" />
     <Compile Include="Messages\Send\ChatMessage.cs" />
     <Compile Include="Messages\Send\CTCP\VersionMessage.cs" />
+    <Compile Include="Messages\Send\CTCP\VersionReplyMessage.cs" />
     <Compile Include="Messages\Send\JoinMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
