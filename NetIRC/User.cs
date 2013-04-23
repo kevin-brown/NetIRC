@@ -78,5 +78,16 @@ namespace NetIRC
                 OnVersion(this, source);
             }
         }
+
+        public delegate void OnVersionReplyHandler(User target, User source, string version);
+        public event OnVersionReplyHandler OnVersionReply;
+
+        public void TriggerOnVersionReply(User source, string version)
+        {
+            if (OnVersionReply != null)
+            {
+                OnVersionReply(this, source, version);
+            }
+        }
     }
 }

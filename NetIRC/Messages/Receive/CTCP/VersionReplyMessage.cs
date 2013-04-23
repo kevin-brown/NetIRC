@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive.CTCP
 {
-    class VersionMessage : ReceivePrivMessage
+    class VersionReplyMessage : ReceivePrivMessage
     {
         public static bool CheckMessage(string message, Server server)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
+            if (!ReceiveUserMessage.CheckCommand(message, "NOTICE"))
             {
                 return false;
             }
@@ -24,7 +27,7 @@ namespace NetIRC.Messages.Receive.CTCP
 
             string[] parts = message.Split(' ');
 
-            if (parts.Length > 4)
+            if (parts.Length < 5)
             {
                 return false;
             }
@@ -38,7 +41,10 @@ namespace NetIRC.Messages.Receive.CTCP
 
             User user = this.GetUser(message);
 
-            client.User.TriggerOnVersion(user);
+            string version = String.Join(" ", parts.Skip(4).ToArray());
+            version = version.Substring(0, version.Length - 1);
+
+            client.User.TriggerOnVersionReply(user, version);
         }
     }
 }
