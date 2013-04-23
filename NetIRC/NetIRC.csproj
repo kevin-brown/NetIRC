@@ -72,6 +72,7 @@
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
     <Compile Include="Messages\Send\PongMessage.cs" />
+    <Compile Include="Messages\Send\QuitMessage.cs" />
     <Compile Include="Messages\Send\TopicMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />
     <Compile Include="Messages\Send\WhoMessage.cs" />
