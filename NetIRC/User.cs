@@ -68,6 +68,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnQuitHandler(User user, string reason);
+        public event OnQuitHandler OnQuit;
+
+        public void TriggerOnQuit(string reason)
+        {
+            if (OnQuit != null)
+            {
+                OnQuit(this, reason);
+            }
+        }
+
         public delegate void OnVersionHandler(User target, User source);
         public event OnVersionHandler OnVersion;
 

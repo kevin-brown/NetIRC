@@ -63,6 +63,7 @@
     <Compile Include="Messages\Receive\Numerics\WhoMessage.cs" />
     <Compile Include="Messages\Receive\PartMessage.cs" />
     <Compile Include="Messages\Receive\PingMessage.cs" />
+    <Compile Include="Messages\Receive\QuitMessage.cs" />
     <Compile Include="Messages\Receive\TopicMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
     <Compile Include="Messages\Send\ChatMessage.cs" />
