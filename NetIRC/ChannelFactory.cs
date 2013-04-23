@@ -8,7 +8,7 @@ namespace NetIRC
 {
     internal class ChannelFactory
     {
-        private static Dictionary<string, Channel> Store = new Dictionary<string, Channel>();
+        private static Dictionary<string, Channel> Store = new Dictionary<string, Channel>(StringComparer.InvariantCultureIgnoreCase);
 
         public static Channel FromName(string name)
         {
@@ -25,7 +25,7 @@ namespace NetIRC
 
         public static Dictionary<string, Channel> HasUser(User user)
         {
-            return Store.Where(c => c.Value.Users.ContainsKey(user.NickName)).ToDictionary(c => c.Key, c => c.Value);
+            return Store.Where(c => c.Value.Users.ContainsKey(user.NickName)).ToDictionary(c => c.Key, c => c.Value, StringComparer.InvariantCultureIgnoreCase);
         }
     }
 }

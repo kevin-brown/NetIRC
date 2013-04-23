@@ -7,7 +7,7 @@ namespace NetIRC
 {
     internal class UserFactory
     {
-        private static Dictionary<string, User> Store = new Dictionary<string, User>();
+        private static Dictionary<string, User> Store = new Dictionary<string, User>(StringComparer.InvariantCultureIgnoreCase);
 
         internal static User ChangeNick(string original, string future)
         {
@@ -58,7 +58,7 @@ namespace NetIRC
 
         public static Dictionary<string, User> InChannel(string channel)
         {
-            return Store.Where(u => u.Value.Channels.Contains(ChannelFactory.FromName(channel))).ToDictionary(u => u.Key, u => u.Value);
+            return Store.Where(u => u.Value.Channels.Contains(ChannelFactory.FromName(channel))).ToDictionary(u => u.Key, u => u.Value, StringComparer.InvariantCultureIgnoreCase);
         }
     }
 }
