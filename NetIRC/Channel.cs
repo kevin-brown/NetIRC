@@ -108,6 +108,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnNoticeHandler(Channel source, User user, string notice);
+        public event OnNoticeHandler OnNotice;
+
+        internal void TriggerOnNotice(User user, string notice)
+        {
+            if (OnNotice != null)
+            {
+                OnNotice(this, user, notice);
+            }
+        }
+
         public delegate void OnTopicChangeHandler(Channel source, ChannelTopic topic);
         public event OnTopicChangeHandler OnTopicChange;
 

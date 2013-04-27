@@ -71,6 +71,7 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.KickMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.NoticeMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.ActionMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionMessage));
