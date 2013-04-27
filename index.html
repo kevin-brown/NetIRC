@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="NetIRC : The event-driven IRC library for .NET" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>NetIRC</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/kevin-brown/NetIRC">View on GitHub</a>
+
+          <h1 id="project_title">NetIRC</h1>
+          <h2 id="project_tagline">The event-driven IRC library for .NET</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/kevin-brown/NetIRC/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/kevin-brown/NetIRC/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>NetIRC was created for those interested in creating a bot or client for IRC but did not want to go through the long process of parsing and sending their own data.</p>
+
+<h1>Why use NetIRC?</h1>
+
+<p>The majority of IRC libraries out there for .NET are either made to complete simple tasks, or contain just enough features so the author could do what they needed.  None of them seem to be flexible enough to handle custom messages or send custom messages, and that is exactly why NetIRC was written.  NetIRC was written to be extremely flexible, to the point where everything can be swapped out as needed and new messages can be added as long as they meet the requirements.</p>
+
+<h1>So this is an IRC client?</h1>
+
+<p>NetIRC was created as a framework for interfacing with IRC.  This means that it can be used to create an IRC client, but it doesn't provide that functionality for you by default.</p>
+
+<h1>How do I actually use this?</h1>
+
+<p>Once you download the source code, you can build NetIRC as a library or you can grab a copy of NetIRC as a compiled library.  NetIRC is built on the .NET Framework 4.5, but it should be able to support at least .NET Framework 4.</p>
+
+<ol>
+<li>Create a new project in Visual Studio and add NetIRC as a reference.</li>
+<li>Import NetIRC in the file you need it in.</li>
+<li>
+<p>Create a Client object, which is a god object that contains all of the references you will need.</p>
+
+<div class="highlight"><pre><span class="n">Client</span> <span class="n">client</span> <span class="p">=</span> <span class="k">new</span> <span class="n">Client</span><span class="p">();</span>
+<span class="n">client</span><span class="p">.</span><span class="n">Connect</span><span class="p">(</span><span class="n">server</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">ssl</span><span class="p">?,</span> <span class="n">nick</span><span class="p">);</span>
+</pre></div>
+</li>
+<li>
+<p>Join channels and register your event handlers</p>
+
+<div class="highlight"><pre><span class="n">client</span><span class="p">.</span><span class="n">JoinChannel</span><span class="p">(</span><span class="s">"channel"</span><span class="p">);</span>
+<span class="n">client</span><span class="p">.</span><span class="n">Channels</span><span class="p">[</span><span class="s">"channel"</span><span class="p">].</span><span class="n">OnJoin</span> <span class="p">+=</span> <span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">u</span><span class="p">)</span> <span class="p">=&gt;</span> 
+<span class="p">{</span>
+<span class="n">Console</span><span class="p">.</span><span class="n">WriteLine</span><span class="p">(</span><span class="n">u</span><span class="p">.</span><span class="n">NickName</span> <span class="p">+</span> <span class="s">" joined "</span> <span class="p">+</span> <span class="n">c</span><span class="p">.</span><span class="n">Name</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+</li>
+<li><p>Profit!!!</p></li>
+</ol><h1>I love this, how can I contribute?</h1>
+
+<p>We can all wish people said that, right?  I'll accept pull requests that have a purpose at the <a href="https://github.com/kevin-brown/NetIRC/pulls">pull request page</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">NetIRC maintained by <a href="https://github.com/kevin-brown">kevin-brown</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-40486835-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
