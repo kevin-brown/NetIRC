@@ -54,6 +54,7 @@
     <Compile Include="Messages\Receive\CTCP\VersionMessage.cs" />
     <Compile Include="Messages\Receive\CTCP\VersionReplyMessage.cs" />
     <Compile Include="Messages\Receive\JoinMessage.cs" />
+    <Compile Include="Messages\Receive\KickMessage.cs" />
     <Compile Include="Messages\Receive\NickMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NoTopic.cs" />
