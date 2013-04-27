@@ -75,6 +75,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnKickHandler(Channel source, User kicker, User user, string reason);
+        public event OnKickHandler OnKick;
+
+        internal void TriggerOnKick(User kicker, User user, string reason)
+        {
+            if (OnKick != null)
+            {
+                OnKick(this, kicker, user, reason);
+            }
+        }
+
         public delegate void OnMessageHandler(Channel source, User user, string message);
         public event OnMessageHandler OnMessage;
 

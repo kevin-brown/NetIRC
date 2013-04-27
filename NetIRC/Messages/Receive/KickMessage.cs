@@ -14,12 +14,14 @@ namespace NetIRC.Messages.Receive
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[2]);
+            Channel channel = ChannelFactory.FromName(parts[2].Substring(1));
 
             User kicker = this.GetUser(message);
             User user = UserFactory.FromNick(parts[3]);
 
             string reason = String.Join(" ", parts.Skip(4).ToArray()).Substring(1);
+
+            channel.TriggerOnKick(kicker, user, reason);
         }
     }
 }
