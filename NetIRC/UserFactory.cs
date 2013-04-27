@@ -31,6 +31,8 @@ namespace NetIRC
             User user = new User(nick);
             Store[nick] = user;
 
+            user.Rank = UserRank.None;
+
             return user;
         }
 

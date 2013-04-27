@@ -31,6 +31,22 @@ namespace NetIRC
 
         public readonly List<Channel> Channels = new List<Channel>();
 
+        public UserRank Rank
+        {
+            get;
+            internal set;
+        }
+
+        internal static Dictionary<UserRank, string> Ranks = new Dictionary<UserRank, string>()
+            {
+                {UserRank.None, ""},
+                {UserRank.Voice, "v"},
+                {UserRank.HalfOp, "h"},
+                {UserRank.Op, "o"},
+                {UserRank.Admin, "a"},
+                {UserRank.Owner, "q"},
+            };
+
         public User()
         {
             

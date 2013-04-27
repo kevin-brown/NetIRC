@@ -87,6 +87,7 @@
     <Compile Include="Server.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserFactory.cs" />
+    <Compile Include="UserRank.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
