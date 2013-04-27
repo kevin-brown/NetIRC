@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
@@ -23,12 +24,18 @@ namespace NetIRC.Messages.Receive.Numerics
                     break;
                 }
 
+                UserRank rank = UserRank.None;
+
                 if (!Char.IsLetter(parts[i].ToCharArray()[0]))
                 {
+                    char firstChar = parts[i][0];
+                    rank = User.Ranks.FirstOrDefault(r => r.Value == firstChar).Key;
+
                     parts[i] = parts[i].Substring(1);
                 }
 
                 User user = UserFactory.FromNick(parts[i]);
+                user.Rank = rank;
 
                 channel.AddUser(user);
             }

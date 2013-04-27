@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
@@ -19,6 +20,14 @@ namespace NetIRC.Messages.Receive.Numerics
 
             oldUser.HostName = parts[5];
             oldUser.UserName = parts[4];
+
+            if (parts[6].Length > 1)
+            {
+                char rankChar = parts[6][1];
+                UserRank rank = User.Ranks.FirstOrDefault(r => r.Value == rankChar).Key;
+
+                oldUser.Rank = rank;
+            }
 
             string realName = "";
 

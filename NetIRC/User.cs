@@ -37,14 +37,14 @@ namespace NetIRC
             internal set;
         }
 
-        internal static Dictionary<UserRank, string> Ranks = new Dictionary<UserRank, string>()
+        internal static Dictionary<UserRank, char?> Ranks = new Dictionary<UserRank, char?>()
             {
-                {UserRank.None, ""},
-                {UserRank.Voice, "v"},
-                {UserRank.HalfOp, "h"},
-                {UserRank.Op, "o"},
-                {UserRank.Admin, "a"},
-                {UserRank.Owner, "q"},
+                {UserRank.None, null},
+                {UserRank.Voice, '+'},
+                {UserRank.HalfOp, '%'},
+                {UserRank.Op, '@'},
+                {UserRank.Admin, '&'},
+                {UserRank.Owner, '~'},
             };
 
         public User()
