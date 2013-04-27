@@ -29,7 +29,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 if (!Char.IsLetter(parts[i].ToCharArray()[0]))
                 {
                     char firstChar = parts[i][0];
-                    rank = User.Ranks.FirstOrDefault(r => r.Value == firstChar).Key;
+                    rank = User.RankChars[firstChar];
 
                     parts[i] = parts[i].Substring(1);
                 }

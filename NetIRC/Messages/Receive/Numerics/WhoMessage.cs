@@ -24,7 +24,7 @@ namespace NetIRC.Messages.Receive.Numerics
             if (parts[6].Length > 1)
             {
                 char rankChar = parts[6][1];
-                UserRank rank = User.Ranks.FirstOrDefault(r => r.Value == rankChar).Key;
+                UserRank rank = User.RankChars[rankChar];
 
                 oldUser.Rank = rank;
             }
