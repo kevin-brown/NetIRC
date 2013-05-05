@@ -86,11 +86,10 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
-        public async void Connect(string server, int port, bool ssl, ClientUser user)
+        public async void Connect(string server, int port, bool ssl, User user)
         {
             this.User = UserFactory.FromNick(user.NickName);
-            this.User.RealName = user.RealName;
-            this.User.UserName = user.UserName;
+            this.User = user;
 
             this.TcpClient = new TcpClient();
             await this.TcpClient.ConnectAsync(server, port);

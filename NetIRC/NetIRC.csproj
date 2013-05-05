@@ -43,7 +43,6 @@
     <Compile Include="ChannelFactory.cs" />
     <Compile Include="ChannelTopic.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="ClientUser.cs" />
     <Compile Include="Messages\Message.cs" />
     <Compile Include="Messages\ReceiveMessage.cs" />
     <Compile Include="Messages\ReceiveNumericMessage.cs" />
