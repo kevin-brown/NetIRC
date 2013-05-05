@@ -33,18 +33,18 @@ namespace NetIRC
                 return;
             }
 
-            this.TriggerOnJoin(user);
-
             user.Channels.Add(this);
+
+            this.TriggerOnJoin(user);
         }
 
         internal void RemoveUser(User user)
         {
             if (this.Users.ContainsKey(user.NickName))
             {
-                this.TriggerOnLeave(user);
-
                 user.Channels.Remove(this);
+
+                this.TriggerOnLeave(user);
             }
         }
 
