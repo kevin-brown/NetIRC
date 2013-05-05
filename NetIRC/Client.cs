@@ -33,6 +33,12 @@ namespace NetIRC
             set;
         }
 
+        private Thread ReadThread
+        {
+            get;
+            set;
+        }
+
         public Server Server
         {
             get;
@@ -74,11 +80,20 @@ namespace NetIRC
             this.Reader = new StreamReader(this.Stream);
             this.Writer = new StreamWriter(this.Stream) { NewLine = "\r\n", AutoFlush = true };
 
-            Thread readThread = new Thread(ReadStream);
-            readThread.Start();
+            this.ReadThread = new Thread(ReadStream);
+            this.ReadThread.Start();
 
             this.Send(new Messages.Send.UserMessage(this.User));
             this.Send(new Messages.Send.NickMessage(this.User));
+        }
+
+        public void Disconnect()
+        {
+            this.ReadThread.Abort();
+
+            this.Reader.Close();
+            this.Writer.Close();
+            this.TcpClient.Close();
         }
 
         public void JoinChannel(string name)
