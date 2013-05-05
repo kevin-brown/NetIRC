@@ -53,6 +53,17 @@ namespace NetIRC
             return new Messages.Send.WhoMessage("#" + this.Name);
         }
 
+        public delegate void OnActionHandler(Channel source, User user, string action);
+        public event OnActionHandler OnAction;
+
+        internal void TriggerOnAction(User user, string action)
+        {
+            if (OnAction != null)
+            {
+                OnAction(this, user, action);
+            }
+        }
+
         public delegate void OnJoinHandler(Channel source, User user);
         public event OnJoinHandler OnJoin;
 
@@ -61,17 +72,6 @@ namespace NetIRC
             if (OnJoin != null)
             {
                 OnJoin(this, user);
-            }
-        }
-
-        public delegate void OnLeaveHandler(Channel source, User user);
-        public event OnLeaveHandler OnLeave;
-
-        internal void TriggerOnLeave(User user)
-        {
-            if (OnLeave != null)
-            {
-                OnLeave(this, user);
             }
         }
 
@@ -86,6 +86,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnLeaveHandler(Channel source, User user);
+        public event OnLeaveHandler OnLeave;
+
+        internal void TriggerOnLeave(User user)
+        {
+            if (OnLeave != null)
+            {
+                OnLeave(this, user);
+            }
+        }
+
         public delegate void OnMessageHandler(Channel source, User user, string message);
         public event OnMessageHandler OnMessage;
 
@@ -94,17 +105,6 @@ namespace NetIRC
             if (OnMessage != null)
             {
                 OnMessage(this, user, message);
-            }
-        }
-
-        public delegate void OnActionHandler(Channel source, User user, string action);
-        public event OnActionHandler OnAction;
-
-        internal void TriggerOnAction(User user, string action)
-        {
-            if (OnAction != null)
-            {
-                OnAction(this, user, action);
             }
         }
 

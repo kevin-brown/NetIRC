@@ -60,32 +60,6 @@ namespace NetIRC
             this.RegisterMessages();
         }
 
-        private void RegisterMessages()
-        {
-            this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.PartMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.NickMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.TopicMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.QuitMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.KickMessage));
-
-            this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.NoticeMessage));
-
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.ActionMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionMessage));
-
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionReplyMessage));
-
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WhoMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicInfo));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
-        }
-
         public async void Connect(string server, int port, bool ssl, User user)
         {
             this.User = UserFactory.FromNick(user.NickName);
@@ -162,6 +136,32 @@ namespace NetIRC
             this.RegisteredMessages.Add(type);
         }
 
+        private void RegisterMessages()
+        {
+            this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.PartMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.NickMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.TopicMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.QuitMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.KickMessage));
+
+            this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.NoticeMessage));
+
+            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.ActionMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionMessage));
+
+            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionReplyMessage));
+
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WhoMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicInfo));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
+        }
+
         public void Send(Messages.SendMessage message)
         {
             MemoryStream stream = new MemoryStream();
@@ -189,17 +189,6 @@ namespace NetIRC
 
         #region Events
 
-        public delegate void OnConnectHandler(Client client);
-        public event OnConnectHandler OnConnect;
-
-        public void TriggerOnConnect()
-        {
-            if (OnConnect != null)
-            {
-                OnConnect(this);
-            }
-        }
-
         public delegate void OnChannelJoinHandler(Client client, Channel channel);
         public event OnChannelJoinHandler OnChannelJoin;
 
@@ -219,6 +208,17 @@ namespace NetIRC
             if (OnChannelLeave != null)
             {
                 OnChannelLeave(this, channel);
+            }
+        }
+
+        public delegate void OnConnectHandler(Client client);
+        public event OnConnectHandler OnConnect;
+
+        internal void TriggerOnConnect()
+        {
+            if (OnConnect != null)
+            {
+                OnConnect(this);
             }
         }
 
