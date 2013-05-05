@@ -21,9 +21,9 @@ namespace NetIRC.Messages.Receive.Numerics
             oldUser.HostName = parts[5];
             oldUser.UserName = parts[4];
 
-            if (parts[6].Length > 1)
+            if (parts[8].Length > 1)
             {
-                char rankChar = parts[6][1];
+                char rankChar = parts[8][1];
                 UserRank rank = User.RankChars[rankChar];
 
                 oldUser.Rank = rank;

@@ -37,9 +37,8 @@ namespace NetIRC
             internal set;
         }
 
-        internal static Dictionary<char?, UserRank> RankChars = new Dictionary<char?, UserRank>()
+        internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>()
             {
-                {null, UserRank.None},
                 {'+', UserRank.Voice},
                 {'%', UserRank.HalfOp},
                 {'@', UserRank.Op},
@@ -47,9 +46,8 @@ namespace NetIRC
                 {'~', UserRank.Owner},
             };
 
-        internal static Dictionary<char?, UserRank> RankModes = new Dictionary<char?, UserRank>()
+        internal static Dictionary<char, UserRank> RankModes = new Dictionary<char, UserRank>()
             {
-                {null, UserRank.None},
                 {'v', UserRank.Voice},
                 {'h', UserRank.HalfOp},
                 {'o', UserRank.Op},
