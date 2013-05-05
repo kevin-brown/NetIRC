@@ -157,6 +157,11 @@ namespace NetIRC
             }
         }
 
+        public void RegisterMessage(Type type)
+        {
+            this.RegisteredMessages.Add(type);
+        }
+
         public void Send(Messages.SendMessage message)
         {
             MemoryStream stream = new MemoryStream();
