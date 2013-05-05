@@ -5,38 +5,59 @@ namespace NetIRC
 {
     public class User
     {
+        /// <summary>
+        /// The nickname that the user will be associated with.
+        /// </summary>
         public string NickName
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The username (sometimes called ident) that is associated with the user.
+        /// </summary>
         public string UserName
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The hostname that is attached to the user.
+        /// </summary>
         public string HostName
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The real name that the user specified when connecting.
+        /// </summary>
         public string RealName
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The list of channels that the user is in.
+        /// </summary>
         public readonly List<Channel> Channels = new List<Channel>();
 
+        /// <summary>
+        /// The rank that is attached to this user.
+        /// </summary>
         public UserRank Rank
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.
+        /// </summary>
         internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>()
             {
                 {'+', UserRank.Voice},
@@ -46,6 +67,9 @@ namespace NetIRC
                 {'~', UserRank.Owner},
             };
 
+        /// <summary>
+        /// A dictionary representing the characters that are used to change a user's rank through channel modes.
+        /// </summary>
         internal static Dictionary<char, UserRank> RankModes = new Dictionary<char, UserRank>()
             {
                 {'v', UserRank.Voice},
