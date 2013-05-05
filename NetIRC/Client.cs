@@ -76,7 +76,8 @@ namespace NetIRC
         public async void Connect(string server, int port, bool ssl, User user)
         {
             this.User = UserFactory.FromNick(user.NickName);
-            this.User = user;
+            UserFactory.SetUser(user.NickName, user);
+            this.User = UserFactory.FromNick(user.NickName);
 
             this.TcpClient = new TcpClient();
             await this.TcpClient.ConnectAsync(server, port);

@@ -62,5 +62,10 @@ namespace NetIRC
         {
             return Store.Where(u => u.Value.Channels.Contains(ChannelFactory.FromName(channel))).ToDictionary(u => u.Key, u => u.Value, StringComparer.InvariantCultureIgnoreCase);
         }
+
+        internal static void SetUser(string nick, User user)
+        {
+            Store[nick] = user;
+        }
     }
 }
