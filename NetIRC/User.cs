@@ -84,7 +84,7 @@ namespace NetIRC
         public delegate void OnNickChangeHandler(User user, string original);
         public event OnNickChangeHandler OnNickChange;
 
-        public void TriggerOnNickChange(string original)
+        internal void TriggerOnNickChange(string original)
         {
             if (OnNickChange != null)
             {
@@ -95,7 +95,7 @@ namespace NetIRC
         public delegate void OnQuitHandler(User user, string reason);
         public event OnQuitHandler OnQuit;
 
-        public void TriggerOnQuit(string reason)
+        internal void TriggerOnQuit(string reason)
         {
             if (OnQuit != null)
             {
@@ -106,7 +106,7 @@ namespace NetIRC
         public delegate void OnVersionHandler(User target, User source);
         public event OnVersionHandler OnVersion;
 
-        public void TriggerOnVersion(User source)
+        internal void TriggerOnVersion(User source)
         {
             if (OnVersion != null)
             {
@@ -117,7 +117,7 @@ namespace NetIRC
         public delegate void OnVersionReplyHandler(User target, User source, string version);
         public event OnVersionReplyHandler OnVersionReply;
 
-        public void TriggerOnVersionReply(User source, string version)
+        internal void TriggerOnVersionReply(User source, string version)
         {
             if (OnVersionReply != null)
             {

@@ -198,7 +198,7 @@ namespace NetIRC
         public delegate void OnChannelJoinHandler(Client client, Channel channel);
         public event OnChannelJoinHandler OnChannelJoin;
 
-        public void TriggerOnChannelJoin(Channel channel)
+        internal void TriggerOnChannelJoin(Channel channel)
         {
             if (OnChannelJoin != null)
             {
@@ -209,7 +209,7 @@ namespace NetIRC
         public delegate void OnChannelLeaveHandler(Client client, Channel channel);
         public event OnChannelLeaveHandler OnChannelLeave;
 
-        public void TriggerOnChannelLeave(Channel channel)
+        internal void TriggerOnChannelLeave(Channel channel)
         {
             if (OnChannelLeave != null)
             {
