@@ -182,5 +182,20 @@ namespace NetIRC
 
             stream.Close();
         }
+
+        #region Events
+
+        public delegate void OnConnectHandler(Client client);
+        public event OnConnectHandler OnConnect;
+
+        public void TriggerOnConnect()
+        {
+            if (OnConnect != null)
+            {
+                OnConnect(this);
+            }
+        }
+
+        #endregion
     }
 }
