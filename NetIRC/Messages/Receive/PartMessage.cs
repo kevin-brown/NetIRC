@@ -18,6 +18,11 @@ namespace NetIRC.Messages.Receive
 
             channel.RemoveUser(user);
 
+            if (user == client.User)
+            {
+                client.TriggerOnChannelLeave(channel);
+            }
+
             client.Send(channel.SendWho());
         }
     }

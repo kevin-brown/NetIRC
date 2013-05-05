@@ -18,6 +18,11 @@ namespace NetIRC.Messages.Receive
 
             channel.AddUser(user);
 
+            if (user == client.User)
+            {
+                client.TriggerOnChannelJoin(channel);
+            }
+
             client.Send(channel.SendWho());
         }
     }
