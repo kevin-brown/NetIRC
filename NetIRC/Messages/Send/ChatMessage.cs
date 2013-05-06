@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    class ChatMessage : SendMessage
+    public class ChatMessage : SendMessage
     {
         Channel channel;
         string message;

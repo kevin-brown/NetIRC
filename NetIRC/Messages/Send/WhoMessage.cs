@@ -2,7 +2,7 @@
 
 namespace NetIRC.Messages.Send
 {
-    class WhoMessage : SendMessage
+    public class WhoMessage : SendMessage
     {
         string target;
 

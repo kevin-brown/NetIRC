@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    class UserMessage : SendMessage
+    public class UserMessage : SendMessage
     {
         private User User;
 
