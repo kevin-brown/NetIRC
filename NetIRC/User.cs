@@ -105,14 +105,14 @@ namespace NetIRC
             this.UserName = user;
         }
 
-        public delegate void OnNickChangeHandler(User user, string original);
-        public event OnNickChangeHandler OnNickChange;
+        public delegate void OnNickNameChangeHandler(User user, string original);
+        public event OnNickNameChangeHandler OnNickNameChange;
 
-        internal void TriggerOnNickChange(string original)
+        internal void TriggerOnNickNameChange(string original)
         {
-            if (OnNickChange != null)
+            if (OnNickNameChange != null)
             {
-                OnNickChange(this, original);
+                OnNickNameChange(this, original);
             }
         }
 

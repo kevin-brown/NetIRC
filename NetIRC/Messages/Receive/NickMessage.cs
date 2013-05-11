@@ -21,7 +21,7 @@ namespace NetIRC.Messages.Receive
 
             User newUser = UserFactory.FromNick(nick);
 
-            newUser.TriggerOnNickChange(user);
+            newUser.TriggerOnNickNameChange(user);
         }
     }
 }
