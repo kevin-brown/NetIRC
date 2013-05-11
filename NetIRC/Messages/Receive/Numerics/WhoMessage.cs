@@ -24,9 +24,18 @@ namespace NetIRC.Messages.Receive.Numerics
             if (parts[8].Length > 1)
             {
                 char rankChar = parts[8][1];
-                UserRank rank = User.RankChars[rankChar];
 
-                oldUser.Rank = rank;
+                if (rankChar == '*' && parts[8].Length > 2)
+                {
+                    rankChar = parts[8][2];
+                }
+
+                if (rankChar == '*')
+                {
+                    UserRank rank = User.RankChars[rankChar];
+
+                    oldUser.Rank = rank;
+                }
             }
 
             string realName = "";
