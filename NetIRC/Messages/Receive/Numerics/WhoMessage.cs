@@ -30,7 +30,7 @@ namespace NetIRC.Messages.Receive.Numerics
                     rankChar = parts[8][2];
                 }
 
-                if (rankChar == '*')
+                if (rankChar != '*')
                 {
                     UserRank rank = User.RankChars[rankChar];
 

@@ -16,12 +16,12 @@ namespace NetIRC.Messages.Receive
 
             User user = this.GetUser(message);
 
-            channel.AddUser(user);
-
             if (user == client.User)
             {
                 client.TriggerOnChannelJoin(channel);
             }
+
+            channel.JoinUser(user);
 
             client.Send(channel.SendWho());
         }

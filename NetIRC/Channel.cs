@@ -34,6 +34,11 @@ namespace NetIRC
             }
 
             user.Channels.Add(this);
+        }
+
+        internal void JoinUser(User user)
+        {
+            this.AddUser(user);
 
             this.TriggerOnJoin(user);
         }
