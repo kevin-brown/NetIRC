@@ -42,6 +42,15 @@ namespace NetIRC
         }
 
         /// <summary>
+        /// Whether or not the user is an IRC operator.
+        /// </summary>
+        public bool IsOperator
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// The list of channels that the user is in.
         /// </summary>
         public readonly List<Channel> Channels = new List<Channel>();
