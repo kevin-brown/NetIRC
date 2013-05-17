@@ -73,6 +73,7 @@
     <Compile Include="Messages\Send\CTCP\VersionMessage.cs" />
     <Compile Include="Messages\Send\CTCP\VersionReplyMessage.cs" />
     <Compile Include="Messages\Send\JoinMessage.cs" />
+    <Compile Include="Messages\Send\KickMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\NotAwayMessage.cs" />
     <Compile Include="Messages\Send\NoticeMessage.cs" />
