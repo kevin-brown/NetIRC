@@ -15,7 +15,7 @@ namespace NetIRC.Messages.Receive.Numerics
             client.TriggerOnConnect();
 
             string[] parts = message.Split(' ');
-            string welcome = string.Join(" ", parts.Skip(2));
+            string welcome = string.Join(" ", parts.Skip(3));
 
             client.Server.TriggerOnWelcome(welcome);
         }
