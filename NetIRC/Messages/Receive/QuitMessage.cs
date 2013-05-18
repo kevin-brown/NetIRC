@@ -18,6 +18,8 @@ namespace NetIRC.Messages.Receive
             string reason = String.Join(" ", parts.Skip(2).ToArray()).Substring(1);
 
             user.TriggerOnQuit(reason);
+
+            user.Channels.Clear();
         }
     }
 }
