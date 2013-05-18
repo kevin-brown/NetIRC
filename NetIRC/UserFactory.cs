@@ -38,7 +38,7 @@ namespace NetIRC
 
         public static User FromUserMask(string userMask)
         {
-            Match matches = Regex.Match(userMask, @"^([A-Za-z0-9\-]+)!([A-Za-z0-9\-\~]+)\@([A-Za-z0-9\.\-]+)", RegexOptions.IgnoreCase);
+            Match matches = Regex.Match(userMask, @"^([A-Za-z0-9_\-]+)!([A-Za-z0-9_\-\~]+)\@([A-Za-z0-9\.\-]+)", RegexOptions.IgnoreCase);
 
             if (!matches.Success)
             {
