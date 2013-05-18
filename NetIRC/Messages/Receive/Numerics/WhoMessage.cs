@@ -29,7 +29,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 {
                     oldUser.IsOperator = true;
 
-                    if (parts.Length > 2)
+                    if (parts[8].Length > 2)
                     {
                         rankChar = parts[8][2];
                     }
