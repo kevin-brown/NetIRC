@@ -14,13 +14,26 @@ namespace NetIRC
             internal set;
         }
 
+        private string _userName = string.Empty;
+
         /// <summary>
         /// The username (sometimes called ident) that is associated with the user.
         /// </summary>
         public string UserName
         {
-            get;
-            internal set;
+            get
+            {
+                return this._userName;
+            }
+
+            internal set
+            {
+                string original = this._userName;
+
+                this._userName = value;
+
+                this.TriggerOnUserNameChange(this._userName);
+            }
         }
 
         /// <summary>
@@ -133,6 +146,17 @@ namespace NetIRC
             if (OnQuit != null)
             {
                 OnQuit(this, reason);
+            }
+        }
+
+        public delegate void OnUserNameChangeHandler(User user, string original);
+        public event OnUserNameChangeHandler OnUserNameChange;
+
+        internal void TriggerOnUserNameChange(string original)
+        {
+            if (OnUserNameChange != null)
+            {
+                OnUserNameChange(this, original);
             }
         }
 
