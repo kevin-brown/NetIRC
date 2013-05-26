@@ -27,7 +27,7 @@ namespace NetIRC
             set;
         }
 
-        private StreamWriter Writer
+        internal StreamWriter Writer
         {
             get;
             set;
@@ -217,6 +217,7 @@ namespace NetIRC
         private void RegisterWriters()
         {
             this.OutputWriters.Add(new Output.ConsoleWriter());
+            this.OutputWriters.Add(new Output.IrcWriter());
         }
 
         /// <summary>
@@ -245,8 +246,6 @@ namespace NetIRC
                 {
                     writer.ProcessSendMessage(line, this);
                 }
-
-                this.Writer.WriteLine(line);
             }
 
             stream.Close();
