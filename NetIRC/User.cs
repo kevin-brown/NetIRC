@@ -41,13 +41,31 @@ namespace NetIRC
             }
         }
 
+        private string _hostName = string.Empty;
+
         /// <summary>
         /// The hostname that is attached to the user.
         /// </summary>
         public string HostName
         {
-            get;
-            internal set;
+            get
+            {
+                return this._hostName;
+            }
+
+            internal set
+            {
+                if (this._hostName == value)
+                {
+                    return;
+                }
+
+                string original = this._hostName;
+
+                this._hostName = value;
+
+                this.TriggerOnHostNameChange(original);
+            }
         }
 
         /// <summary>
@@ -130,6 +148,17 @@ namespace NetIRC
             this.NickName = nick;
             this.RealName = real;
             this.UserName = user;
+        }
+
+        public delegate void OnHostNameChangeHandler(User user, string original);
+        public event OnHostNameChangeHandler OnHostNameChange;
+
+        internal void TriggerOnHostNameChange(string original)
+        {
+            if (OnHostNameChange != null)
+            {
+                OnHostNameChange(this, original);
+            }
         }
 
         public delegate void OnNickNameChangeHandler(User user, string original);
