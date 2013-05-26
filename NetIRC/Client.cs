@@ -61,7 +61,7 @@ namespace NetIRC
 
         private List<Type> RegisteredMessages = new List<Type>();
 
-        private List<Output.Writer> OutputWriters = new List<Output.Writer>();
+        private List<Type> OutputWriters = new List<Type>();
 
         public Client()
         {
@@ -160,9 +160,10 @@ namespace NetIRC
                     continue;
                 }
 
-                foreach (Output.Writer writer in this.OutputWriters)
+                foreach (Type writerType in this.OutputWriters)
                 {
-                    writer.ProcessReadMessage(line, this);
+                    MethodInfo processMethod = writerType.GetMethod("ProcessReadMessage");
+                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
                 }
 
                 foreach (Type messageType in this.RegisteredMessages)
@@ -216,8 +217,8 @@ namespace NetIRC
 
         private void RegisterWriters()
         {
-            this.OutputWriters.Add(new Output.ConsoleWriter());
-            this.OutputWriters.Add(new Output.IrcWriter());
+            this.OutputWriters.Add(typeof(Output.ConsoleWriter));
+            this.OutputWriters.Add(typeof(Output.IrcWriter));
         }
 
         /// <summary>
@@ -242,9 +243,10 @@ namespace NetIRC
                     break;
                 }
 
-                foreach (Output.Writer writer in this.OutputWriters)
+                foreach (Type writerType in this.OutputWriters)
                 {
-                    writer.ProcessSendMessage(line, this);
+                    MethodInfo processMethod = writerType.GetMethod("ProcessSendMessage");
+                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
                 }
             }
 
