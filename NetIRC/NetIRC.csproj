@@ -83,6 +83,7 @@
     <Compile Include="Messages\Send\TopicMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />
     <Compile Include="Messages\Send\WhoMessage.cs" />
+    <Compile Include="Output\ConsoleWriter.cs" />
     <Compile Include="Output\Writer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Server.cs" />

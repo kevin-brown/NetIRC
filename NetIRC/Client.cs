@@ -61,9 +61,12 @@ namespace NetIRC
 
         private List<Type> RegisteredMessages = new List<Type>();
 
+        private List<Output.Writer> OutputWriters = new List<Output.Writer>();
+
         public Client()
         {
             this.RegisterMessages();
+            this.RegisterWriters();
         }
 
         /// <summary>
@@ -208,6 +211,11 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
+        private void RegisterWriters()
+        {
+            this.OutputWriters.Add(new Output.ConsoleWriter());
+        }
+
         /// <summary>
         /// Send a message to the connected server.
         /// </summary>
@@ -230,7 +238,11 @@ namespace NetIRC
                     break;
                 }
 
-                Console.WriteLine(string.Format("[{0:HH:mm:ss}] > {1}", DateTime.Now, line));
+                foreach (Output.Writer writer in this.OutputWriters)
+                {
+                    writer.ProcessMessage(line, this);
+                }
+
                 this.Writer.WriteLine(line);
             }
 
