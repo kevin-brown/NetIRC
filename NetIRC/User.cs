@@ -28,6 +28,11 @@ namespace NetIRC
 
             internal set
             {
+                if (this._userName == value)
+                {
+                    return;
+                }
+
                 string original = this._userName;
 
                 this._userName = value;
