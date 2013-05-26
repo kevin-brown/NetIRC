@@ -215,6 +215,11 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
+        public void RegisterWriter(Type type)
+        {
+            this.OutputWriters.Add(type);
+        }
+
         private void RegisterWriters()
         {
             this.OutputWriters.Add(typeof(Output.ConsoleWriter));
@@ -289,5 +294,15 @@ namespace NetIRC
         }
 
         #endregion
+
+        public void UnregisterMessage(Type type)
+        {
+            this.RegisteredMessages.Remove(type);
+        }
+
+        public void UnregisterWriter(Type type)
+        {
+            this.OutputWriters.Remove(type);
+        }
     }
 }
