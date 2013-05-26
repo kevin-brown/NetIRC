@@ -160,7 +160,10 @@ namespace NetIRC
                     continue;
                 }
 
-                Console.WriteLine(string.Format("[{0:HH:mm:ss}] < {1}", DateTime.Now, line));
+                foreach (Output.Writer writer in this.OutputWriters)
+                {
+                    writer.ProcessReadMessage(line, this);
+                }
 
                 foreach (Type messageType in this.RegisteredMessages)
                 {
@@ -240,7 +243,7 @@ namespace NetIRC
 
                 foreach (Output.Writer writer in this.OutputWriters)
                 {
-                    writer.ProcessMessage(line, this);
+                    writer.ProcessSendMessage(line, this);
                 }
 
                 this.Writer.WriteLine(line);
