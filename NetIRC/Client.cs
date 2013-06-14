@@ -76,14 +76,14 @@ namespace NetIRC
         /// <param name="port">The port to connect to on the server.</param>
         /// <param name="ssl">True for SSL, false if not.</param>
         /// <param name="user">The NetIRC.User to use for connecting to the server.</param>
-        public async void Connect(string server, int port, bool ssl, User user)
+        public void Connect(string server, int port, bool ssl, User user)
         {
             this.User = UserFactory.FromNick(user.NickName);
             UserFactory.SetUser(user.NickName, user);
             this.User = UserFactory.FromNick(user.NickName);
 
             this.TcpClient = new TcpClient();
-            await this.TcpClient.ConnectAsync(server, port);
+            this.TcpClient.Connect(server, port);
 
             this.Server = new Server(server, port);
             this.Stream = this.TcpClient.GetStream();
