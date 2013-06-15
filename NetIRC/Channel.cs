@@ -36,6 +36,11 @@ namespace NetIRC
             user.Channels.Add(this);
         }
 
+        public Messages.Send.TopicMessage GetTopic()
+        {
+            return new Messages.Send.TopicMessage(this);
+        }
+
         internal void JoinUser(User user)
         {
             this.AddUser(user);
@@ -76,6 +81,11 @@ namespace NetIRC
         internal Messages.SendMessage SendWho()
         {
             return new Messages.Send.WhoMessage("#" + this.Name);
+        }
+
+        public Messages.Send.TopicMessage SetTopic(string topic)
+        {
+            return new Messages.Send.TopicMessage(this, topic);
         }
 
         public delegate void OnActionHandler(Channel source, User user, string action);
