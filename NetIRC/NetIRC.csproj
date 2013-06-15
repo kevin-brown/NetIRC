@@ -93,6 +93,7 @@
     <Compile Include="User.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="UserRank.cs" />
+    <Compile Include="ChannelType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

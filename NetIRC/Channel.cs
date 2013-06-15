@@ -21,9 +21,35 @@ namespace NetIRC
             }
         }
 
+        public readonly ChannelType Type;
+
+        internal Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>()
+            {
+                {ChannelType.Network, '#'},
+                {ChannelType.Local, '&'},
+                {ChannelType.Safe, '!'},
+                {ChannelType.Unmoderated, '+'},
+            };
+
         public Channel(string name)
         {
             this.Name = name;
+            this.Type = ChannelType.Network;
+
+            foreach (var pair in TypeChars)
+            {
+                if (pair.Value == name[0])
+                {
+                    this.Type = pair.Key;
+                    break;
+                }
+            }
+        }
+
+        public Channel(string name, ChannelType type)
+        {
+            this.Name = name;
+            this.Type = type;
         }
 
         internal void AddUser(User user)
