@@ -4,7 +4,7 @@ namespace NetIRC.Messages.Send
 {
     public class JoinMessage : SendMessage
     {
-        private string channel;
+        private Channel channel;
 
         public JoinMessage(string channel)
         {

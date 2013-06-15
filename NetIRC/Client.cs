@@ -169,8 +169,6 @@ namespace NetIRC
 
         private void ReadStream()
         {
-            List<string> messageList = new List<string>();
-
             while (this.TcpClient != null && this.TcpClient.Connected)
             {
                 string line = this.Reader.ReadLine();
