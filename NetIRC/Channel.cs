@@ -41,6 +41,11 @@ namespace NetIRC
             return new Messages.Send.TopicMessage(this);
         }
 
+        public Messages.Send.JoinMessage Join()
+        {
+            return new Messages.Send.JoinMessage(this);
+        }
+
         internal void JoinUser(User user)
         {
             this.AddUser(user);
@@ -56,6 +61,16 @@ namespace NetIRC
         public Messages.Send.KickMessage Kick(User user, string message)
         {
             return new Messages.Send.KickMessage(this, user, message);
+        }
+
+        public Messages.Send.PartMessage Part()
+        {
+            return new Messages.Send.PartMessage(this);
+        }
+
+        public Messages.Send.PartMessage Part(string message)
+        {
+            return new Messages.Send.PartMessage(this, message);
         }
 
         internal void RemoveUser(User user)

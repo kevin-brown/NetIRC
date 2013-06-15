@@ -15,6 +15,11 @@ namespace NetIRC.Messages.Send
             this.channel = channel;
         }
 
+        public JoinMessage(Channel channel)
+        {
+            this.channel = "#" + channel.Name;
+        }
+
         public void Send(System.IO.StreamWriter writer)
         {
             writer.WriteLine("JOIN " + this.channel);
