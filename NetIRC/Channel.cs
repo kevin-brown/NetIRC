@@ -23,7 +23,7 @@ namespace NetIRC
 
         public readonly ChannelType Type;
 
-        internal Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>()
+        internal static Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>()
             {
                 {ChannelType.Network, '#'},
                 {ChannelType.Local, '&'},
@@ -36,7 +36,7 @@ namespace NetIRC
             this.Name = name;
             this.Type = ChannelType.Network;
 
-            foreach (var pair in TypeChars)
+            foreach (var pair in Channel.TypeChars)
             {
                 if (pair.Value == name[0])
                 {

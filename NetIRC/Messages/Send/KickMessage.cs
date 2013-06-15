@@ -25,11 +25,11 @@ namespace NetIRC.Messages.Send
         {
             if (string.IsNullOrEmpty(this.message))
             {
-                writer.WriteLine("KICK #{0} {1}", channel.Name, user.NickName);
+                writer.WriteLine("KICK {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.user.NickName);
             }
             else
             {
-                writer.WriteLine("KICK #{0} {1} {2}", channel.Name, user.NickName, this.message);
+                writer.WriteLine("KICK {0}{1} {2} {3}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.user.NickName, this.message);
             }
         }
     }

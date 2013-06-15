@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
@@ -12,17 +8,17 @@ namespace NetIRC.Messages.Send
 
         public JoinMessage(string channel)
         {
-            this.channel = channel;
+            this.channel = ChannelFactory.FromName(channel);
         }
 
         public JoinMessage(Channel channel)
         {
-            this.channel = "#" + channel.Name;
+            this.channel = channel;
         }
 
         public void Send(System.IO.StreamWriter writer)
         {
-            writer.WriteLine("JOIN " + this.channel);
+            writer.WriteLine("JOIN {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
         }
     }
 }

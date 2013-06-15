@@ -22,7 +22,7 @@ namespace NetIRC.Messages.Send
 
         public void Send(System.IO.StreamWriter writer)
         {
-            writer.WriteLine("NOTICE #{0} {1}", this.channel.Name, this.message);
+            writer.WriteLine("NOTICE {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
         }
     }
 }

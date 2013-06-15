@@ -8,28 +8,28 @@ namespace NetIRC.Messages.Send
 {
     public class TopicMessage : SendMessage
     {
-        string channel;
+        Channel channel;
         string topic;
 
         public TopicMessage(string channel)
         {
-            this.channel = channel;
+            this.channel = ChannelFactory.FromName(channel);
         }
 
         public TopicMessage(Channel channel)
         {
-            this.channel = "#" + channel.Name;
+            this.channel = channel;
         }
 
         public TopicMessage(string channel, string topic)
         {
-            this.channel = channel;
+            this.channel = ChannelFactory.FromName(channel);
             this.topic = topic;
         }
 
         public TopicMessage(Channel channel, string topic)
         {
-            this.channel = "#" + channel.Name;
+            this.channel = channel;
             this.topic = topic;
         }
 
@@ -37,11 +37,11 @@ namespace NetIRC.Messages.Send
         {
             if (string.IsNullOrEmpty(this.topic))
             {
-                writer.WriteLine("TOPIC " + this.channel);
+                writer.WriteLine("TOPIC {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
             }
             else
             {
-                writer.WriteLine(string.Format("TOPIC {0} {1}", this.channel, this.topic));
+                writer.WriteLine(string.Format("TOPIC {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.topic));
             }
         }
     }

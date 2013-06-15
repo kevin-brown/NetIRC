@@ -4,28 +4,28 @@ namespace NetIRC.Messages.Send
 {
     public class PartMessage : SendMessage
     {
-        private string channel;
+        private Channel channel;
         private string message;
 
         public PartMessage(string channel)
         {
-            this.channel = channel;
+            this.channel = ChannelFactory.FromName(channel);
         }
 
         public PartMessage(Channel channel)
         {
-            this.channel = "#" + channel.Name;
+            this.channel = channel;
         }
 
         public PartMessage(string channel, string message)
         {
-            this.channel = channel;
+            this.channel = ChannelFactory.FromName(channel);
             this.message = message;
         }
 
         public PartMessage(Channel channel, string message)
         {
-            this.channel = "#" + channel.Name;
+            this.channel = channel;
             this.message = message;
         }
 
@@ -33,11 +33,11 @@ namespace NetIRC.Messages.Send
         {
             if (this.message == null)
             {
-                writer.WriteLine("PART " + this.channel);
+                writer.WriteLine("PART {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
             }
             else
             {
-                writer.WriteLine("PART " + this.channel + " " + this.message);
+                writer.WriteLine("PART {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
             }
         }
     }
