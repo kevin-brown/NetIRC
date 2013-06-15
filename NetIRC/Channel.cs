@@ -53,6 +53,16 @@ namespace NetIRC
             }
         }
 
+        public Messages.Send.NoticeMessage SendNotice(string message)
+        {
+		    return new Messages.Send.NoticeMessage(this, message);
+        }
+
+        public Messages.Send.ChatMessage SendMessage(string message)
+        {
+            return new Messages.Send.ChatMessage(this, message);
+        }
+
         internal Messages.SendMessage SendWho()
         {
             return new Messages.Send.WhoMessage("#" + this.Name);
