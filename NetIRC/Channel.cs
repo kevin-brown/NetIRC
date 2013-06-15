@@ -43,6 +43,16 @@ namespace NetIRC
             this.TriggerOnJoin(user);
         }
 
+        public Messages.Send.KickMessage Kick(User user)
+        {
+            return new Messages.Send.KickMessage(this, user);
+        }
+
+        public Messages.Send.KickMessage Kick(User user, string message)
+        {
+            return new Messages.Send.KickMessage(this, user, message);
+        }
+
         internal void RemoveUser(User user)
         {
             if (this.Users.ContainsKey(user.NickName))
