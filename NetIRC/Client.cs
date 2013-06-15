@@ -157,6 +157,16 @@ namespace NetIRC
             return new Messages.Send.NotAwayMessage();
         }
 
+        public Messages.Send.QuitMessage Quit()
+        {
+            return new Messages.Send.QuitMessage();
+        }
+
+        public Messages.Send.QuitMessage Quit(string reason)
+        {
+            return new Messages.Send.QuitMessage(reason);
+        }
+
         private void ReadStream()
         {
             List<string> messageList = new List<string>();
