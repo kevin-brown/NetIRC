@@ -69,6 +69,11 @@ namespace NetIRC
             this.RegisterWriters();
         }
 
+        public Messages.Send.AwayMessage Away(string message)
+        {
+            return new Messages.Send.AwayMessage(message);
+        }
+
         /// <summary>
         /// Connect to a specified <paramref name="server" />.
         /// </summary>
@@ -145,6 +150,11 @@ namespace NetIRC
         public void LeaveChannel(Channel channel)
         {
             this.Send(new Messages.Send.PartMessage("#" + channel.Name));
+        }
+
+        public Messages.Send.NotAwayMessage NotAway()
+        {
+            return new Messages.Send.NotAwayMessage();
         }
 
         private void ReadStream()
