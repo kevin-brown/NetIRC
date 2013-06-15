@@ -16,9 +16,20 @@ namespace NetIRC.Messages.Send
             this.channel = channel;
         }
 
+        public TopicMessage(Channel channel)
+        {
+            this.channel = "#" + channel.Name;
+        }
+
         public TopicMessage(string channel, string topic)
         {
             this.channel = channel;
+            this.topic = topic;
+        }
+
+        public TopicMessage(Channel channel, string topic)
+        {
+            this.channel = "#" + channel.Name;
             this.topic = topic;
         }
 
