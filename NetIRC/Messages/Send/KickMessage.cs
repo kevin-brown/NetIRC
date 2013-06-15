@@ -6,6 +6,7 @@ namespace NetIRC.Messages.Send
     {
         private Channel channel;
         private User user;
+        private string message;
 
         public KickMessage(Channel channel, User user)
         {
@@ -13,9 +14,23 @@ namespace NetIRC.Messages.Send
             this.user = user;
         }
 
+        public KickMessage(Channel channel, User user, string message)
+        {
+            this.channel = channel;
+            this.user = user;
+            this.message = message;
+        }
+
         public void Send(System.IO.StreamWriter writer)
         {
-            writer.WriteLine("KICK #{0} {1]", channel.Name, user.NickName);
+            if (string.IsNullOrEmpty(this.message))
+            {
+                writer.WriteLine("KICK #{0} {1}", channel.Name, user.NickName);
+            }
+            else
+            {
+                writer.WriteLine("KICK #{0} {1} {2}", channel.Name, user.NickName, this.message);
+            }
         }
     }
 }
