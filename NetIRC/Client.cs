@@ -130,8 +130,8 @@ namespace NetIRC
         /// <param name="channel">The Channel to be used for connecting.</param>
         public void JoinChannel(Channel channel)
         {
-            this.Send(new Messages.Send.JoinMessage("#" + channel.Name));
-            this.Send(new Messages.Send.TopicMessage("#" + channel.Name));
+            this.Send(channel.Join());
+            this.Send(channel.GetTopic());
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace NetIRC
         /// <param name="channel"></param>
         public void LeaveChannel(Channel channel)
         {
-            this.Send(new Messages.Send.PartMessage("#" + channel.Name));
+            this.Send(channel.Part());
         }
 
         public Messages.Send.NotAwayMessage NotAway()
