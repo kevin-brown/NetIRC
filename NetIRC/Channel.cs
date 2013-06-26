@@ -60,6 +60,11 @@ namespace NetIRC
             }
 
             user.Channels.Add(this);
+
+            if (!user.Rank.ContainsKey(this.Name))
+            {
+                user.Rank.Add(this.Name, UserRank.None);
+            }
         }
 
         public Messages.Send.TopicMessage GetTopic()

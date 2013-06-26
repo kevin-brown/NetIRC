@@ -35,7 +35,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 }
 
                 User user = UserFactory.FromNick(parts[i]);
-                user.Rank = rank;
+                user.Rank[channel.Name] = rank;
 
                 channel.AddUser(user);
             }

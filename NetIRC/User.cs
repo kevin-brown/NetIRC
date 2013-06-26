@@ -92,13 +92,9 @@ namespace NetIRC
         public readonly List<Channel> Channels = new List<Channel>();
 
         /// <summary>
-        /// The rank that is attached to this user.
+        /// A dictionary that contains the current ranks for the user in each of their channels.
         /// </summary>
-        public UserRank Rank
-        {
-            get;
-            internal set;
-        }
+        public readonly Dictionary<string, UserRank> Rank = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.
