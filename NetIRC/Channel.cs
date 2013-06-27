@@ -243,5 +243,27 @@ namespace NetIRC
                 OnTopicChange(this, topic);
             }
         }
+
+        public delegate void OnModeHandler(Channel source, string modes);
+        public event OnModeHandler OnMode;
+
+        internal void TriggerOnMode(string modes)
+        {
+            if (OnMode != null)
+            {
+                OnMode(this, modes);
+            }
+        }
+
+        public delegate void OnUserModeHandler(Channel source, User setter, User target, string modes);
+        public event OnUserModeHandler OnUserMode;
+
+        internal void TriggerOnUserMode(User setter, User target, string modes)
+        {
+            if (OnUserMode != null)
+            {
+                OnUserMode(this, setter, target, modes);
+            }
+        }
     }
 }
