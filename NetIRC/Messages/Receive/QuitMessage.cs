@@ -12,7 +12,7 @@ namespace NetIRC.Messages.Receive
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
             string[] parts = message.Split(' ');
 
             string reason = String.Join(" ", parts.Skip(2).ToArray()).Substring(1);

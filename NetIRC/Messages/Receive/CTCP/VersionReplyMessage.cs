@@ -39,7 +39,7 @@ namespace NetIRC.Messages.Receive.CTCP
         {
             string[] parts = message.Split(' ');
 
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
 
             string version = String.Join(" ", parts.Skip(4).ToArray());
             version = version.Substring(0, version.Length - 1);

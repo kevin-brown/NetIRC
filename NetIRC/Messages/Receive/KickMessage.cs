@@ -16,7 +16,7 @@ namespace NetIRC.Messages.Receive
 
             Channel channel = ChannelFactory.FromName(parts[2].Substring(1));
 
-            User kicker = this.GetUser(message);
+            User kicker = ReceiveUserMessage.GetUser(message);
             User user = UserFactory.FromNick(parts[3]);
 
             string reason = String.Join(" ", parts.Skip(4).ToArray()).Substring(1);
