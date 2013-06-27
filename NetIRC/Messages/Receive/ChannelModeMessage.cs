@@ -26,7 +26,25 @@ namespace NetIRC.Messages.Receive
             string modes = parts[3];
 
             //check if it's a chanusermode or just a chanmode based on the flag and # of parameters
-            channel.TriggerOnMode(modes);
+            if (parts.Length > 4)
+            {
+                User target = UserFactory.FromNick(parts[4]);
+
+                if (channel.Users.ContainsValue(target))
+                {
+                    channel.TriggerOnUserMode(setter, target, modes);
+                }
+
+                else
+                {
+                    channel.TriggerOnMode(setter, modes, parts.Skip(4).ToArray());
+                }
+            }
+
+            else
+            {
+                channel.TriggerOnMode(setter, modes, null);
+            }
         }
     }
 }

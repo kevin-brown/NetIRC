@@ -244,14 +244,14 @@ namespace NetIRC
             }
         }
 
-        public delegate void OnModeHandler(Channel source, string modes);
+        public delegate void OnModeHandler(Channel source, User setter, string modes, string[] parameters);
         public event OnModeHandler OnMode;
 
-        internal void TriggerOnMode(string modes)
+        internal void TriggerOnMode(User setter, string modes, string[] parameters)
         {
             if (OnMode != null)
             {
-                OnMode(this, modes);
+                OnMode(this, setter, modes, parameters);
             }
         }
 
