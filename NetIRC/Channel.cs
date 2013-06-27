@@ -145,6 +145,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnSendActionHandler(Channel source, string action);
+        public event OnSendActionHandler OnSendAction;
+
+        internal void TriggerOnSendAction(string action)
+        {
+            if (OnSendAction != null)
+            {
+                OnSendAction(this, action);
+            }
+        }
+
         public delegate void OnJoinHandler(Channel source, User user);
         public event OnJoinHandler OnJoin;
 
@@ -189,6 +200,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnSendMessageHandler(Channel source, string message);
+        public event OnSendMessageHandler OnSendMessage;
+
+        internal void TriggerOnSendMessage(string message)
+        {
+            if (OnSendMessage != null)
+            {
+                OnSendMessage(this, message);
+            }
+        }
+
         public delegate void OnNoticeHandler(Channel source, User user, string notice);
         public event OnNoticeHandler OnNotice;
 
@@ -197,6 +219,17 @@ namespace NetIRC
             if (OnNotice != null)
             {
                 OnNotice(this, user, notice);
+            }
+        }
+
+        public delegate void OnSendNoticeHandler(Channel source, string notice);
+        public event OnSendNoticeHandler OnSendNotice;
+
+        internal void TriggerOnSendNotice(string notice)
+        {
+            if (OnSendNotice != null)
+            {
+                OnSendNotice(this, notice);
             }
         }
 
