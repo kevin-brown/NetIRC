@@ -31,6 +31,72 @@ namespace NetIRC
                 {ChannelType.Unmoderated, '+'},
             };
 
+        public bool Anonymous
+        {
+            get;
+            internal set;
+        }
+
+        public bool InviteOnly
+        {
+            get;
+            internal set;
+        }
+
+        public bool Moderated
+        {
+            get;
+            internal set;
+        }
+
+        public bool NoOutsideMessages
+        {
+            get;
+            internal set;
+        }
+
+        public bool Quiet
+        {
+            get;
+            internal set;
+        }
+
+        public bool Private
+        {
+            get;
+            internal set;
+        }
+
+        public bool Secret
+        {
+            get;
+            internal set;
+        }
+
+        public bool ServerReop
+        {
+            get;
+            internal set;
+        }
+
+        public bool TopicLock
+        {
+            get;
+            internal set;
+        }
+
+        public string Key
+        {
+            get;
+            internal set;
+        }
+
+        public int UserLimit
+        {
+            get;
+            internal set;
+        }
+
         public Channel(string name)
         {
             this.Name = name;

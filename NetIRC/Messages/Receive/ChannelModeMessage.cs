@@ -43,7 +43,62 @@ namespace NetIRC.Messages.Receive
 
             else
             {
+                ParseModes(channel, modes);
+
                 channel.TriggerOnMode(setter, modes, null);
+            }
+        }
+
+        public void ParseModes(Channel target, string modes)
+        {
+            bool addMode = false;
+            for (int i = 0; i < modes.Length; i++)
+            {
+                switch (modes[i])
+                {
+                    case '+': addMode = true;
+                        break;
+                    case '-': addMode = false;
+                        break;
+                    case 'i':
+                        if (addMode)
+                            target.InviteOnly = true;
+                        else
+                            target.InviteOnly = false;
+                        break;
+                    case 'm':
+                        if (addMode)
+                            target.Moderated = true;
+                        else
+                            target.Moderated = false;
+                        break;
+                    case 'n':
+                        if (addMode)
+                            target.NoOutsideMessages = true;
+                        else
+                            target.NoOutsideMessages = false;
+                        break;
+                    case 'p':
+                        if (addMode)
+                            target.Private = true;
+                        else
+                            target.Private = false;
+                        break;
+                    case 's':
+                        if (addMode)
+                            target.Secret = true;
+                        else
+                            target.Secret = false;
+                        break;
+                    case 't':
+                        if (addMode)
+                            target.TopicLock = true;
+                        else
+                            target.TopicLock = false;
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
