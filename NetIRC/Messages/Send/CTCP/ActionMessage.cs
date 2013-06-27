@@ -22,6 +22,7 @@ namespace NetIRC.Messages.Send.CTCP
         public void Send(System.IO.StreamWriter writer)
         {
             writer.WriteLine("PRIVMSG #{0} \x001" + "ACTION {1}\x001", this.channel.Name, this.message);
+            this.channel.TriggerOnSendAction(this.message);
         }
     }
 }
