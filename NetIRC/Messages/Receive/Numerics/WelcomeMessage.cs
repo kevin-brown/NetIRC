@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
@@ -12,6 +13,11 @@ namespace NetIRC.Messages.Receive.Numerics
         public override void ProcessMessage(string message, Client client)
         {
             client.TriggerOnConnect();
+
+            string[] parts = message.Split(' ');
+            string welcome = string.Join(" ", parts.Skip(3));
+
+            client.Server.TriggerOnWelcome(welcome);
         }
     }
 }

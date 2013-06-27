@@ -21,9 +21,35 @@ namespace NetIRC
             }
         }
 
+        public readonly ChannelType Type;
+
+        internal static Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>()
+            {
+                {ChannelType.Network, '#'},
+                {ChannelType.Local, '&'},
+                {ChannelType.Safe, '!'},
+                {ChannelType.Unmoderated, '+'},
+            };
+
         public Channel(string name)
         {
             this.Name = name;
+            this.Type = ChannelType.Network;
+
+            foreach (var pair in Channel.TypeChars)
+            {
+                if (pair.Value == name[0])
+                {
+                    this.Type = pair.Key;
+                    break;
+                }
+            }
+        }
+
+        public Channel(string name, ChannelType type)
+        {
+            this.Name = name;
+            this.Type = type;
         }
 
         internal void AddUser(User user)
@@ -34,6 +60,21 @@ namespace NetIRC
             }
 
             user.Channels.Add(this);
+
+            if (!user.Rank.ContainsKey(this.Name))
+            {
+                user.Rank.Add(this.Name, UserRank.None);
+            }
+        }
+
+        public Messages.Send.TopicMessage GetTopic()
+        {
+            return new Messages.Send.TopicMessage(this);
+        }
+
+        public Messages.Send.JoinMessage Join()
+        {
+            return new Messages.Send.JoinMessage(this);
         }
 
         internal void JoinUser(User user)
@@ -41,6 +82,26 @@ namespace NetIRC
             this.AddUser(user);
 
             this.TriggerOnJoin(user);
+        }
+
+        public Messages.Send.KickMessage Kick(User user)
+        {
+            return new Messages.Send.KickMessage(this, user);
+        }
+
+        public Messages.Send.KickMessage Kick(User user, string message)
+        {
+            return new Messages.Send.KickMessage(this, user, message);
+        }
+
+        public Messages.Send.PartMessage Part()
+        {
+            return new Messages.Send.PartMessage(this);
+        }
+
+        public Messages.Send.PartMessage Part(string message)
+        {
+            return new Messages.Send.PartMessage(this, message);
         }
 
         internal void RemoveUser(User user)
@@ -53,9 +114,24 @@ namespace NetIRC
             }
         }
 
+        public Messages.Send.NoticeMessage SendNotice(string message)
+        {
+		    return new Messages.Send.NoticeMessage(this, message);
+        }
+
+        public Messages.Send.ChatMessage SendMessage(string message)
+        {
+            return new Messages.Send.ChatMessage(this, message);
+        }
+
         internal Messages.SendMessage SendWho()
         {
             return new Messages.Send.WhoMessage("#" + this.Name);
+        }
+
+        public Messages.Send.TopicMessage SetTopic(string topic)
+        {
+            return new Messages.Send.TopicMessage(this, topic);
         }
 
         public delegate void OnActionHandler(Channel source, User user, string action);

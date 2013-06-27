@@ -14,22 +14,58 @@ namespace NetIRC
             internal set;
         }
 
+        private string _userName = string.Empty;
+
         /// <summary>
         /// The username (sometimes called ident) that is associated with the user.
         /// </summary>
         public string UserName
         {
-            get;
-            internal set;
+            get
+            {
+                return this._userName;
+            }
+
+            internal set
+            {
+                if (this._userName == value)
+                {
+                    return;
+                }
+
+                string original = this._userName;
+
+                this._userName = value;
+
+                this.TriggerOnUserNameChange(this._userName);
+            }
         }
+
+        private string _hostName = string.Empty;
 
         /// <summary>
         /// The hostname that is attached to the user.
         /// </summary>
         public string HostName
         {
-            get;
-            internal set;
+            get
+            {
+                return this._hostName;
+            }
+
+            internal set
+            {
+                if (this._hostName == value)
+                {
+                    return;
+                }
+
+                string original = this._hostName;
+
+                this._hostName = value;
+
+                this.TriggerOnHostNameChange(original);
+            }
         }
 
         /// <summary>
@@ -42,18 +78,23 @@ namespace NetIRC
         }
 
         /// <summary>
+        /// Whether or not the user is an IRC operator.
+        /// </summary>
+        public bool IsOperator
+        {
+            get;
+            internal set;
+        }
+
+        /// <summary>
         /// The list of channels that the user is in.
         /// </summary>
         public readonly List<Channel> Channels = new List<Channel>();
 
         /// <summary>
-        /// The rank that is attached to this user.
+        /// A dictionary that contains the current ranks for the user in each of their channels.
         /// </summary>
-        public UserRank Rank
-        {
-            get;
-            internal set;
-        }
+        public readonly Dictionary<string, UserRank> Rank = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.
@@ -105,6 +146,17 @@ namespace NetIRC
             this.UserName = user;
         }
 
+        public delegate void OnHostNameChangeHandler(User user, string original);
+        public event OnHostNameChangeHandler OnHostNameChange;
+
+        internal void TriggerOnHostNameChange(string original)
+        {
+            if (OnHostNameChange != null)
+            {
+                OnHostNameChange(this, original);
+            }
+        }
+
         public delegate void OnNickNameChangeHandler(User user, string original);
         public event OnNickNameChangeHandler OnNickNameChange;
 
@@ -124,6 +176,17 @@ namespace NetIRC
             if (OnQuit != null)
             {
                 OnQuit(this, reason);
+            }
+        }
+
+        public delegate void OnUserNameChangeHandler(User user, string original);
+        public event OnUserNameChangeHandler OnUserNameChange;
+
+        internal void TriggerOnUserNameChange(string original)
+        {
+            if (OnUserNameChange != null)
+            {
+                OnUserNameChange(this, original);
             }
         }
 

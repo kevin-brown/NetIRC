@@ -25,16 +25,25 @@ namespace NetIRC.Messages.Receive.Numerics
             {
                 char rankChar = parts[8][1];
 
-                if (rankChar == '*' && parts[8].Length > 2)
+                if (rankChar == '*')
                 {
-                    rankChar = parts[8][2];
+                    oldUser.IsOperator = true;
+
+                    if (parts[8].Length > 2)
+                    {
+                        rankChar = parts[8][2];
+                    }
+                }
+                else
+                {
+                    oldUser.IsOperator = false;
                 }
 
                 if (rankChar != '*')
                 {
                     UserRank rank = User.RankChars[rankChar];
 
-                    oldUser.Rank = rank;
+                    oldUser.Rank[channel.Name] = rank;
                 }
             }
 
@@ -47,6 +56,8 @@ namespace NetIRC.Messages.Receive.Numerics
 
             realName = realName.Trim();
             oldUser.RealName = realName;
+
+            client.Server.TriggerOnWho(string.Join(" ", parts.Skip(3)));
         }
     }
 }

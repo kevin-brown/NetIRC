@@ -27,7 +27,7 @@ namespace NetIRC
             set;
         }
 
-        private StreamWriter Writer
+        internal StreamWriter Writer
         {
             get;
             set;
@@ -61,9 +61,17 @@ namespace NetIRC
 
         private List<Type> RegisteredMessages = new List<Type>();
 
+        private List<Type> OutputWriters = new List<Type>();
+
         public Client()
         {
             this.RegisterMessages();
+            this.RegisterWriters();
+        }
+
+        public Messages.Send.AwayMessage Away(string message)
+        {
+            return new Messages.Send.AwayMessage(message);
         }
 
         /// <summary>
@@ -73,14 +81,14 @@ namespace NetIRC
         /// <param name="port">The port to connect to on the server.</param>
         /// <param name="ssl">True for SSL, false if not.</param>
         /// <param name="user">The NetIRC.User to use for connecting to the server.</param>
-        public async void Connect(string server, int port, bool ssl, User user)
+        public void Connect(string server, int port, bool ssl, User user)
         {
             this.User = UserFactory.FromNick(user.NickName);
             UserFactory.SetUser(user.NickName, user);
             this.User = UserFactory.FromNick(user.NickName);
 
             this.TcpClient = new TcpClient();
-            await this.TcpClient.ConnectAsync(server, port);
+            this.TcpClient.Connect(server, port);
 
             this.Server = new Server(server, port);
             this.Stream = this.TcpClient.GetStream();
@@ -122,8 +130,8 @@ namespace NetIRC
         /// <param name="channel">The Channel to be used for connecting.</param>
         public void JoinChannel(Channel channel)
         {
-            this.Send(new Messages.Send.JoinMessage("#" + channel.Name));
-            this.Send(new Messages.Send.TopicMessage("#" + channel.Name));
+            this.Send(channel.Join());
+            this.Send(channel.GetTopic());
         }
 
         /// <summary>
@@ -141,13 +149,26 @@ namespace NetIRC
         /// <param name="channel"></param>
         public void LeaveChannel(Channel channel)
         {
-            this.Send(new Messages.Send.PartMessage("#" + channel.Name));
+            this.Send(channel.Part());
+        }
+
+        public Messages.Send.NotAwayMessage NotAway()
+        {
+            return new Messages.Send.NotAwayMessage();
+        }
+
+        public Messages.Send.QuitMessage Quit()
+        {
+            return new Messages.Send.QuitMessage();
+        }
+
+        public Messages.Send.QuitMessage Quit(string reason)
+        {
+            return new Messages.Send.QuitMessage(reason);
         }
 
         private void ReadStream()
         {
-            List<string> messageList = new List<string>();
-
             while (this.TcpClient != null && this.TcpClient.Connected)
             {
                 string line = this.Reader.ReadLine();
@@ -157,7 +178,11 @@ namespace NetIRC
                     continue;
                 }
 
-                Console.WriteLine(string.Format("[{0:HH:mm:ss}] < {1}", DateTime.Now, line));
+                foreach (Type writerType in this.OutputWriters)
+                {
+                    MethodInfo processMethod = writerType.GetMethod("ProcessReadMessage");
+                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
+                }
 
                 foreach (Type messageType in this.RegisteredMessages)
                 {
@@ -208,6 +233,17 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
+        public void RegisterWriter(Type type)
+        {
+            this.OutputWriters.Add(type);
+        }
+
+        private void RegisterWriters()
+        {
+            this.OutputWriters.Add(typeof(Output.ConsoleWriter));
+            this.OutputWriters.Add(typeof(Output.IrcWriter));
+        }
+
         /// <summary>
         /// Send a message to the connected server.
         /// </summary>
@@ -230,8 +266,11 @@ namespace NetIRC
                     break;
                 }
 
-                Console.WriteLine(string.Format("[{0:HH:mm:ss}] > {1}", DateTime.Now, line));
-                this.Writer.WriteLine(line);
+                foreach (Type writerType in this.OutputWriters)
+                {
+                    MethodInfo processMethod = writerType.GetMethod("ProcessSendMessage");
+                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
+                }
             }
 
             stream.Close();
@@ -273,5 +312,15 @@ namespace NetIRC
         }
 
         #endregion
+
+        public void UnregisterMessage(Type type)
+        {
+            this.RegisteredMessages.Remove(type);
+        }
+
+        public void UnregisterWriter(Type type)
+        {
+            this.OutputWriters.Remove(type);
+        }
     }
 }

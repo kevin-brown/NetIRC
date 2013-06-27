@@ -22,6 +22,28 @@ namespace NetIRC
             this.Port = port;
         }
 
+        public delegate void OnWelcomeHandler(Server server, string message);
+        public event OnWelcomeHandler OnWelcome;
+
+        internal void TriggerOnWelcome(string message)
+        {
+            if (OnWelcome != null)
+            {
+                OnWelcome(this, message);
+            }
+        }
+
+        public delegate void OnWhoHandler(Server server, string message);
+        public event OnWelcomeHandler OnWho;
+
+        internal void TriggerOnWho(string message)
+        {
+            if (OnWho != null)
+            {
+                OnWho(this, message);
+            }
+        }
+
         public override string ToString()
         {
             return string.Format("{0}:{1}", this.HostName, this.Port);

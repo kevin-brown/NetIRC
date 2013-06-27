@@ -11,6 +11,11 @@ namespace NetIRC.Messages.Send
             this.target = target;
         }
 
+        public WhoMessage(Channel channel)
+        {
+            this.target = Channel.TypeChars[channel.Type] + channel.Name;
+        }
+
         public void Send(System.IO.StreamWriter writer)
         {
             writer.WriteLine("WHO " + this.target);
