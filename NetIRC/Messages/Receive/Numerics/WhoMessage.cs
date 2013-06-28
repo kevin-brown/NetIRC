@@ -27,7 +27,7 @@ namespace NetIRC.Messages.Receive.Numerics
 
                 if (rankChar == '*')
                 {
-                    oldUser.IsOperator = true;
+                    oldUser.Operator = true;
 
                     if (parts[8].Length > 2)
                     {
@@ -36,7 +36,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 }
                 else
                 {
-                    oldUser.IsOperator = false;
+                    oldUser.Operator = false;
                 }
 
                 if (rankChar != '*')

@@ -24,5 +24,52 @@ namespace NetIRC.Messages.Receive
 
             client.TriggerOnUserMode(modes);
         }
+
+        public void ParseModes(User user, string modes)
+        {
+            bool addMode = false;
+            for (int i = 0; i < modes.Length; i++)
+            {
+                switch (modes[i])
+                {
+                    case '+': addMode = true;
+                        break;
+                    case '-': addMode = false;
+                        break;
+                    case 'a':
+                        if (addMode)
+                            user.Away = true;
+                        else
+                            user.Away = false;
+                        break;
+                    case 'i':
+                        if (addMode)
+                            user.Invisible = true;
+                        else
+                            user.Invisible = false;
+                        break;
+                    case 'w':
+                        if (addMode)
+                            user.WallOps = true;
+                        else
+                            user.WallOps = false;
+                        break;
+                    case 'r':
+                        if (addMode)
+                            user.Restricted = true;
+                        else
+                            user.Restricted = false;
+                        break;
+                    case 'o':
+                        if (addMode)
+                            user.Operator = true;
+                        else
+                            user.Operator = false;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
     }
 }
