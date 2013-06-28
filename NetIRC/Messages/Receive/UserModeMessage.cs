@@ -29,7 +29,7 @@ namespace NetIRC.Messages.Receive
 
         public void ParseModes(User user, string modes)
         {
-            bool addMode = false;
+            bool addMode = true;
             for (int i = 0; i < modes.Length; i++)
             {
                 switch (modes[i])
