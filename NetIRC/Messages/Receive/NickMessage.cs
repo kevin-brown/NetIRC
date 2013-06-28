@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive
         {
             string[] parts = message.Split(' ');
 
-            string user = this.GetUser(message).NickName;
+            string user = ReceiveUserMessage.GetUser(message).NickName;
 
             string nick = parts[2];
 

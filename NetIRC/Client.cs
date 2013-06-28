@@ -216,6 +216,8 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.TopicMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.QuitMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.KickMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.UserModeMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.ChannelModeMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.NoticeMessage));
@@ -308,6 +310,17 @@ namespace NetIRC
             if (OnConnect != null)
             {
                 OnConnect(this);
+            }
+        }
+
+        public delegate void OnUserModeHandler(Client client, string modes);
+        public event OnUserModeHandler OnUserMode;
+
+        internal void TriggerOnUserMode(string modes)
+        {
+            if (OnUserMode != null)
+            {
+                OnUserMode(this, modes);
             }
         }
 

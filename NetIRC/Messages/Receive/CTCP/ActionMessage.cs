@@ -33,7 +33,7 @@ namespace NetIRC.Messages.Receive.CTCP
             action = action.Substring(0, action.Length - 1);
 
             Channel channel = ReceivePrivMessage.GetChannel(message);
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
 
             channel.TriggerOnAction(user, action);
         }

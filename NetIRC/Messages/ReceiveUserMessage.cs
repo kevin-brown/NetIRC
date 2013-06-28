@@ -26,7 +26,7 @@ namespace NetIRC.Messages
             return true;
         }
 
-        public User GetUser(string message)
+        public static User GetUser(string message)
         {
             string[] parts = message.Split(' ');
             string userMask = parts[0].Substring(1);
