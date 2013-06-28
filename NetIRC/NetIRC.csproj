@@ -72,6 +72,7 @@
     <Compile Include="Messages\Receive\TopicMessage.cs" />
     <Compile Include="Messages\SendMessage.cs" />
     <Compile Include="Messages\Send\AwayMessage.cs" />
+    <Compile Include="Messages\Send\ChannelModeMessage.cs" />
     <Compile Include="Messages\Send\ChatMessage.cs" />
     <Compile Include="Messages\Send\CTCP\ActionMessage.cs" />
     <Compile Include="Messages\Send\CTCP\VersionMessage.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Messages\Send\QuitMessage.cs" />
     <Compile Include="Messages\Send\TopicMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />
+    <Compile Include="Messages\Send\UserModeMessage.cs" />
     <Compile Include="Messages\Send\WhoMessage.cs" />
     <Compile Include="Output\ConsoleWriter.cs" />
     <Compile Include="Output\IrcWriter.cs" />

@@ -22,6 +22,8 @@ namespace NetIRC.Messages.Receive
 
             string modes = parts[3];
 
+            ParseModes(client.User, modes);
+
             client.TriggerOnUserMode(modes);
         }
 
