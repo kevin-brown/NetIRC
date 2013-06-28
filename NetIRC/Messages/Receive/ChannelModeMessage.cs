@@ -22,36 +22,20 @@ namespace NetIRC.Messages.Receive
 
             User setter = ReceiveUserMessage.GetUser(message);
             Channel channel = client.Channels[parts[2].Remove(0, 1)];
-            
+
             string modes = parts[3];
 
-            //check if it's a chanusermode or just a chanmode based on the flag and # of parameters
-            if (parts.Length > 4)
-            {
-                User target = UserFactory.FromNick(parts[4]);
+            ParseModes(channel, modes, parts.Skip(4).ToArray());
 
-                if (channel.Users.ContainsValue(target))
-                {
-                    channel.TriggerOnUserMode(setter, target, modes);
-                }
-
-                else
-                {
-                    channel.TriggerOnMode(setter, modes, parts.Skip(4).ToArray());
-                }
-            }
-
-            else
-            {
-                ParseModes(channel, modes);
-
-                channel.TriggerOnMode(setter, modes, null);
-            }
+            channel.TriggerOnMode(setter, modes, parts.Skip(4).ToArray());
         }
 
-        public void ParseModes(Channel target, string modes)
+        public void ParseModes(Channel target, string modes, string[] parameters)
         {
             bool addMode = true;
+            int paramIndex = 0;
+            User userTarget = null;
+            string mask = null;
             for (int i = 0; i < modes.Length; i++)
             {
                 switch (modes[i])
@@ -95,6 +79,89 @@ namespace NetIRC.Messages.Receive
                             target.IsTopicLocked = true;
                         else
                             target.IsTopicLocked = false;
+                        break;
+                    case 'v':
+                        if (paramIndex < parameters.Length)
+                        {
+                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            if (target.Users.ContainsValue(userTarget))
+                                if (addMode && userTarget.Rank[target.Name] < UserRank.Voice)
+                                    userTarget.Rank[target.Name] = UserRank.Voice;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'h':
+                        if (paramIndex < parameters.Length)
+                        {
+                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            if (target.Users.ContainsValue(userTarget))
+                                if (addMode && userTarget.Rank[target.Name] < UserRank.HalfOp)
+                                    userTarget.Rank[target.Name] = UserRank.HalfOp;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'o':
+                        if (paramIndex < parameters.Length)
+                        {
+                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            if (target.Users.ContainsValue(userTarget))
+                                if (addMode && userTarget.Rank[target.Name] < UserRank.Op)
+                                    userTarget.Rank[target.Name] = UserRank.Op;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'a':
+                        if (paramIndex < parameters.Length)
+                        {
+                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            if (target.Users.ContainsValue(userTarget))
+                                if (addMode && userTarget.Rank[target.Name] < UserRank.Admin)
+                                    userTarget.Rank[target.Name] = UserRank.Admin;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'q':
+                        if (paramIndex < parameters.Length)
+                        {
+                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            if (target.Users.ContainsValue(userTarget))
+                                if (addMode && userTarget.Rank[target.Name] < UserRank.Owner)
+                                    userTarget.Rank[target.Name] = UserRank.Owner;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'b':
+                        if (paramIndex < parameters.Length)
+                        {
+                            mask = parameters[paramIndex];
+                            if (addMode)
+                                target.BanList.Add(mask);
+                            else if (target.BanList.Contains(mask))
+                                target.BanList.Remove(mask);
+                            paramIndex++;
+                        }
+                        break;
+                    case 'e':
+                        if (paramIndex < parameters.Length)
+                        {
+                            mask = parameters[paramIndex];
+                            if (addMode)
+                                target.ExceptList.Add(mask);
+                            else if (target.ExceptList.Contains(mask))
+                                target.ExceptList.Remove(mask);
+                            paramIndex++;
+                        }
+                        break;
+                    case 'I':
+                        if (paramIndex < parameters.Length)
+                        {
+                            mask = parameters[paramIndex];
+                            if (addMode)
+                                target.InviteList.Add(mask);
+                            else if (target.InviteList.Contains(mask))
+                                target.InviteList.Remove(mask);
+                            paramIndex++;
+                        }
                         break;
                     default:
                         break;

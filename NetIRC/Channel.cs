@@ -97,6 +97,24 @@ namespace NetIRC
             internal set;
         }
 
+        public List<string> BanList
+        {
+            get;
+            internal set;
+        }
+
+        public List<string> ExceptList
+        {
+            get;
+            internal set;
+        }
+
+        public List<string> InviteList
+        {
+            get;
+            internal set;
+        }
+
         public Channel(string name)
         {
             this.Name = name;
@@ -110,12 +128,20 @@ namespace NetIRC
                     break;
                 }
             }
+
+            this.BanList = new List<string>();
+            this.ExceptList = new List<string>();
+            this.InviteList = new List<string>();
         }
 
         public Channel(string name, ChannelType type)
         {
             this.Name = name;
             this.Type = type;
+
+            this.BanList = new List<string>();
+            this.ExceptList = new List<string>();
+            this.InviteList = new List<string>();
         }
 
         internal void AddUser(User user)
@@ -318,17 +344,6 @@ namespace NetIRC
             if (OnMode != null)
             {
                 OnMode(this, setter, modes, parameters);
-            }
-        }
-
-        public delegate void OnUserModeHandler(Channel source, User setter, User target, string modes);
-        public event OnUserModeHandler OnUserMode;
-
-        internal void TriggerOnUserMode(User setter, User target, string modes)
-        {
-            if (OnUserMode != null)
-            {
-                OnUserMode(this, setter, target, modes);
             }
         }
     }
