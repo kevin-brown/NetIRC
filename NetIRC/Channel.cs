@@ -31,6 +31,72 @@ namespace NetIRC
                 {ChannelType.Unmoderated, '+'},
             };
 
+        public bool IsAnonymous
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsInviteOnly
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsModerated
+        {
+            get;
+            internal set;
+        }
+
+        public bool NoOutsideMessages
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsQuiet
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsPrivate
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsSecret
+        {
+            get;
+            internal set;
+        }
+
+        public bool ServerReop
+        {
+            get;
+            internal set;
+        }
+
+        public bool IsTopicLocked
+        {
+            get;
+            internal set;
+        }
+
+        public string Key
+        {
+            get;
+            internal set;
+        }
+
+        public int UserLimit
+        {
+            get;
+            internal set;
+        }
+
         public Channel(string name)
         {
             this.Name = name;
@@ -241,6 +307,28 @@ namespace NetIRC
             if (OnTopicChange != null)
             {
                 OnTopicChange(this, topic);
+            }
+        }
+
+        public delegate void OnModeHandler(Channel source, User setter, string modes, string[] parameters);
+        public event OnModeHandler OnMode;
+
+        internal void TriggerOnMode(User setter, string modes, string[] parameters)
+        {
+            if (OnMode != null)
+            {
+                OnMode(this, setter, modes, parameters);
+            }
+        }
+
+        public delegate void OnUserModeHandler(Channel source, User setter, User target, string modes);
+        public event OnUserModeHandler OnUserMode;
+
+        internal void TriggerOnUserMode(User setter, User target, string modes)
+        {
+            if (OnUserMode != null)
+            {
+                OnUserMode(this, setter, target, modes);
             }
         }
     }

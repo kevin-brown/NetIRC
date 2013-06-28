@@ -36,7 +36,7 @@ namespace NetIRC.Messages.Receive.CTCP
         {
             string[] parts = message.Split(' ');
 
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
 
             client.User.TriggerOnVersion(user);
         }

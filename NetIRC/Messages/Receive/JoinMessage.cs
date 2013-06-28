@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Receive
             string[] parts = message.Split(' ');
             Channel channel = ChannelFactory.FromName(parts[2].ToLower().Substring(2));
 
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
 
             if (user == client.User)
             {

@@ -30,7 +30,7 @@ namespace NetIRC.Messages.Receive
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = this.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(message);
 
             Channel channel = ReceivePrivMessage.GetChannel(message);
 
