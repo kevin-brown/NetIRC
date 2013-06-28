@@ -24,14 +24,14 @@ namespace NetIRC.Messages.Send
 
         public void Send(System.IO.StreamWriter writer)
         {
-            if (string.IsNullOrEmpty(modes))
+            if (string.IsNullOrEmpty(this.modes))
             {
-                writer.WriteLine("MODE {0}", user.NickName);
+                writer.WriteLine("MODE {0}", this.user.NickName);
             }
 
             else
             {
-                writer.WriteLine("MODE {0} {1}", user.NickName, modes);
+                writer.WriteLine("MODE {0} {1}", this.user.NickName, this.modes);
             }
         }
     }
