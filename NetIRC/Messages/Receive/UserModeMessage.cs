@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive
             string[] parts = message.Split(' ');
 
             return ReceiveUserMessage.CheckCommand(message, "MODE") &&
-                parts[2].StartsWith("#") == false; //it's not a channel
+                Channel.TypeChars.Values.Contains(parts[2][0]) == false; //it's not a channel
         }
 
         public override void ProcessMessage(string message, Client client)
@@ -40,33 +40,39 @@ namespace NetIRC.Messages.Receive
                         break;
                     case 'a':
                         if (addMode)
-                            user.Away = true;
+                            user.IsAway = true;
                         else
-                            user.Away = false;
+                            user.IsAway = false;
                         break;
                     case 'i':
                         if (addMode)
-                            user.Invisible = true;
+                            user.IsInvisible = true;
                         else
-                            user.Invisible = false;
+                            user.IsInvisible = false;
+                        break;
+                    case 's':
+                        if (addMode)
+                            user.IsReceivingServerNotices = true;
+                        else
+                            user.IsReceivingServerNotices = false;
                         break;
                     case 'w':
                         if (addMode)
-                            user.WallOps = true;
+                            user.IsReceivingWallOps = true;
                         else
-                            user.WallOps = false;
+                            user.IsReceivingWallOps = false;
                         break;
                     case 'r':
                         if (addMode)
-                            user.Restricted = true;
+                            user.IsRestricted = true;
                         else
-                            user.Restricted = false;
+                            user.IsRestricted = false;
                         break;
                     case 'o':
                         if (addMode)
-                            user.Operator = true;
+                            user.IsOperator = true;
                         else
-                            user.Operator = false;
+                            user.IsOperator = false;
                         break;
                     default:
                         break;

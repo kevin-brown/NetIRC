@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive
             string[] parts = message.Split(' ');
 
             return ReceiveUserMessage.CheckCommand(message, "MODE") &&
-                parts[2].StartsWith("#") == true; //it is a channel
+                Channel.TypeChars.Values.Contains(parts[2][0]) == true; //it is a channel
         }
 
         public override void ProcessMessage(string message, Client client)
@@ -62,15 +62,15 @@ namespace NetIRC.Messages.Receive
                         break;
                     case 'i':
                         if (addMode)
-                            target.InviteOnly = true;
+                            target.IsInviteOnly = true;
                         else
-                            target.InviteOnly = false;
+                            target.IsInviteOnly = false;
                         break;
                     case 'm':
                         if (addMode)
-                            target.Moderated = true;
+                            target.IsModerated = true;
                         else
-                            target.Moderated = false;
+                            target.IsModerated = false;
                         break;
                     case 'n':
                         if (addMode)
@@ -80,21 +80,21 @@ namespace NetIRC.Messages.Receive
                         break;
                     case 'p':
                         if (addMode)
-                            target.Private = true;
+                            target.IsPrivate = true;
                         else
-                            target.Private = false;
+                            target.IsPrivate = false;
                         break;
                     case 's':
                         if (addMode)
-                            target.Secret = true;
+                            target.IsSecret = true;
                         else
-                            target.Secret = false;
+                            target.IsSecret = false;
                         break;
                     case 't':
                         if (addMode)
-                            target.TopicLock = true;
+                            target.IsTopicLocked = true;
                         else
-                            target.TopicLock = false;
+                            target.IsTopicLocked = false;
                         break;
                     default:
                         break;

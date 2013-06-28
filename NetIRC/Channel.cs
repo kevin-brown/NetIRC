@@ -31,19 +31,19 @@ namespace NetIRC
                 {ChannelType.Unmoderated, '+'},
             };
 
-        public bool Anonymous
+        public bool IsAnonymous
         {
             get;
             internal set;
         }
 
-        public bool InviteOnly
+        public bool IsInviteOnly
         {
             get;
             internal set;
         }
 
-        public bool Moderated
+        public bool IsModerated
         {
             get;
             internal set;
@@ -55,19 +55,19 @@ namespace NetIRC
             internal set;
         }
 
-        public bool Quiet
+        public bool IsQuiet
         {
             get;
             internal set;
         }
 
-        public bool Private
+        public bool IsPrivate
         {
             get;
             internal set;
         }
 
-        public bool Secret
+        public bool IsSecret
         {
             get;
             internal set;
@@ -79,7 +79,7 @@ namespace NetIRC
             internal set;
         }
 
-        public bool TopicLock
+        public bool IsTopicLocked
         {
             get;
             internal set;

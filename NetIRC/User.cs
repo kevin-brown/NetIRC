@@ -77,25 +77,25 @@ namespace NetIRC
             internal set;
         }
 
-        public bool Away
+        public bool IsAway
         {
             get;
             internal set;
         }
 
-        public bool Invisible
+        public bool IsInvisible
         {
             get;
             internal set;
         }
 
-        public bool WallOps
+        public bool IsReceivingWallOps
         {
             get;
             internal set;
         }
 
-        public bool Restricted
+        public bool IsRestricted
         {
             get;
             internal set;
@@ -104,13 +104,13 @@ namespace NetIRC
         /// <summary>
         /// Whether or not the user is an IRC operator.
         /// </summary>
-        public bool Operator
+        public bool IsOperator
         {
             get;
             internal set;
         }
 
-        public bool ServerNotices
+        public bool IsReceivingServerNotices
         {
             get;
             internal set;
