@@ -31,84 +31,126 @@ namespace NetIRC
                 {ChannelType.Unmoderated, '+'},
             };
 
+        /// <summary>
+        /// The channel is anonymous and all messages sent by users have an anonymous mask.
+        /// </summary>
         public bool IsAnonymous
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel will only allow users in by invite.
+        /// </summary>
         public bool IsInviteOnly
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel will only allow users with a rank of voice or above to speak.
+        /// </summary>
         public bool IsModerated
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel will prevent anyone who is not in the channel from sending messages.
+        /// </summary>
         public bool NoOutsideMessages
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel will not send information about user joins, parts or nick changes.
+        /// </summary>
         public bool IsQuiet
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel is omitted from queries like WHOIS.
+        /// </summary>
         public bool IsPrivate
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel is omitted from queries like TOPIC, LIST, and NAMES.
+        /// </summary>
         public bool IsSecret
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel will reop some or all of its inhabitants after it has lost its channel operators for longer than the reop delay.
+        /// </summary>
         public bool ServerReop
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The channel restricts the TOPIC command to operators.
+        /// </summary>
         public bool IsTopicLocked
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The key that is required to join the channel.
+        /// </summary>
         public string Key
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The limit on the amount of users that can join the channel.
+        /// </summary>
         public int UserLimit
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// A list of masks that cannot be allowed in the channel.
+        /// </summary>
         public List<string> BanList
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// A list of masks that are allowed in the channel, even if they match the masks in the BanList.
+        /// </summary>
         public List<string> ExceptList
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// A list of masks that are allowed in the channel, even if the channel is invite-only.
+        /// </summary>
         public List<string> InviteList
         {
             get;

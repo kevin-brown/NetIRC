@@ -77,24 +77,36 @@ namespace NetIRC
             internal set;
         }
 
+        /// <summary>
+        /// The user is away.
+        /// </summary>
         public bool IsAway
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The user is marked as invisible.
+        /// </summary>
         public bool IsInvisible
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The user is receiving WallOps.
+        /// </summary>
         public bool IsReceivingWallOps
         {
             get;
             internal set;
         }
 
+        /// <summary>
+        /// The user is restricted.
+        /// </summary>
         public bool IsRestricted
         {
             get;
@@ -110,6 +122,9 @@ namespace NetIRC
             internal set;
         }
 
+        /// <summary>
+        /// The user can receive server notices. (Obsolete in RFC2812)
+        /// </summary>
         public bool IsReceivingServerNotices
         {
             get;
