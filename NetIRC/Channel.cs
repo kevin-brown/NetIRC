@@ -133,29 +133,17 @@ namespace NetIRC
         /// <summary>
         /// A list of masks that cannot be allowed in the channel.
         /// </summary>
-        public List<string> BanList
-        {
-            get;
-            internal set;
-        }
+        public readonly List<string> BanList = new List<string>();
 
         /// <summary>
         /// A list of masks that are allowed in the channel, even if they match the masks in the BanList.
         /// </summary>
-        public List<string> ExceptList
-        {
-            get;
-            internal set;
-        }
+        public readonly List<string> ExceptList = new List<string>();
 
         /// <summary>
         /// A list of masks that are allowed in the channel, even if the channel is invite-only.
         /// </summary>
-        public List<string> InviteList
-        {
-            get;
-            internal set;
-        }
+        public readonly List<string> InviteList = new List<string>();
 
         public Channel(string name)
         {
@@ -170,20 +158,12 @@ namespace NetIRC
                     break;
                 }
             }
-
-            this.BanList = new List<string>();
-            this.ExceptList = new List<string>();
-            this.InviteList = new List<string>();
         }
 
         public Channel(string name, ChannelType type)
         {
             this.Name = name;
             this.Type = type;
-
-            this.BanList = new List<string>();
-            this.ExceptList = new List<string>();
-            this.InviteList = new List<string>();
         }
 
         internal void AddUser(User user)
