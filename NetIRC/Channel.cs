@@ -122,7 +122,7 @@ namespace NetIRC
         }
 
         /// <summary>
-        /// The limit on the amount of users that can join the channel.
+        /// The limit on the amount of users that can join the channel. A UserLimit of -1 means that a limit is not set.
         /// </summary>
         public int UserLimit
         {
@@ -149,6 +149,7 @@ namespace NetIRC
         {
             this.Name = name;
             this.Type = ChannelType.Network;
+            this.UserLimit = -1;
 
             foreach (var pair in Channel.TypeChars)
             {
@@ -164,6 +165,7 @@ namespace NetIRC
         {
             this.Name = name;
             this.Type = type;
+            this.UserLimit = -1;
         }
 
         internal void AddUser(User user)

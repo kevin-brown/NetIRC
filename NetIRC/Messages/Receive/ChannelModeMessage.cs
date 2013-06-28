@@ -35,7 +35,7 @@ namespace NetIRC.Messages.Receive
             bool addMode = true;
             int paramIndex = 0;
             User userTarget = null;
-            string mask = null;
+            string param = null;
             for (int i = 0; i < modes.Length; i++)
             {
                 switch (modes[i])
@@ -133,34 +133,60 @@ namespace NetIRC.Messages.Receive
                     case 'b':
                         if (paramIndex < parameters.Length)
                         {
-                            mask = parameters[paramIndex];
+                            param = parameters[paramIndex];
                             if (addMode)
-                                target.BanList.Add(mask);
-                            else if (target.BanList.Contains(mask))
-                                target.BanList.Remove(mask);
+                                target.BanList.Add(param);
+                            else if (target.BanList.Contains(param))
+                                target.BanList.Remove(param);
                             paramIndex++;
                         }
                         break;
                     case 'e':
                         if (paramIndex < parameters.Length)
                         {
-                            mask = parameters[paramIndex];
+                            param = parameters[paramIndex];
                             if (addMode)
-                                target.ExceptList.Add(mask);
-                            else if (target.ExceptList.Contains(mask))
-                                target.ExceptList.Remove(mask);
+                                target.ExceptList.Add(param);
+                            else if (target.ExceptList.Contains(param))
+                                target.ExceptList.Remove(param);
                             paramIndex++;
                         }
                         break;
                     case 'I':
                         if (paramIndex < parameters.Length)
                         {
-                            mask = parameters[paramIndex];
+                            param = parameters[paramIndex];
                             if (addMode)
-                                target.InviteList.Add(mask);
-                            else if (target.InviteList.Contains(mask))
-                                target.InviteList.Remove(mask);
+                                target.InviteList.Add(param);
+                            else if (target.InviteList.Contains(param))
+                                target.InviteList.Remove(param);
                             paramIndex++;
+                        }
+                        break;
+                    case 'k':
+                        if (paramIndex < parameters.Length) //MODE +spk test, MODE +skp test, MODE -k
+                        {
+                            param = parameters[paramIndex];
+                            if (addMode)
+                                target.Key = param;
+                            else if (param == target.Key)
+                                target.Key = null;
+                            paramIndex++;
+                        }
+                        break;
+                    case 'l':
+                        if (paramIndex < parameters.Length && addMode)
+                        {
+                            param = parameters[paramIndex];
+                            int limit;
+                            if (Int32.TryParse(param, out limit))
+                                target.UserLimit = limit;
+                            paramIndex++;
+                        }
+
+                        else if (addMode == false)
+                        {
+                            target.UserLimit = -1;
                         }
                         break;
                     default:
