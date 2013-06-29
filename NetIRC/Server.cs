@@ -22,6 +22,11 @@ namespace NetIRC
             this.Port = port;
         }
 
+        public Messages.Send.MotdMessage Motd()
+        {
+            return new Messages.Send.MotdMessage();
+        }
+
         public delegate void OnWelcomeHandler(Server server, string message);
         public event OnWelcomeHandler OnWelcome;
 
