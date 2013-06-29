@@ -188,6 +188,11 @@ namespace NetIRC
             return new Messages.Send.TopicMessage(this);
         }
 
+        public Messages.Send.InviteMessage Invite(User user)
+        {
+            return new Messages.Send.InviteMessage(this, user);
+        }
+
         public Messages.Send.JoinMessage Join()
         {
             return new Messages.Send.JoinMessage(this);

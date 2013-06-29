@@ -191,6 +191,11 @@ namespace NetIRC
             this.UserName = user;
         }
 
+        public Messages.Send.InviteMessage Invite(Channel channel)
+        {
+            return channel.Invite(this);
+        }
+
         public delegate void OnHostNameChangeHandler(User user, string original);
         public event OnHostNameChangeHandler OnHostNameChange;
 
