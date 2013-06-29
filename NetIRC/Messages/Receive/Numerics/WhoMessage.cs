@@ -58,6 +58,7 @@ namespace NetIRC.Messages.Receive.Numerics
             oldUser.RealName = realName;
 
             client.Server.TriggerOnWho(string.Join(" ", parts.Skip(3)));
+            channel.TriggerOnWho(string.Join(" ", parts.Skip(3)));
         }
     }
 }

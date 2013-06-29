@@ -375,5 +375,16 @@ namespace NetIRC
                 OnMode(this, setter, modes, parameters);
             }
         }
+
+        public delegate void OnWhoHandler(Channel source, string message);
+        public event OnWhoHandler OnWho;
+
+        internal void TriggerOnWho(string message)
+        {
+            if (OnWho != null)
+            {
+                OnWho(this, message);
+            }
+        }
     }
 }
