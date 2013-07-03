@@ -177,6 +177,8 @@ namespace NetIRC
 
             user.Channels.Add(this);
 
+            this.TriggerOnUserAdded(user);
+
             if (!user.Rank.ContainsKey(this.Name))
             {
                 user.Rank.Add(this.Name, UserRank.None);
@@ -384,6 +386,17 @@ namespace NetIRC
             if (OnWho != null)
             {
                 OnWho(this, message);
+            }
+        }
+
+        public delegate void OnUserAddedHandler(Channel source, User user);
+        public event OnUserAddedHandler OnUserAdded;
+
+        internal void TriggerOnUserAdded(User user)
+        {
+            if (OnUserAdded != null)
+            {
+                OnUserAdded(this, user);
             }
         }
     }
