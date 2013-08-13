@@ -97,6 +97,7 @@ namespace NetIRC
             this.Writer = new StreamWriter(this.Stream) { NewLine = "\r\n", AutoFlush = true };
 
             this.ReadThread = new Thread(ReadStream);
+            this.ReadThread.IsBackground = true;
             this.ReadThread.Start();
 
             this.Send(new Messages.Send.UserMessage(this.User));
