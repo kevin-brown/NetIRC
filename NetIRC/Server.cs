@@ -4,12 +4,18 @@ namespace NetIRC
 {
     public class Server
     {
+        /// <summary>
+        /// The hostname of the server.
+        /// </summary>
         public string HostName
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// The port of the server.
+        /// </summary>
         public int Port
         {
             get;
