@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIRC", "NetIRC\NetIRC.csproj", "{4AEE2D87-D356-4CA1-BA02-7536B1AF2B8C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetIRC.Tests", "NetIRC.Tests\NetIRC.Tests.csproj", "{8C97D4A8-3DF5-4507-9634-76CF265993C7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{4AEE2D87-D356-4CA1-BA02-7536B1AF2B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AEE2D87-D356-4CA1-BA02-7536B1AF2B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AEE2D87-D356-4CA1-BA02-7536B1AF2B8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C97D4A8-3DF5-4507-9634-76CF265993C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C97D4A8-3DF5-4507-9634-76CF265993C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C97D4A8-3DF5-4507-9634-76CF265993C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C97D4A8-3DF5-4507-9634-76CF265993C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
