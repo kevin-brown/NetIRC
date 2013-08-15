@@ -4,9 +4,9 @@ namespace NetIRC.Messages
 {
     abstract class ReceiveNumericMessage : ReceiveMessage
     {
-        public static bool CheckNumeric(string message, Server server, int numeric)
+        public static bool CheckNumeric(string message, Client client, int numeric)
         {
-            if (message.ToLower().StartsWith(":" + server.HostName))
+            if (message.ToLower().StartsWith(":" + client.HostName))
             {
                 string[] parts = message.Split(' ');
                 int messageNumeric = 0;

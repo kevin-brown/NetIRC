@@ -39,7 +39,19 @@ namespace NetIRC
             set;
         }
 
-        public Server Server
+        /// <summary>
+        /// The hostname of the server.
+        /// </summary>
+        public string HostName
+        {
+            get;
+            private set;
+        }
+
+        /// <summary>
+        /// The port of the server.
+        /// </summary>
+        public int Port
         {
             get;
             private set;
@@ -90,7 +102,9 @@ namespace NetIRC
             this.TcpClient = new TcpClient();
             this.TcpClient.Connect(server, port);
 
-            this.Server = new Server(server, port);
+            this.HostName = server;
+            this.Port = port;
+
             this.Stream = this.TcpClient.GetStream();
 
             this.Reader = new StreamReader(this.Stream);
@@ -188,7 +202,7 @@ namespace NetIRC
                 foreach (Type messageType in this.RegisteredMessages)
                 {
                     MethodInfo checkMessage = messageType.GetMethod("CheckMessage");
-                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] {line, this.Server});
+                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] {line, this});
 
                     if (shouldProcess)
                     {
@@ -322,6 +336,28 @@ namespace NetIRC
             if (OnUserMode != null)
             {
                 OnUserMode(this, modes);
+            }
+        }
+
+        public delegate void OnWelcomeHandler(Client client, string message);
+        public event OnWelcomeHandler OnWelcome;
+
+        internal void TriggerOnWelcome(string message)
+        {
+            if (OnWelcome != null)
+            {
+                OnWelcome(this, message);
+            }
+        }
+
+        public delegate void OnWhoHandler(Client client, string message);
+        public event OnWelcomeHandler OnWho;
+
+        internal void TriggerOnWho(string message)
+        {
+            if (OnWho != null)
+            {
+                OnWho(this, message);
             }
         }
 

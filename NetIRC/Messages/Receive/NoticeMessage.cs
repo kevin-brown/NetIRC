@@ -8,7 +8,7 @@ namespace NetIRC.Messages.Receive
 {
     class NoticeMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             if (!ReceiveUserMessage.CheckCommand(message, "NOTICE"))
             {

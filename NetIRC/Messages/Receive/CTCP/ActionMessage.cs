@@ -5,7 +5,7 @@ namespace NetIRC.Messages.Receive.CTCP
 {
     class ActionMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
             {

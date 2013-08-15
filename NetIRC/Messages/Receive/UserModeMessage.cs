@@ -8,7 +8,7 @@ namespace NetIRC.Messages.Receive
 {
     class UserModeMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             string[] parts = message.Split(' ');
 

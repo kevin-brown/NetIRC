@@ -4,7 +4,7 @@ namespace NetIRC.Messages.Receive
 {
     class NickMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             return ReceiveUserMessage.CheckCommand(message, "NICK");
         }

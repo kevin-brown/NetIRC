@@ -8,7 +8,7 @@ namespace NetIRC.Messages.Receive
 {
     class ChatMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             return ReceiveUserMessage.CheckCommand(message, "PRIVMSG") &&
                 (ReceivePrivMessage.GetChannel(message) != null) &&

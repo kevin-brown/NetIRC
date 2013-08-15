@@ -4,7 +4,7 @@ namespace NetIRC.Messages.Receive
 {
     class PingMessage : ReceiveMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             if (message.StartsWith("PING"))
             {

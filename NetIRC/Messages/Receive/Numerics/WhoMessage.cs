@@ -5,9 +5,9 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class WhoMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, server, 352);
+            return ReceiveNumericMessage.CheckNumeric(message, client, 352);
         }
 
         public override void ProcessMessage(string message, Client client)
@@ -57,7 +57,7 @@ namespace NetIRC.Messages.Receive.Numerics
             realName = realName.Trim();
             oldUser.RealName = realName;
 
-            client.Server.TriggerOnWho(string.Join(" ", parts.Skip(3)));
+            client.TriggerOnWho(string.Join(" ", parts.Skip(3)));
             channel.TriggerOnWho(string.Join(" ", parts.Skip(3)));
         }
     }

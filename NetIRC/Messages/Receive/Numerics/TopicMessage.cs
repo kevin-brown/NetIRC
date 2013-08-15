@@ -8,9 +8,9 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class TopicMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, server, 332);
+            return ReceiveNumericMessage.CheckNumeric(message, client, 332);
         }
 
         public override void ProcessMessage(string message, Client client)

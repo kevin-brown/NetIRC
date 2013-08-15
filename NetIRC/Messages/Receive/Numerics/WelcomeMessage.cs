@@ -5,9 +5,9 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class WelcomeMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, server, 001);
+            return ReceiveNumericMessage.CheckNumeric(message, client, 001);
         }
 
         public override void ProcessMessage(string message, Client client)
@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Receive.Numerics
             string[] parts = message.Split(' ');
             string welcome = string.Join(" ", parts.Skip(3));
 
-            client.Server.TriggerOnWelcome(welcome);
+            client.TriggerOnWelcome(welcome);
         }
     }
 }

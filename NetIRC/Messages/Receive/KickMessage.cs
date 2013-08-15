@@ -5,7 +5,7 @@ namespace NetIRC.Messages.Receive
 {
     class KickMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(string message, Client client)
         {
             return ReceiveUserMessage.CheckCommand(message, "KICK");
         }

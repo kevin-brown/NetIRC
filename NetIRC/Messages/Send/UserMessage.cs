@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Send
             writer.WriteLine("USER " + this.User.UserName + " 8 - :" + this.User.RealName);
         }
 
-        public bool CheckMessage(string message, Server server)
+        public bool CheckMessage(string message, Client client)
         {
             throw new NotImplementedException();
         }
