@@ -21,7 +21,7 @@ namespace NetIRC.Messages.Send
 
         public void Send(System.IO.StreamWriter writer)
         {
-            writer.WriteLine("PRIVMSG {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
+            writer.WriteLine("PRIVMSG {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
             this.channel.TriggerOnSendMessage(this.message);
         }
     }

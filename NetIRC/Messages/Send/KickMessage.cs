@@ -29,7 +29,7 @@ namespace NetIRC.Messages.Send
             }
             else
             {
-                writer.WriteLine("KICK {0}{1} {2} {3}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.user.NickName, this.message);
+                writer.WriteLine("KICK {0}{1} {2} :{3}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.user.NickName, this.message);
             }
         }
     }

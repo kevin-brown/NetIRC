@@ -37,7 +37,7 @@ namespace NetIRC.Messages.Send
             }
             else
             {
-                writer.WriteLine("PART {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
+                writer.WriteLine("PART {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
             }
         }
     }

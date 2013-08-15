@@ -41,7 +41,7 @@ namespace NetIRC.Messages.Send
             }
             else
             {
-                writer.WriteLine(string.Format("TOPIC {0}{1} {2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.topic));
+                writer.WriteLine(string.Format("TOPIC {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.topic));
             }
         }
     }

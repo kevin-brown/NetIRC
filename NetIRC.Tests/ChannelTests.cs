@@ -164,11 +164,23 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.PartMessage part = channel.Part("message");
+            Messages.Send.ChatMessage message = channel.SendMessage("message");
 
-            string output = TestHelpers.GetSendMessageOutput(part);
+            string output = TestHelpers.GetSendMessageOutput(message);
 
             Assert.AreEqual("PRIVMSG #channel :message", output);
+        }
+
+        [TestMethod]
+        public void SetTopicTest()
+        {
+            Channel channel = new Channel("#channel");
+
+            Messages.Send.TopicMessage topic = channel.SetTopic("test topic");
+
+            string output = TestHelpers.GetSendMessageOutput(topic);
+
+            Assert.AreEqual("TOPIC #channel :test topic", output);
         }
     }
 }
