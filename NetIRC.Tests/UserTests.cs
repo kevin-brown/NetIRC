@@ -45,8 +45,6 @@ namespace NetIRC.Tests
 
             Messages.Send.InviteMessage invite = user.Invite(channel);
 
-            Assert.IsInstanceOfType(invite, typeof(Messages.Send.InviteMessage));
-
             string output = TestHelpers.GetSendMessageOutput(invite);
 
             Assert.AreEqual("INVITE user #channel", output);

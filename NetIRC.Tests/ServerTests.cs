@@ -8,16 +8,6 @@ namespace NetIRC.Tests
     public class ServerTests
     {
         [TestMethod]
-        public void MotdTypeTest()
-        {
-            Server server = new Server("test.com", 1234);
-
-            Messages.Send.MotdMessage motd = server.Motd();
-
-            Assert.IsInstanceOfType(motd, typeof(Messages.Send.MotdMessage));
-        }
-
-        [TestMethod]
         public void InitSetsPropertiesTest()
         {
             Server server = new Server("test.com", 1234);
