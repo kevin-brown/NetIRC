@@ -155,6 +155,7 @@ namespace NetIRC
             {
                 if (pair.Value == name[0])
                 {
+                    this.Name = this.Name.Substring(1);
                     this.Type = pair.Key;
                     break;
                 }
