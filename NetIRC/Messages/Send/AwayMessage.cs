@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
@@ -11,7 +12,7 @@ namespace NetIRC.Messages.Send
             this.reason = reason;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
             writer.WriteLine("AWAY :" + this.reason);
         }

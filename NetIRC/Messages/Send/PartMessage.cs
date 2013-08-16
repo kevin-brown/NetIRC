@@ -1,43 +1,44 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
     public class PartMessage : SendMessage
     {
-        private Channel channel;
+        private string channelName;
         private string message;
 
-        public PartMessage(string channel)
+        public PartMessage(string channelName)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
         }
 
         public PartMessage(Channel channel)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
         }
 
-        public PartMessage(string channel, string message)
+        public PartMessage(string channelName, string message)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
             this.message = message;
         }
 
         public PartMessage(Channel channel, string message)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
             this.message = message;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
             if (this.message == null)
             {
-                writer.WriteLine("PART {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
+                writer.WriteLine("PART {0}", this.channelName);
             }
             else
             {
-                writer.WriteLine("PART {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
+                writer.WriteLine("PART {0} :{1}", this.channelName, this.message);
             }
         }
     }

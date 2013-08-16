@@ -5,21 +5,21 @@ namespace NetIRC.Messages.Send
 {
     public class NickMessage : SendMessage
     {
-        private User User;
+        private string nickName;
 
-        public NickMessage(string nick)
+        public NickMessage(string nickName)
         {
-            this.User = UserFactory.FromNick(nick);
+            this.nickName = nickName;
         }
 
         public NickMessage(User user)
         {
-            this.User = user;
+            this.nickName = user.NickName;
         }
 
         public void Send(StreamWriter writer)
         {
-            writer.WriteLine("NICK " + this.User.NickName);
+            writer.WriteLine("NICK " + this.nickName);
         }
     }
 }

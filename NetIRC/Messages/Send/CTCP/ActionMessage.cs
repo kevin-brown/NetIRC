@@ -1,28 +1,31 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send.CTCP
 {
     public class ActionMessage : SendMessage
     {
-        private Channel channel;
+        private string channelName;
         private string message;
 
-        public ActionMessage(string channel, string message)
+        public ActionMessage(string channelName, string message)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
             this.message = message;
         }
 
         public ActionMessage(Channel channel, string message)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
             this.message = message;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
-            writer.WriteLine("PRIVMSG #{0} \x001" + "ACTION {1}\x001", this.channel.Name, this.message);
-            this.channel.TriggerOnSendAction(this.message);
+            writer.WriteLine("PRIVMSG {0} \x001" + "ACTION {1}\x001", this.channelName, this.message);
+
+            // TODO: Move OnSend message
+            //this.channelName.TriggerOnSendAction(this.message);
         }
     }
 }

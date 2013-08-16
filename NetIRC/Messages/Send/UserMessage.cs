@@ -5,21 +5,25 @@ namespace NetIRC.Messages.Send
 {
     public class UserMessage : SendMessage
     {
-        private User User;
+        private string userName;
+        private string realName;
+
+        public UserMessage(string userName, string realName)
+        {
+            this.userName = userName;
+            this.realName = realName;
+        }
 
         public UserMessage(User user)
         {
-            this.User = user;
+            this.userName = user.UserName;
+            this.realName = user.RealName;
         }
 
         public void Send(StreamWriter writer)
         {
-            writer.WriteLine("USER " + this.User.UserName + " 8 - :" + this.User.RealName);
-        }
-
-        public bool CheckMessage(string message, Client client)
-        {
-            throw new NotImplementedException();
+            //TODO: allow mode to be set
+            writer.WriteLine("USER " + this.userName + " 0 - :" + this.realName);
         }
     }
 }

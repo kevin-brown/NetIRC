@@ -1,21 +1,40 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
     public class InviteMessage : SendMessage
     {
-        Channel channel;
-        User user;
+        string channelName;
+        string nickName;
 
         public InviteMessage(Channel channel, User user)
         {
-            this.channel = channel;
-            this.user = user;
+            this.channelName = channel.FullName;
+            this.nickName = user.NickName;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public InviteMessage(Channel channel, string nickName)
         {
-            writer.WriteLine("INVITE {0} {1}{2}", this.user.NickName, Channel.TypeChars[this.channel.Type], this.channel.Name);
+            this.channelName = channel.FullName;
+            this.nickName = nickName;
+        }
+
+        public InviteMessage(string channelName, User user)
+        {
+            this.channelName = channelName;
+            this.nickName = user.NickName;
+        }
+
+        public InviteMessage(string channelName, string nickName)
+        {
+            this.channelName = channelName;
+            this.nickName = nickName;
+        }
+
+        public void Send(StreamWriter writer)
+        {
+            writer.WriteLine("INVITE {0} {1}", this.nickName, this.channelName);
         }
     }
 }

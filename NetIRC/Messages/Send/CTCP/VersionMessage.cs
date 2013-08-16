@@ -1,19 +1,25 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send.CTCP
 {
     public class VersionMessage : SendMessage
     {
-        private User user;
+        private string nickName;
+
+        public VersionMessage(string nickName)
+        {
+            this.nickName = nickName;
+        }
 
         public VersionMessage(User user)
         {
-            this.user = user;
+            this.nickName = user.NickName;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
-            writer.WriteLine("PRIVMSG " + this.user.NickName + " \x001VERSION\x001");
+            writer.WriteLine("PRIVMSG " + this.nickName + " \x001VERSION\x001");
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,40 +9,40 @@ namespace NetIRC.Messages.Send
 {
     public class TopicMessage : SendMessage
     {
-        Channel channel;
+        string channelName;
         string topic;
 
-        public TopicMessage(string channel)
+        public TopicMessage(string channelName)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
         }
 
         public TopicMessage(Channel channel)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
         }
 
-        public TopicMessage(string channel, string topic)
+        public TopicMessage(string channelName, string topic)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
             this.topic = topic;
         }
 
         public TopicMessage(Channel channel, string topic)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
             this.topic = topic;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
             if (string.IsNullOrEmpty(this.topic))
             {
-                writer.WriteLine("TOPIC {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
+                writer.WriteLine("TOPIC {0}", this.channelName);
             }
             else
             {
-                writer.WriteLine(string.Format("TOPIC {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.topic));
+                writer.WriteLine("TOPIC {0} :{1}", this.channelName, this.topic);
             }
         }
     }

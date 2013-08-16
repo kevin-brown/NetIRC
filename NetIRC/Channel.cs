@@ -5,12 +5,24 @@ namespace NetIRC
 {
     public class Channel
     {
+
+        /// <summary>
+        /// Name of the channel without its prefix
+        /// </summary>
         public string Name
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Full name of the channel with it's prefix (usually '#')
+        /// </summary>
+        public string FullName
+        {
+            get { return Channel.TypeChars[Type] + this.Name; } 
+        }
+        
         public readonly ChannelTopic Topic = new ChannelTopic();
 
         public Dictionary<string, User> Users
@@ -250,7 +262,7 @@ namespace NetIRC
 
         internal Messages.SendMessage SendWho()
         {
-            return new Messages.Send.WhoMessage("#" + this.Name);
+            return new Messages.Send.WhoMessage(this.FullName);
         }
 
         public Messages.Send.TopicMessage SetTopic(string topic)

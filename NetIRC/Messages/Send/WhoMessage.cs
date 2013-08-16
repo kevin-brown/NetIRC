@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
@@ -13,10 +14,10 @@ namespace NetIRC.Messages.Send
 
         public WhoMessage(Channel channel)
         {
-            this.target = Channel.TypeChars[channel.Type] + channel.Name;
+            this.target = channel.FullName;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
             writer.WriteLine("WHO " + this.target);
         }

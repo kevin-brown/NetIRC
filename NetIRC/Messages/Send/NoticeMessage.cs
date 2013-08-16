@@ -1,29 +1,32 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace NetIRC.Messages.Send
 {
     public class NoticeMessage : SendMessage
     {
-        private Channel channel;
+        private string channelName;
         private string message;
 
-        public NoticeMessage(string channel, string message)
+        public NoticeMessage(string channelName, string message)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
             this.message = message;
         }
 
         public NoticeMessage(Channel channel, string message)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
             this.message = message;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
-            writer.WriteLine("NOTICE {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
-            this.channel.TriggerOnSendNotice(this.message);
+            writer.WriteLine("NOTICE {0} :{1}",this.channelName, this.message);
+
+            // TODO: Move OnSend message
+            //this.channel.TriggerOnSendNotice(this.message);
         }
     }
 }

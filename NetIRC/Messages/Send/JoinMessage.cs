@@ -1,24 +1,25 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
     public class JoinMessage : SendMessage
     {
-        private Channel channel;
+        private string channelName;
 
-        public JoinMessage(string channel)
+        public JoinMessage(string channelName)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
         }
 
         public JoinMessage(Channel channel)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
-            writer.WriteLine("JOIN {0}{1}", Channel.TypeChars[this.channel.Type], this.channel.Name);
+            writer.WriteLine("JOIN {0}", this.channelName);
         }
     }
 }

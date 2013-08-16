@@ -1,27 +1,28 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
     public class ChatMessage : SendMessage
     {
-        Channel channel;
+        string channelName;
         string message;
 
-        public ChatMessage(string channel, string message)
+        public ChatMessage(string channelName, string message)
         {
-            this.channel = ChannelFactory.FromName(channel);
+            this.channelName = channelName;
             this.message = message;
         }
 
         public ChatMessage(Channel channel, string message)
         {
-            this.channel = channel;
+            this.channelName = channel.FullName;
             this.message = message;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
-            writer.WriteLine("PRIVMSG {0}{1} :{2}", Channel.TypeChars[this.channel.Type], this.channel.Name, this.message);
+            writer.WriteLine("PRIVMSG {0} :{1}", channelName, this.message);
             this.channel.TriggerOnSendMessage(this.message);
         }
     }

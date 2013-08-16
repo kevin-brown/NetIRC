@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace NetIRC.Messages.Send
 {
@@ -8,7 +9,6 @@ namespace NetIRC.Messages.Send
 
         public QuitMessage()
         {
-
         }
 
         public QuitMessage(string message)
@@ -16,7 +16,7 @@ namespace NetIRC.Messages.Send
             this.message = message;
         }
 
-        public void Send(System.IO.StreamWriter writer)
+        public void Send(StreamWriter writer)
         {
             if (this.message == null)
             {
@@ -24,7 +24,7 @@ namespace NetIRC.Messages.Send
             }
             else
             {
-                writer.WriteLine("QUIT " + this.message);
+                writer.WriteLine("QUIT {0}", this.message);
             }
         }
     }
