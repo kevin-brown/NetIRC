@@ -37,7 +37,7 @@ namespace NetIRC
 
                 this._userName = value;
 
-                this.TriggerOnUserNameChange(this._userName);
+                this.TriggerOnUserNameChange(original);
             }
         }
 
