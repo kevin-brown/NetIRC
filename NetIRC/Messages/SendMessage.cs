@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages
 {
-    public interface SendMessage : Message
+    public interface SendMessage
     {
         void Send(StreamWriter writer);
     }
