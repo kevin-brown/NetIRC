@@ -39,12 +39,17 @@ namespace NetIRC.Messages.Receive.CTCP
         {
             string[] parts = message.Split(' ');
 
-            User user = ReceiveUserMessage.GetUser(client, message);
+            User target = client.UserFactory.FromNick(parts[2].Substring(1));
 
-            string version = String.Join(" ", parts.Skip(4).ToArray());
-            version = version.Substring(0, version.Length - 1);
+            if (target == client.User)
+            {
+                User user = ReceiveUserMessage.GetUser(client, message);
 
-            client.User.TriggerOnVersionReply(user, version);
+                string version = String.Join(" ", parts.Skip(4).ToArray());
+                version = version.Substring(0, version.Length - 1);
+
+                client.TriggerOnVersionReply(user, version);
+            }
         }
     }
 }

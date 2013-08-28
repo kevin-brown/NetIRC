@@ -58,6 +58,7 @@
     <Compile Include="Messages\Receive\CTCP\VersionReplyMessage.cs" />
     <Compile Include="Messages\Receive\JoinMessage.cs" />
     <Compile Include="Messages\Receive\KickMessage.cs" />
+    <Compile Include="Messages\Receive\PrivateMessage.cs" />
     <Compile Include="Messages\Receive\UserModeMessage.cs" />
     <Compile Include="Messages\Receive\NickMessage.cs" />
     <Compile Include="Messages\Receive\NoticeMessage.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="Messages\Send\NoticeMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
     <Compile Include="Messages\Send\PongMessage.cs" />
+    <Compile Include="Messages\Send\PrivateMessage.cs" />
     <Compile Include="Messages\Send\QuitMessage.cs" />
     <Compile Include="Messages\Send\TopicMessage.cs" />
     <Compile Include="Messages\Send\UserMessage.cs" />

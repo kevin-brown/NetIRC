@@ -375,6 +375,39 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnMessageHandler(Client client, User source, string message);
+        public event OnMessageHandler OnMessage;
+
+        public void TriggerOnMessage(User source, string message)
+        {
+            if (OnMessage != null)
+            {
+                OnMessage(this, source, message);
+            }
+        }
+
+        public delegate void OnVersionHandler(Client client, User source);
+        public event OnVersionHandler OnVersion;
+
+        internal void TriggerOnVersion(User source)
+        {
+            if (OnVersion != null)
+            {
+                OnVersion(this, source);
+            }
+        }
+
+        public delegate void OnVersionReplyHandler(Client client, User source, string version);
+        public event OnVersionReplyHandler OnVersionReply;
+
+        internal void TriggerOnVersionReply(User source, string version)
+        {
+            if (OnVersionReply != null)
+            {
+                OnVersionReply(this, source, version);
+            }
+        }
+
         #endregion
 
         public void UnregisterMessage(Type type)

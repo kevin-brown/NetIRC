@@ -255,27 +255,5 @@ namespace NetIRC
                 OnUserNameChange(this, original);
             }
         }
-
-        public delegate void OnVersionHandler(User target, User source);
-        public event OnVersionHandler OnVersion;
-
-        internal void TriggerOnVersion(User source)
-        {
-            if (OnVersion != null)
-            {
-                OnVersion(this, source);
-            }
-        }
-
-        public delegate void OnVersionReplyHandler(User target, User source, string version);
-        public event OnVersionReplyHandler OnVersionReply;
-
-        internal void TriggerOnVersionReply(User source, string version)
-        {
-            if (OnVersionReply != null)
-            {
-                OnVersionReply(this, source, version);
-            }
-        }
     }
 }
