@@ -150,7 +150,7 @@ namespace NetIRC
         /// <param name="name">The name of the channel.</param>
         public void JoinChannel(string name)
         {
-            this.JoinChannel(ChannelFactory.FromName(name));
+            this.JoinChannel(new Channel(name));
         }
 
         /// <summary>
@@ -169,7 +169,7 @@ namespace NetIRC
         /// <param name="name">The name of the channel.</param>
         public void LeaveChannel(string name)
         {
-            this.LeaveChannel(ChannelFactory.FromName(name));
+            this.LeaveChannel(new Channel(name));
         }
 
         /// <summary>
