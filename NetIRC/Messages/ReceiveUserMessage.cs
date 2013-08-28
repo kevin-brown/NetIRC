@@ -26,12 +26,12 @@ namespace NetIRC.Messages
             return true;
         }
 
-        public static User GetUser(string message)
+        public static User GetUser(Client client, string message)
         {
             string[] parts = message.Split(' ');
             string userMask = parts[0].Substring(1);
 
-            return UserFactory.FromUserMask(userMask);
+            return client.UserFactory.FromUserMask(userMask);
         }
 
         abstract public void ProcessMessage(string message, Client client);

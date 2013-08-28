@@ -5,6 +5,6 @@ namespace NetIRC.Messages
 {
     public interface SendMessage
     {
-        void Send(StreamWriter writer);
+        void Send(Client client, StreamWriter writer);
     }
 }

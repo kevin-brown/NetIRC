@@ -11,17 +11,17 @@ namespace NetIRC.Messages.Receive
         public static bool CheckMessage(string message, Client client)
         {
             return ReceiveUserMessage.CheckCommand(message, "PRIVMSG") &&
-                (ReceivePrivMessage.GetChannel(message) != null) &&
+                (ReceivePrivMessage.GetChannel(client, message) != null) &&
                 !ReceivePrivMessage.IsCTCP(message);
         }
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = ReceiveUserMessage.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(client, message);
 
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[2].Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[2].Substring(1));
 
             string line = String.Join(" ", parts.Skip(3).ToArray()).Substring(1);
 

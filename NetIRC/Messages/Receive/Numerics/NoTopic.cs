@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Receive.Numerics
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[3].Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[3].Substring(1));
 
             channel.Topic.ClearTopic();
         }

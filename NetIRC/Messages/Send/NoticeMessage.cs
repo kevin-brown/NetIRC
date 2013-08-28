@@ -21,11 +21,11 @@ namespace NetIRC.Messages.Send
             this.message = message;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("NOTICE {0} :{1}",this.channelName, this.message);
 
-            ChannelFactory.FromName(channelName).TriggerOnSendNotice(this.message);
+            client.ChannelFactory.FromName(this.channelName).TriggerOnSendNotice(this.message);
         }
     }
 }

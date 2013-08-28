@@ -20,11 +20,11 @@ namespace NetIRC.Messages.Send.CTCP
             this.message = message;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("PRIVMSG {0} \x001" + "ACTION {1}\x001", this.channelName, this.message);
 
-            ChannelFactory.FromName(channelName).TriggerOnSendAction(message);
+            client.ChannelFactory.FromName(this.channelName).TriggerOnSendAction(message);
         }
     }
 }

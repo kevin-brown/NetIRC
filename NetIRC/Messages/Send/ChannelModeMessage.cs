@@ -49,7 +49,7 @@ namespace NetIRC.Messages.Send
             this.parameters = parameters;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             if (string.IsNullOrEmpty(this.modes))
             {

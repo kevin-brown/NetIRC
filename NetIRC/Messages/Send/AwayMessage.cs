@@ -12,7 +12,7 @@ namespace NetIRC.Messages.Send
             this.reason = reason;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("AWAY :{0}", this.reason);
         }

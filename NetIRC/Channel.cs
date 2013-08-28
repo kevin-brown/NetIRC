@@ -5,6 +5,7 @@ namespace NetIRC
 {
     public class Channel
     {
+        internal Client Client;
 
         /// <summary>
         /// Name of the channel without its prefix
@@ -29,7 +30,12 @@ namespace NetIRC
         {
             get
             {
-                return UserFactory.InChannel(this.Name);
+                if (this.Client != null)
+                {
+                    return Client.UserFactory.InChannel(this.Name);
+                }
+
+                return new Dictionary<string, User>();
             }
         }
 

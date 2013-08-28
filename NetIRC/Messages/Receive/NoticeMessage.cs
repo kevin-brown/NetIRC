@@ -15,7 +15,7 @@ namespace NetIRC.Messages.Receive
                 return false;
             }
 
-            if (ReceivePrivMessage.GetChannel(message) == null)
+            if (ReceivePrivMessage.GetChannel(client, message) == null)
             {
                 return false;
             }
@@ -30,9 +30,9 @@ namespace NetIRC.Messages.Receive
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = ReceiveUserMessage.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(client, message);
 
-            Channel channel = ReceivePrivMessage.GetChannel(message);
+            Channel channel = ReceivePrivMessage.GetChannel(client, message);
 
             string[] parts = message.Split(' ');
 

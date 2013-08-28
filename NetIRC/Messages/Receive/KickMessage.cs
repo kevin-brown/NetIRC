@@ -14,10 +14,10 @@ namespace NetIRC.Messages.Receive
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[2].Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[2].Substring(1));
 
-            User kicker = ReceiveUserMessage.GetUser(message);
-            User user = UserFactory.FromNick(parts[3]);
+            User kicker = ReceiveUserMessage.GetUser(client, message);
+            User user = client.UserFactory.FromNick(parts[3]);
 
             string reason = String.Join(" ", parts.Skip(4).ToArray()).Substring(1);
 

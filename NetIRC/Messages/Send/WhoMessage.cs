@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Send
             this.target = channel.FullName;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("WHO " + this.target);
         }

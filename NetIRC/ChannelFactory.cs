@@ -8,24 +8,31 @@ namespace NetIRC
 {
     internal class ChannelFactory
     {
-        private static Dictionary<string, Channel> Store = new Dictionary<string, Channel>(StringComparer.InvariantCultureIgnoreCase);
+        private readonly Client _client;
 
-        public static Channel FromName(string name)
+        private readonly Dictionary<string, Channel> _store = new Dictionary<string, Channel>(StringComparer.InvariantCultureIgnoreCase);
+
+        public ChannelFactory(Client client)
         {
-            if (Store.ContainsKey(name))
+            _client = client;
+        }
+
+        public Channel FromName(string name)
+        {
+            if (this._store.ContainsKey(name))
             {
-                return Store[name];
+                return this._store[name];
             }
 
-            Channel channel = new Channel(name);
-            Store[name] = channel;
+            Channel channel = new Channel(name) {Client = _client};
+            this._store[name] = channel;
 
             return channel;
         }
 
-        public static Dictionary<string, Channel> HasUser(User user)
+        public Dictionary<string, Channel> HasUser(User user)
         {
-            return Store.Where(c => c.Value.Users.ContainsKey(user.NickName)).ToDictionary(c => c.Key, c => c.Value, StringComparer.InvariantCultureIgnoreCase);
+            return this._store.Where(c => c.Value.Users.ContainsKey(user.NickName)).ToDictionary(c => c.Key, c => c.Value, StringComparer.InvariantCultureIgnoreCase);
         }
     }
 }

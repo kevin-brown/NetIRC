@@ -12,9 +12,9 @@ namespace NetIRC.Messages.Receive
         public override void ProcessMessage(string message, Client client)
         {
             string[] parts = message.Split(' ');
-            Channel channel = ChannelFactory.FromName(parts[2].ToLower().Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[2].ToLower().Substring(1));
 
-            User user = ReceiveUserMessage.GetUser(message);
+            User user = ReceiveUserMessage.GetUser(client, message);
 
             channel.RemoveUser(user);
 

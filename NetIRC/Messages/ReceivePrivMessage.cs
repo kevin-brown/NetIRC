@@ -4,7 +4,7 @@ namespace NetIRC.Messages
 {
     abstract class ReceivePrivMessage : ReceiveUserMessage
     {
-        public static Channel GetChannel(string message)
+        public static Channel GetChannel(Client client, string message)
         {
             string[] parts = message.Split(' ');
 
@@ -13,7 +13,7 @@ namespace NetIRC.Messages
                 return null;
             }
 
-            return ChannelFactory.FromName(parts[2].Substring(1));
+            return client.ChannelFactory.FromName(parts[2].Substring(1));
         }
 
         public static bool CheckCTCP(string message, string ctcp)

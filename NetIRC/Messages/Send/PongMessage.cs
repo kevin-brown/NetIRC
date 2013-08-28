@@ -16,7 +16,7 @@ namespace NetIRC.Messages.Send
             this.extra = extra;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("PONG {0}", this.extra);
         }

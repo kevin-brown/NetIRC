@@ -12,14 +12,16 @@ namespace NetIRC.Messages.Receive
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = ReceiveUserMessage.GetUser(message);
             string[] parts = message.Split(' ');
+
+            string user = ReceiveUserMessage.GetUser(client, message).NickName;
 
             string reason = String.Join(" ", parts.Skip(2).ToArray()).Substring(1);
 
-            user.TriggerOnQuit(reason);
+            User newUser = client.UserFactory.RemoveNick(user);
 
-            user.Channels.Clear();
+            newUser.TriggerOnQuit(reason);
+            newUser.Channels.Clear();
         }
     }
 }

@@ -30,7 +30,7 @@ namespace NetIRC.Messages.Send
             this.message = message;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             if (this.message == null)
             {

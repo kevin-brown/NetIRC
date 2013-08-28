@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Send
             this.channelName = channel.FullName;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("JOIN {0}", this.channelName);
         }

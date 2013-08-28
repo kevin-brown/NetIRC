@@ -17,9 +17,9 @@ namespace NetIRC.Messages.Receive.Numerics
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[3].Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[3].Substring(1));
 
-            User user = UserFactory.FromUserMask(parts[4]);
+            User user = client.UserFactory.FromUserMask(parts[4]);
 
             DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             time = time.AddSeconds(int.Parse(parts[5]));

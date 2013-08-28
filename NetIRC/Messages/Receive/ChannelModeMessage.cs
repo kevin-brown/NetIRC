@@ -20,17 +20,17 @@ namespace NetIRC.Messages.Receive
         {
             string[] parts = message.Split(' ');
 
-            User setter = ReceiveUserMessage.GetUser(message);
+            User setter = ReceiveUserMessage.GetUser(client, message);
             Channel channel = client.Channels[parts[2].Remove(0, 1)];
 
             string modes = parts[3];
 
-            ParseModes(channel, modes, parts.Skip(4).ToArray());
+            ParseModes(client, channel, modes, parts.Skip(4).ToArray());
 
             channel.TriggerOnMode(setter, modes, parts.Skip(4).ToArray());
         }
 
-        public void ParseModes(Channel target, string modes, string[] parameters)
+        public void ParseModes(Client client, Channel target, string modes, string[] parameters)
         {
             bool addMode = true;
             int paramIndex = 0;
@@ -83,7 +83,7 @@ namespace NetIRC.Messages.Receive
                     case 'v':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     userTarget.Rank[target.Name] |= UserRank.Voice;
@@ -95,7 +95,7 @@ namespace NetIRC.Messages.Receive
                     case 'h':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     userTarget.Rank[target.Name] |= UserRank.HalfOp;
@@ -107,7 +107,7 @@ namespace NetIRC.Messages.Receive
                     case 'o':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     userTarget.Rank[target.Name] |= UserRank.Op;
@@ -119,7 +119,7 @@ namespace NetIRC.Messages.Receive
                     case 'a':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     userTarget.Rank[target.Name] |= UserRank.Admin;
@@ -131,7 +131,7 @@ namespace NetIRC.Messages.Receive
                     case 'q':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = UserFactory.FromNick(parameters[paramIndex]);
+                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     userTarget.Rank[target.Name] |= UserRank.Owner;

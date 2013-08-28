@@ -17,7 +17,7 @@ namespace NetIRC.Messages.Send
             this.nickName = user.NickName;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("NICK " + this.nickName);
         }

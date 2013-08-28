@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Receive.Numerics
         {
             string[] parts = message.Split(' ');
 
-            Channel channel = ChannelFactory.FromName(parts[4].ToLower().Substring(1));
+            Channel channel = client.ChannelFactory.FromName(parts[4].ToLower().Substring(1));
             parts[5] = parts[5].Substring(1);
 
             for (int i = 5; i < parts.Length; i++)
@@ -34,7 +34,7 @@ namespace NetIRC.Messages.Receive.Numerics
                     parts[i] = parts[i].Substring(1);
                 }
 
-                User user = UserFactory.FromNick(parts[i]);
+                User user = client.UserFactory.FromNick(parts[i]);
                 user.Rank[channel.Name] = rank;
 
                 channel.AddUser(user);

@@ -18,7 +18,7 @@ namespace NetIRC.Messages.Send.CTCP
             this.version = version;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("NOTICE " + this.user.NickName + " \x001VERSION " + this.version + "\x001");
         }

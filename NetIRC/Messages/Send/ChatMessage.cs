@@ -20,11 +20,11 @@ namespace NetIRC.Messages.Send
             this.message = message;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             writer.WriteLine("PRIVMSG {0} :{1}", channelName, this.message);
 
-            ChannelFactory.FromName(channelName).TriggerOnSendMessage(this.message);
+            client.ChannelFactory.FromName(this.channelName).TriggerOnSendMessage(this.message);
         }
     }
 }

@@ -34,7 +34,7 @@ namespace NetIRC.Messages.Send
             this.topic = topic;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(Client client, StreamWriter writer)
         {
             if (string.IsNullOrEmpty(this.topic))
             {

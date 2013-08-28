@@ -9,6 +9,10 @@ namespace NetIRC
 {
     public class Client
     {
+        private List<Type> RegisteredMessages = new List<Type>();
+
+        private List<Type> OutputWriters = new List<Type>();
+
         private TcpClient TcpClient
         {
             get;
@@ -61,8 +65,20 @@ namespace NetIRC
         {
             get
             {
-                return ChannelFactory.HasUser(UserFactory.FromNick(this.User.NickName));
+                return this.ChannelFactory.HasUser(this.User);
             }
+        }
+
+        internal ChannelFactory ChannelFactory
+        {
+            get;
+            private set;
+        }
+
+        internal UserFactory UserFactory
+        {
+            get;
+            private set;
         }
 
         public User User
@@ -71,12 +87,11 @@ namespace NetIRC
             private set;
         }
 
-        private List<Type> RegisteredMessages = new List<Type>();
-
-        private List<Type> OutputWriters = new List<Type>();
-
         public Client()
         {
+            this.UserFactory = new UserFactory(this);
+            this.ChannelFactory = new ChannelFactory(this);
+
             this.RegisterMessages();
             this.RegisterWriters();
         }
@@ -95,9 +110,8 @@ namespace NetIRC
         /// <param name="user">The NetIRC.User to use for connecting to the server.</param>
         public void Connect(string server, int port, bool ssl, User user)
         {
-            this.User = UserFactory.FromNick(user.NickName);
-            UserFactory.SetUser(user.NickName, user);
-            this.User = UserFactory.FromNick(user.NickName);
+            this.User = user;
+            this.UserFactory.SetUser(user.NickName, user);
 
             this.TcpClient = new TcpClient();
             this.TcpClient.Connect(server, port);
@@ -269,7 +283,7 @@ namespace NetIRC
         {
             MemoryStream stream = new MemoryStream();
 
-            message.Send(new StreamWriter(stream) { AutoFlush = true });
+            message.Send(this, new StreamWriter(stream) { AutoFlush = true });
 
             StreamReader reader = new StreamReader(stream);
             stream.Position = 0;

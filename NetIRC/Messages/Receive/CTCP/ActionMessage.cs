@@ -12,7 +12,7 @@ namespace NetIRC.Messages.Receive.CTCP
                 return false;
             }
 
-            if (ReceivePrivMessage.GetChannel(message) == null)
+            if (ReceivePrivMessage.GetChannel(client, message) == null)
             {
                 return false;
             }
@@ -32,8 +32,8 @@ namespace NetIRC.Messages.Receive.CTCP
             string action = String.Join(" ", parts.Skip(4).ToArray());
             action = action.Substring(0, action.Length - 1);
 
-            Channel channel = ReceivePrivMessage.GetChannel(message);
-            User user = ReceiveUserMessage.GetUser(message);
+            Channel channel = ReceivePrivMessage.GetChannel(client, message);
+            User user = ReceiveUserMessage.GetUser(client, message);
 
             channel.TriggerOnAction(user, action);
         }
