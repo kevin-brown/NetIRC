@@ -39,7 +39,7 @@ namespace NetIRC.Messages.Receive.CTCP
         {
             string[] parts = message.Split(' ');
 
-            User target = client.UserFactory.FromNick(parts[2].Substring(1));
+            User target = client.UserFactory.FromNick(parts[2]);
 
             if (target == client.User)
             {
