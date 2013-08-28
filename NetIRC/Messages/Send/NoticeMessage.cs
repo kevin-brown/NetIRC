@@ -25,8 +25,7 @@ namespace NetIRC.Messages.Send
         {
             writer.WriteLine("NOTICE {0} :{1}",this.channelName, this.message);
 
-            // TODO: Move OnSend message
-            //this.channel.TriggerOnSendNotice(this.message);
+            ChannelFactory.FromName(channelName).TriggerOnSendNotice(this.message);
         }
     }
 }

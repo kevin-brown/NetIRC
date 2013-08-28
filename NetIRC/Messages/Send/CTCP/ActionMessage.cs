@@ -24,8 +24,7 @@ namespace NetIRC.Messages.Send.CTCP
         {
             writer.WriteLine("PRIVMSG {0} \x001" + "ACTION {1}\x001", this.channelName, this.message);
 
-            // TODO: Move OnSend message
-            //this.channelName.TriggerOnSendAction(this.message);
+            ChannelFactory.FromName(channelName).TriggerOnSendAction(message);
         }
     }
 }

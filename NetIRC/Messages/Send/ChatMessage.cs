@@ -23,7 +23,8 @@ namespace NetIRC.Messages.Send
         public void Send(StreamWriter writer)
         {
             writer.WriteLine("PRIVMSG {0} :{1}", channelName, this.message);
-            this.channel.TriggerOnSendMessage(this.message);
+
+            ChannelFactory.FromName(channelName).TriggerOnSendMessage(this.message);
         }
     }
 }
