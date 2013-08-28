@@ -194,13 +194,13 @@ namespace NetIRC
                 return;
             }
 
-            user.Channels.Add(this);
+            user._channels.Add(this.Name, this);
 
             this.TriggerOnUserAdded(user);
 
-            if (!user.Rank.ContainsKey(this.Name))
+            if (!user._ranks.ContainsKey(this.Name))
             {
-                user.Rank.Add(this.Name, UserRank.None);
+                user._ranks.Add(this.Name, UserRank.None);
             }
         }
 
@@ -250,7 +250,8 @@ namespace NetIRC
         {
             if (this.Users.ContainsKey(user.NickName))
             {
-                user.Channels.Remove(this);
+                user._channels.Remove(this.Name);
+                user._ranks.Remove(this.Name);
 
                 this.TriggerOnLeave(user);
             }

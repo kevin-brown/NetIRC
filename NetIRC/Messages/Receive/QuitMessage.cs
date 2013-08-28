@@ -21,7 +21,7 @@ namespace NetIRC.Messages.Receive
             User newUser = client.UserFactory.RemoveNick(user);
 
             newUser.TriggerOnQuit(reason);
-            newUser.Channels.Clear();
+            newUser._channels.Clear();
         }
     }
 }

@@ -75,12 +75,11 @@ namespace NetIRC
         public Dictionary<string, User> InChannel(string channel)
         {
             return this._store.Where(
-                u => u.Value.Channels.Contains(
-                    _client.ChannelFactory.FromName(channel)))
-                        .ToDictionary(
-                            u => u.Key,
-                            u => u.Value,
-                            StringComparer.InvariantCultureIgnoreCase);
+                u => u.Value._channels.ContainsKey(channel))
+                       .ToDictionary(
+                           u => u.Key,
+                           u => u.Value,
+                           StringComparer.InvariantCultureIgnoreCase);
         }
 
         internal void SetUser(string nick, User user)

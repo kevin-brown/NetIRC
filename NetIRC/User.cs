@@ -131,15 +131,31 @@ namespace NetIRC
             internal set;
         }
 
+        internal readonly Dictionary<string, Channel> _channels = new Dictionary<string, Channel>(StringComparer.InvariantCultureIgnoreCase);
+
         /// <summary>
         /// The list of channels that the user is in.
         /// </summary>
-        public readonly List<Channel> Channels = new List<Channel>();
+        public ReadOnlyDictionary<string, Channel> Channels
+        {
+            get
+            {
+                return _channels.AsReadOnly();
+            }
+        }
+
+        internal readonly Dictionary<string, UserRank> _ranks = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// A dictionary that contains the current ranks for the user in each of their channels.
         /// </summary>
-        public readonly Dictionary<string, UserRank> Rank = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
+        public ReadOnlyDictionary<string, UserRank> Ranks
+        {
+            get 
+            { 
+                return _ranks.AsReadOnly();
+            }
+        }
 
         /// <summary>
         /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.

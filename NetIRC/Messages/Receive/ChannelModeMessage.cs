@@ -86,9 +86,9 @@ namespace NetIRC.Messages.Receive
                             userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
-                                    userTarget.Rank[target.Name] |= UserRank.Voice;
+                                    userTarget._ranks[target.Name] |= UserRank.Voice;
                                 else
-                                    userTarget.Rank[target.Name] &= ~UserRank.Voice;
+                                    userTarget._ranks[target.Name] &= ~UserRank.Voice;
                             paramIndex++;
                         }
                         break;
@@ -98,9 +98,9 @@ namespace NetIRC.Messages.Receive
                             userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
-                                    userTarget.Rank[target.Name] |= UserRank.HalfOp;
+                                    userTarget._ranks[target.Name] |= UserRank.HalfOp;
                                 else
-                                    userTarget.Rank[target.Name] &= ~UserRank.HalfOp;
+                                    userTarget._ranks[target.Name] &= ~UserRank.HalfOp;
                             paramIndex++;
                         }
                         break;
@@ -110,9 +110,9 @@ namespace NetIRC.Messages.Receive
                             userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
-                                    userTarget.Rank[target.Name] |= UserRank.Op;
+                                    userTarget._ranks[target.Name] |= UserRank.Op;
                                 else
-                                    userTarget.Rank[target.Name] &= ~UserRank.Op;
+                                    userTarget._ranks[target.Name] &= ~UserRank.Op;
                             paramIndex++;
                         }
                         break;
@@ -122,9 +122,9 @@ namespace NetIRC.Messages.Receive
                             userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
-                                    userTarget.Rank[target.Name] |= UserRank.Admin;
+                                    userTarget._ranks[target.Name] |= UserRank.Admin;
                                 else
-                                    userTarget.Rank[target.Name] &= ~UserRank.Admin;
+                                    userTarget._ranks[target.Name] &= ~UserRank.Admin;
                             paramIndex++;
                         }
                         break;
@@ -134,9 +134,9 @@ namespace NetIRC.Messages.Receive
                             userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
-                                    userTarget.Rank[target.Name] |= UserRank.Owner;
+                                    userTarget._ranks[target.Name] |= UserRank.Owner;
                                 else
-                                    userTarget.Rank[target.Name] &= ~UserRank.Owner;
+                                    userTarget._ranks[target.Name] &= ~UserRank.Owner;
                             paramIndex++;
                         }
                         break;
