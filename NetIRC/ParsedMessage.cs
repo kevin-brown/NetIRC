@@ -48,6 +48,7 @@ namespace NetIRC
         {
             this._client = client;
             this.Message = message;
+            this.Parameters = new string[0];
 
             Regex parsingRegex =
                 new Regex(@"^(:(?<prefix>\S+) )?(?<command>\S+)( (?!:)(?<params>.+?))?( :(?<trail>.+))?$",
@@ -58,9 +59,12 @@ namespace NetIRC
             {
                 Prefix = messageMatch.Groups["prefix"].Value;
                 Command = messageMatch.Groups["command"].Value;
-                Parameters = messageMatch.Groups["params"].Value.Split(' ');
-                string trail = messageMatch.Groups["trail"].Value;
 
+                string paramsStr = messageMatch.Groups["params"].Value;
+                if (!String.IsNullOrEmpty(paramsStr))
+                    Parameters = paramsStr.Split(' ');
+
+                string trail = messageMatch.Groups["trail"].Value;
                 if (!String.IsNullOrEmpty(trail))
                     Parameters = Parameters.Concat(new[] {trail}).ToArray();
             }
