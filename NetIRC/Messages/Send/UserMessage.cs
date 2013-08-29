@@ -20,7 +20,7 @@ namespace NetIRC.Messages.Send
             this.realName = user.RealName;
         }
 
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             //TODO: allow mode to be set
             writer.WriteLine("USER " + this.userName + " 0 - :" + this.realName);

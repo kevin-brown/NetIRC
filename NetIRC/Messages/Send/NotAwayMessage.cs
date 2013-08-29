@@ -5,7 +5,7 @@ namespace NetIRC.Messages.Send
 {
     public class NotAwayMessage : SendMessage
     {
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             writer.WriteLine("AWAY");
         }

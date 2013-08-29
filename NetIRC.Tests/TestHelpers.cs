@@ -9,7 +9,7 @@ namespace NetIRC.Tests
         {
             MemoryStream stream = new MemoryStream();
 
-            message.Send(new Client(), new StreamWriter(stream) { AutoFlush = true });
+            message.Send(new StreamWriter(stream) { AutoFlush = true }, new Client());
 
             StreamReader reader = new StreamReader(stream);
             stream.Position = 0;

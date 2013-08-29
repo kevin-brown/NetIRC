@@ -283,7 +283,7 @@ namespace NetIRC
         {
             MemoryStream stream = new MemoryStream();
 
-            message.Send(this, new StreamWriter(stream) { AutoFlush = true });
+            message.Send(new StreamWriter(stream) { AutoFlush = true }, this);
 
             StreamReader reader = new StreamReader(stream);
             stream.Position = 0;

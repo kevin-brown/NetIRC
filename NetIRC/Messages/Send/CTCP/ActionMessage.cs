@@ -20,7 +20,7 @@ namespace NetIRC.Messages.Send.CTCP
             this.message = message;
         }
 
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             writer.WriteLine("PRIVMSG {0} \x001" + "ACTION {1}\x001", this.channelName, this.message);
 

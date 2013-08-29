@@ -23,7 +23,7 @@ namespace NetIRC.Messages.Send
             this.message = message;
         }
 
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             writer.WriteLine("PRIVMSG {0} :{1}", this.nick, this.message);
         }

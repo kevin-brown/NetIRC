@@ -32,7 +32,7 @@ namespace NetIRC.Messages.Send
             this.nickName = nickName;
         }
 
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             writer.WriteLine("INVITE {0} {1}", this.nickName, this.channelName);
         }

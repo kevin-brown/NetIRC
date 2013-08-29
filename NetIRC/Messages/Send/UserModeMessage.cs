@@ -34,7 +34,7 @@ namespace NetIRC.Messages.Send
             this.modes = modes;
         }
 
-        public void Send(Client client, StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
             if (string.IsNullOrEmpty(this.modes))
             {
