@@ -8,22 +8,41 @@ namespace NetIRC
 {
     public class ParsedMessage
     {
-        private const string ctcpChar = "\x001";
+        private const string CTCPChar = "\x001";
 
         private readonly Client _client;
 
-        public string Prefix { get; private set; }
+        public string Prefix
+        {
+            get; 
+            private set;
+        }
 
-        public string Command { get; private set; }
+        public string Command
+        {
+            get; 
+            private set;
+        }
 
-        public string[] Parameters { get; private set; }
+        public string[] Parameters
+        {
+            get; 
+            private set;
+        }
 
         public int Length
         {
-            get { return Parameters.Length; }
+            get
+            {
+                return Parameters.Length;
+            }
         }
 
-        public string Message { get; private set; }
+        public string Message
+        {
+            get; 
+            private set;
+        }
 
         public ParsedMessage(Client client, string message)
         {
@@ -125,9 +144,9 @@ namespace NetIRC
         /// <summary>
         /// Gets the CTCP message or null
         /// </summary>
-        public string GetCTCP(string message)
+        public static string GetCTCP(string message)
         {
-            if (!message.StartsWith(ctcpChar) || !message.EndsWith(ctcpChar))
+            if (!message.StartsWith(CTCPChar) || !message.EndsWith(CTCPChar))
             {
                 return null;
             }
@@ -136,27 +155,59 @@ namespace NetIRC
         }
 
         /// <summary>
+        /// Gets the CTCP message or null
+        /// </summary>
+        public string GetCTCP()
+        {
+            return GetCTCP(Parameters[1]);
+        }
+
+        /// <summary>
         /// Gets the CTCP command
         /// </summary>
-        public string GetCTCPCommand(string message)
+        public static string GetCTCPCommand(string message)
         {
             return GetCTCP(message).Split(' ')[0];
         }
 
         /// <summary>
+        /// Gets the CTCP command
+        /// </summary>
+        public string GetCTCPCommand()
+        {
+            return GetCTCPCommand(Parameters[1]);
+        }
+
+        /// <summary>
         /// Gets the CTCP arguments 
         /// </summary>
-        public string[] GetCTCPArguments(string message)
+        public static string[] GetCTCPArguments(string message)
         {
             return GetCTCP(message).Split(' ').Skip(1).ToArray();
         }
 
         /// <summary>
+        /// Gets the CTCP arguments 
+        /// </summary>
+        public string[] GetCTCPArguments()
+        {
+            return GetCTCPArguments(Parameters[1]);
+        }
+
+        /// <summary>
         /// Checks if the message is a Client-to-client protocol message
         /// </summary>
-        public bool IsCTCP(string message)
+        public static bool IsCTCP(string message)
         {
             return GetCTCP(message) != null;
+        }
+
+        /// <summary>
+        /// Checks if the message is a Client-to-client protocol message
+        /// </summary>
+        public bool IsCTCP()
+        {
+            return IsCTCP(Parameters[1]);
         }
     }
 }
