@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive
 {
-    class NoticeMessage : ReceivePrivMessage
+    class UserNoticeMessage : ReceivePrivMessage
     {
         public static bool CheckMessage(string message, Client client)
         {
@@ -15,7 +14,7 @@ namespace NetIRC.Messages.Receive
                 return false;
             }
 
-            if (ReceivePrivMessage.GetChannel(client, message) == null)
+            if (ReceivePrivMessage.GetChannel(client, message) != null)
             {
                 return false;
             }
@@ -30,15 +29,13 @@ namespace NetIRC.Messages.Receive
 
         public override void ProcessMessage(string message, Client client)
         {
-            User user = ReceiveUserMessage.GetUser(client, message);
-
-            Channel channel = ReceivePrivMessage.GetChannel(client, message);
 
             string[] parts = message.Split(' ');
 
+            User user = ReceiveUserMessage.GetUser(client, message);
             string notice = String.Join(" ", parts.Skip(3).ToArray()).Substring(1);
 
-            channel.TriggerOnNotice(user, notice);
+            client.TriggerOnNotice(user, notice);
         }
     }
 }

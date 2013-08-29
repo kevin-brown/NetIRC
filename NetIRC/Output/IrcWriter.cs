@@ -6,7 +6,8 @@ namespace NetIRC.Output
     {
         public void ProcessSendMessage(string message, Client client)
         {
-            client.Writer.WriteLine(message);
+            lock(client.Writer)
+                client.Writer.WriteLine(message);
         }
 
         public void ProcessReadMessage(string message, Client client)

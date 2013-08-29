@@ -257,9 +257,9 @@ namespace NetIRC
             }
         }
 
-        public Messages.Send.NoticeMessage SendNotice(string message)
+        public Messages.Send.ChannelNoticeMessage SendNotice(string message)
         {
-            return new Messages.Send.NoticeMessage(this, message);
+            return new Messages.Send.ChannelNoticeMessage(this, message);
         }
 
         public Messages.Send.ChatMessage SendMessage(string message)

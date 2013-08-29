@@ -59,9 +59,10 @@
     <Compile Include="Messages\Receive\JoinMessage.cs" />
     <Compile Include="Messages\Receive\KickMessage.cs" />
     <Compile Include="Messages\Receive\PrivateMessage.cs" />
+    <Compile Include="Messages\Receive\UserNoticeMessage.cs" />
     <Compile Include="Messages\Receive\UserModeMessage.cs" />
     <Compile Include="Messages\Receive\NickMessage.cs" />
-    <Compile Include="Messages\Receive\NoticeMessage.cs" />
+    <Compile Include="Messages\Receive\ChannelNoticeMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NamesMessage.cs" />
     <Compile Include="Messages\Receive\Numerics\NoTopic.cs" />
     <Compile Include="Messages\Receive\Numerics\TopicInfo.cs" />
@@ -85,7 +86,7 @@
     <Compile Include="Messages\Send\MotdMessage.cs" />
     <Compile Include="Messages\Send\NickMessage.cs" />
     <Compile Include="Messages\Send\NotAwayMessage.cs" />
-    <Compile Include="Messages\Send\NoticeMessage.cs" />
+    <Compile Include="Messages\Send\ChannelNoticeMessage.cs" />
     <Compile Include="Messages\Send\PartMessage.cs" />
     <Compile Include="Messages\Send\PongMessage.cs" />
     <Compile Include="Messages\Send\PrivateMessage.cs" />

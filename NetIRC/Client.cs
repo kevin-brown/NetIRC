@@ -249,11 +249,12 @@ namespace NetIRC
             this.RegisteredMessages.Add(typeof(Messages.Receive.ChannelModeMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.NoticeMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.ChannelNoticeMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.PrivateMessage));
+            this.RegisteredMessages.Add(typeof(Messages.Receive.UserNoticeMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.ActionMessage));
             this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionMessage));
-
             this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionReplyMessage));
 
             this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
@@ -405,6 +406,17 @@ namespace NetIRC
             if (OnVersionReply != null)
             {
                 OnVersionReply(this, source, version);
+            }
+        }
+
+        public delegate void OnNoticeHandler(Client client, User source, string notice);
+        public event OnNoticeHandler OnNotice;
+
+        public void TriggerOnNotice(User user, string notice)
+        {
+            if (OnNotice != null)
+            {
+                OnNotice(this, user, notice);
             }
         }
 

@@ -152,7 +152,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.NoticeMessage notice = channel.SendNotice("message");
+            Messages.Send.ChannelNoticeMessage notice = channel.SendNotice("message");
 
             string output = TestHelpers.GetSendMessageOutput(notice);
 
