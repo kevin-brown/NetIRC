@@ -282,30 +282,29 @@ namespace NetIRC
         /// <param name="message">The NetIRC.SendMessage instance to be sent.</param>
         public void Send(Messages.SendMessage message)
         {
-            MemoryStream stream = new MemoryStream();
-
-            message.Send(new StreamWriter(stream) { AutoFlush = true }, this);
-
-            StreamReader reader = new StreamReader(stream);
-            stream.Position = 0;
-
-            while (true)
+            using (MemoryStream stream = new MemoryStream())
             {
-                string line = reader.ReadLine();
+                message.Send(new StreamWriter(stream) {AutoFlush = true}, this);
 
-                if (string.IsNullOrEmpty(line))
-                {
-                    break;
-                }
+                StreamReader reader = new StreamReader(stream);
+                stream.Position = 0;
 
-                foreach (Type writerType in this.OutputWriters)
+                while (true)
                 {
-                    MethodInfo processMethod = writerType.GetMethod("ProcessSendMessage");
-                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
+                    string line = reader.ReadLine();
+
+                    if (string.IsNullOrEmpty(line))
+                    {
+                        break;
+                    }
+
+                    foreach (Type writerType in this.OutputWriters)
+                    {
+                        MethodInfo processMethod = writerType.GetMethod("ProcessSendMessage");
+                        processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] {line, this});
+                    }
                 }
             }
-
-            stream.Close();
         }
 
         #region Events
