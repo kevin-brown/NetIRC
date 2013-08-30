@@ -263,6 +263,9 @@ namespace NetIRC
 
         public void RegisterWriter(Type type)
         {
+            if (!typeof(IWriter).IsAssignableFrom(type))
+                throw new ArgumentException("type must implement IWriter", "type");
+
             this.OutputWriters.Add(type);
         }
 

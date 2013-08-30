@@ -22,11 +22,11 @@ namespace NetIRC
         {
             this._client = client;
 
-            if (!type.IsSubclassOf(typeof(IReceiveMessage)))
-                throw new ArgumentException("type must implement ReceiveMessage", "type");
-
+            if (!typeof(IReceiveMessage).IsAssignableFrom(type))
+                throw new ArgumentException("type must implement IReceiveMessage", "type");
+            
             MethodInfo minfo = type.GetMethod("CheckMessage", BindingFlags.Public | BindingFlags.Static);
-            this._checkMessageDelegate = (Func<ParsedMessage, Client, bool>)Delegate.CreateDelegate(type, minfo);
+            this._checkMessageDelegate = (Func<ParsedMessage, Client, bool>)Delegate.CreateDelegate(typeof(Func<ParsedMessage, Client, bool>), minfo);
 
             this.Type = type;
         }
