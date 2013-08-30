@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive.CTCP
 {
-    class VersionReplyMessage : IReceiveMessage
+    class VersionReply : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

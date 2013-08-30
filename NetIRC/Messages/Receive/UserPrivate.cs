@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace NetIRC.Messages.Receive.Numerics
+namespace NetIRC.Messages.Receive
 {
-    class TopicMessage : IReceiveMessage
+    class UserPrivate : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "332";
+            return message.Command == "PRIVMSG" &&
+                   !message.IsChannel() &&
+                   !message.IsCTCP();
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
@@ -19,12 +20,11 @@ namespace NetIRC.Messages.Receive.Numerics
 
             if (target == client.User)
             {
-                Channel channel = message.GetChannel(message.Parameters[1]);
-                string topic = message.Parameters[2];
+                User user = message.GetUser();
+                string line = message.Parameters[1];
 
-                channel.Topic.Message = topic;
+                client.TriggerOnMessage(user, line);
             }
-
         }
     }
 }

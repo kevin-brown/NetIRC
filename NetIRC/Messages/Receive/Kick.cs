@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive
 {
-    class KickMessage : IReceiveMessage
+    class Kick : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

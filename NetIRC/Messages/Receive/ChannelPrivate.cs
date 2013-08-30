@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NetIRC.Messages.Receive.CTCP
+namespace NetIRC.Messages.Receive
 {
-    class ActionMessage : IReceiveMessage
+    class ChannelPrivate : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "PRIVMSG" &&
                    message.IsChannel() &&
-                   message.IsCTCP() &&
-                   message.GetCTCPCommand() == "ACTION" &&
-                   message.HasCTCPParameter();
+                   !message.IsCTCP();
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             Channel channel = message.GetChannel();
-            string action = message.GetCTCPParameter();
+            string line = message.Parameters[1];
 
-            channel.TriggerOnAction(user, action);
+            channel.TriggerOnMessage(user, line);
         }
     }
 }

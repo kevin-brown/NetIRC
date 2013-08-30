@@ -1,16 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace NetIRC.Messages.Receive.CTCP
+namespace NetIRC.Messages.Receive.Numerics
 {
-    class VersionMessage : IReceiveMessage
+    class Topic : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "PRIVMSG" &&
-                   !message.IsChannel() &&
-                   message.IsCTCP() &&
-                   message.GetCTCPCommand() == "VERSION";
+            return message.Command == "332";
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
@@ -19,10 +19,12 @@ namespace NetIRC.Messages.Receive.CTCP
 
             if (target == client.User)
             {
-                User user = message.GetUser();
+                Channel channel = message.GetChannel(message.Parameters[1]);
+                string topic = message.Parameters[2];
 
-                client.TriggerOnVersion(user);
+                channel.Topic.Message = topic;
             }
+
         }
     }
 }

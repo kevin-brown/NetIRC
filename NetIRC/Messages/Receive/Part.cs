@@ -2,23 +2,23 @@
 
 namespace NetIRC.Messages.Receive
 {
-    class JoinMessage : IReceiveMessage
+    class Part : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "JOIN";
+            return message.Command == "PART";
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
         {
-            User user = message.GetUser();
             Channel channel = message.GetChannel();
+            User user = message.GetUser();
 
-            channel.JoinUser(user);
+            channel.RemoveUser(user);
 
             if (user == client.User)
             {
-                client.TriggerOnChannelJoin(channel);
+                client.TriggerOnChannelLeave(channel);
             }
 
             client.Send(channel.SendWho());

@@ -1,26 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive
 {
-    class TopicMessage : IReceiveMessage
+    class ChannelNotice : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "TOPIC";
+            return message.Command == "NOTICE" &&
+                   message.IsChannel() &&
+                   !message.IsCTCP();
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             Channel channel = message.GetChannel();
-            string topic = message.Parameters[1];
+            string notice = message.Parameters[1];
 
-            channel.Topic.Message = topic;
-            channel.Topic.Author = user;
-            channel.Topic.LastUpdated = DateTime.Now;
-
-            channel.TriggerOnTopicChange(channel.Topic);
+            channel.TriggerOnNotice(user, notice);
         }
     }
 }

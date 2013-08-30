@@ -2,7 +2,7 @@
 
 namespace NetIRC.Messages.Receive
 {
-    class NickMessage : IReceiveMessage
+    class Nick : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

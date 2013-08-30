@@ -234,29 +234,29 @@ namespace NetIRC
 
         private void RegisterMessages()
         {
-            this.RegisterMessage(typeof(Messages.Receive.PingMessage));
-            this.RegisterMessage(typeof(Messages.Receive.JoinMessage));
-            this.RegisterMessage(typeof(Messages.Receive.PartMessage));
-            this.RegisterMessage(typeof(Messages.Receive.NickMessage));
-            this.RegisterMessage(typeof(Messages.Receive.TopicMessage));
-            this.RegisterMessage(typeof(Messages.Receive.QuitMessage));
-            this.RegisterMessage(typeof(Messages.Receive.KickMessage));
-            this.RegisterMessage(typeof(Messages.Receive.UserModeMessage));
-            this.RegisterMessage(typeof(Messages.Receive.ChannelModeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Ping));
+            this.RegisterMessage(typeof(Messages.Receive.Join));
+            this.RegisterMessage(typeof(Messages.Receive.Part));
+            this.RegisterMessage(typeof(Messages.Receive.Nick));
+            this.RegisterMessage(typeof(Messages.Receive.Topic));
+            this.RegisterMessage(typeof(Messages.Receive.Quit));
+            this.RegisterMessage(typeof(Messages.Receive.Kick));
+            this.RegisterMessage(typeof(Messages.Receive.UserMode));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelMode));
 
-            this.RegisterMessage(typeof(Messages.Receive.ChannelPrivateMessage));
-            this.RegisterMessage(typeof(Messages.Receive.ChannelNoticeMessage));
-            this.RegisterMessage(typeof(Messages.Receive.UserPrivateMessage));
-            this.RegisterMessage(typeof(Messages.Receive.UserNoticeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelPrivate));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelNotice));
+            this.RegisterMessage(typeof(Messages.Receive.UserPrivate));
+            this.RegisterMessage(typeof(Messages.Receive.UserNotice));
 
-            this.RegisterMessage(typeof(Messages.Receive.CTCP.ActionMessage));
-            this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionMessage));
-            this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionReplyMessage));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.Action));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.Version));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionReply));
 
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.WelcomeMessage));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.NamesMessage));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.WhoMessage));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Welcome));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Names));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Who));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Topic));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicInfo));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.NoTopic));
         }

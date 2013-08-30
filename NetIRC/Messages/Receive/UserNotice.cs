@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive
 {
-    class ChannelPrivateMessage : IReceiveMessage
+    class UserNotice : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "PRIVMSG" &&
-                   message.IsChannel() &&
+            return message.Command == "NOTICE" &&
+                   !message.IsChannel() &&
                    !message.IsCTCP();
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
-            Channel channel = message.GetChannel();
-            string line = message.Parameters[1];
+            string notice = message.Parameters[1];
 
-            channel.TriggerOnMessage(user, line);
+            client.TriggerOnNotice(user, notice);
         }
     }
 }
