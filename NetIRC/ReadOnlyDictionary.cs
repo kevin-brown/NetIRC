@@ -7,7 +7,7 @@ namespace NetIRC
     public static class DictionaryExtentions
     {
         public static ReadOnlyDictionary<TKey, TValue> AsReadOnly<TKey, TValue>(
-            this IDictionary<TKey, TValue> dictionary)
+            this Dictionary<TKey, TValue> dictionary)
         {
             return new ReadOnlyDictionary<TKey, TValue>(dictionary);
         }
@@ -15,16 +15,21 @@ namespace NetIRC
 
     public class ReadOnlyDictionary<TKey, TValue> : IDictionary<TKey, TValue>
     {
-        private readonly IDictionary<TKey, TValue> _dictionary;
+        private readonly Dictionary<TKey, TValue> _dictionary;
 
         public ReadOnlyDictionary()
         {
             _dictionary = new Dictionary<TKey, TValue>();
         }
 
-        public ReadOnlyDictionary(IDictionary<TKey, TValue> dictionary)
+        public ReadOnlyDictionary(Dictionary<TKey, TValue> dictionary)
         {
             _dictionary = dictionary;
+        }
+
+        public bool ContainsValue(TValue value)
+        {
+            return _dictionary.ContainsValue(value);
         }
 
         #region IDictionary<TKey,TValue> Members
@@ -95,12 +100,12 @@ namespace NetIRC
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return _dictionary.Contains(item);
+            return ((IDictionary)_dictionary).Contains(item);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            _dictionary.CopyTo(array, arrayIndex);
+            ((IDictionary)_dictionary).CopyTo(array, arrayIndex);
         }
 
         public int Count

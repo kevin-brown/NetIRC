@@ -2,7 +2,7 @@
 
 namespace NetIRC.Output
 {
-    class ConsoleWriter : Writer
+    class ConsoleWriter : IWriter
     {
         public void ProcessSendMessage(string message, Client client)
         {

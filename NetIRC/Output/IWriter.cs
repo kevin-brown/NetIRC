@@ -2,7 +2,7 @@
 
 namespace NetIRC.Output
 {
-    public interface Writer
+    public interface IWriter
     {
         void ProcessSendMessage(string message, Client client);
 

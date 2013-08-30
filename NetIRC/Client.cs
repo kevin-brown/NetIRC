@@ -207,7 +207,7 @@ namespace NetIRC
 
                 foreach (Type writerType in this.OutputWriters)
                 {
-                    Writer instance = (Writer) Activator.CreateInstance(writerType);
+                    IWriter instance = (IWriter) Activator.CreateInstance(writerType);
                     instance.ProcessReadMessage(line, this);
                 }
 
@@ -296,7 +296,7 @@ namespace NetIRC
 
                     foreach (Type writerType in this.OutputWriters)
                     {
-                        Writer instance = (Writer)Activator.CreateInstance(writerType);
+                        IWriter instance = (IWriter)Activator.CreateInstance(writerType);
                         instance.ProcessSendMessage(line, this);
                     }
                 }
