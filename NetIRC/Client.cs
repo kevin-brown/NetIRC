@@ -244,9 +244,9 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.UserModeMessage));
             this.RegisterMessage(typeof(Messages.Receive.ChannelModeMessage));
 
-            this.RegisterMessage(typeof(Messages.Receive.ChatMessage));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelPrivateMessage));
             this.RegisterMessage(typeof(Messages.Receive.ChannelNoticeMessage));
-            this.RegisterMessage(typeof(Messages.Receive.PrivateMessage));
+            this.RegisterMessage(typeof(Messages.Receive.UserPrivateMessage));
             this.RegisterMessage(typeof(Messages.Receive.UserNoticeMessage));
 
             this.RegisterMessage(typeof(Messages.Receive.CTCP.ActionMessage));
