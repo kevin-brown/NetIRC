@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIRC.Messages.Receive
 {
-    class PrivateMessage : ReceiveMessage
+    class PrivateMessage : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

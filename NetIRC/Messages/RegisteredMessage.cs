@@ -22,7 +22,7 @@ namespace NetIRC
         {
             this._client = client;
 
-            if (!type.IsSubclassOf(typeof(ReceiveMessage)))
+            if (!type.IsSubclassOf(typeof(IReceiveMessage)))
                 throw new ArgumentException("type must implement ReceiveMessage", "type");
 
             MethodInfo minfo = type.GetMethod("CheckMessage", BindingFlags.Public | BindingFlags.Static);
@@ -38,7 +38,7 @@ namespace NetIRC
 
         public void ProcessMessage(ParsedMessage message)
         {
-            ReceiveMessage instance = (ReceiveMessage)Activator.CreateInstance(this.Type);
+            IReceiveMessage instance = (IReceiveMessage)Activator.CreateInstance(this.Type);
             instance.ProcessMessage(message, _client);
         }
     }

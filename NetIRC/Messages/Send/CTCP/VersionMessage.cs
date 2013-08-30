@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send.CTCP
 {
-    public class VersionMessage : SendMessage
+    public class VersionMessage : ISendMessage
     {
         private string nickName;
 

@@ -267,7 +267,7 @@ namespace NetIRC
             return new Messages.Send.ChatMessage(this, message);
         }
 
-        internal Messages.SendMessage SendWho()
+        internal Messages.ISendMessage SendWho()
         {
             return new Messages.Send.WhoMessage(this.FullName);
         }

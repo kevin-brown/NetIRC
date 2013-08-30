@@ -47,7 +47,7 @@
     <Compile Include="ChannelFactory.cs" />
     <Compile Include="ChannelTopic.cs" />
     <Compile Include="Client.cs" />
-    <Compile Include="Messages\ReceiveMessage.cs" />
+    <Compile Include="Messages\IReceiveMessage.cs" />
     <Compile Include="Messages\Receive\ChannelModeMessage.cs" />
     <Compile Include="Messages\Receive\ChatMessage.cs" />
     <Compile Include="Messages\Receive\CTCP\ActionMessage.cs" />
@@ -70,7 +70,7 @@
     <Compile Include="Messages\Receive\PingMessage.cs" />
     <Compile Include="Messages\Receive\QuitMessage.cs" />
     <Compile Include="Messages\Receive\TopicMessage.cs" />
-    <Compile Include="Messages\SendMessage.cs" />
+    <Compile Include="Messages\ISendMessage.cs" />
     <Compile Include="Messages\Send\AwayMessage.cs" />
     <Compile Include="Messages\Send\ChannelModeMessage.cs" />
     <Compile Include="Messages\Send\ChatMessage.cs" />

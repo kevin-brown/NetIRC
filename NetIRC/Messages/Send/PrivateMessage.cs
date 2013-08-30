@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NetIRC.Messages.Send
 {
-    public class PrivateMessage : SendMessage
+    public class PrivateMessage : ISendMessage
     {
         private string nick;
         private string message;

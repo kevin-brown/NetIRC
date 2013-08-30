@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class UserModeMessage : SendMessage
+    public class UserModeMessage : ISendMessage
     {
         private string nickName;
         private string modes;

@@ -2,7 +2,7 @@
 
 namespace NetIRC.Messages
 {
-    public interface ReceiveMessage
+    public interface IReceiveMessage
     {
         void ProcessMessage(ParsedMessage message, Client client);
     }

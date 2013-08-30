@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class PartMessage : SendMessage
+    public class PartMessage : ISendMessage
     {
         private string channelName;
         private string message;

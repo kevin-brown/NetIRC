@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace NetIRC.Messages.Send
 {
-    public class ChannelNoticeMessage : SendMessage
+    public class ChannelNoticeMessage : ISendMessage
     {
         private string channelName;
         private string message;

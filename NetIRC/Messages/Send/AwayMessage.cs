@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class AwayMessage : SendMessage
+    public class AwayMessage : ISendMessage
     {
         public string reason;
 

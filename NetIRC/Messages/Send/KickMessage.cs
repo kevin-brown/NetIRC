@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class KickMessage : SendMessage
+    public class KickMessage : ISendMessage
     {
         private string channelName;
         private string nickName;

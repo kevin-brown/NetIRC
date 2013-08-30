@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class TopicInfo : ReceiveMessage
+    class TopicInfo : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

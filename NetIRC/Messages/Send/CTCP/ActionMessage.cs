@@ -3,7 +3,7 @@ using System.IO;
 
 namespace NetIRC.Messages.Send.CTCP
 {
-    public class ActionMessage : SendMessage
+    public class ActionMessage : ISendMessage
     {
         private string channelName;
         private string message;

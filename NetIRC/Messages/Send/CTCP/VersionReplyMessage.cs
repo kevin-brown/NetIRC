@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send.CTCP
 {
-    public class VersionReplyMessage : SendMessage
+    public class VersionReplyMessage : ISendMessage
     {
         private User user;
         private string version;

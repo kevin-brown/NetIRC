@@ -5,7 +5,7 @@ namespace NetIRC.Tests
 {
     class TestHelpers
     {
-        public static string GetSendMessageOutput(Messages.SendMessage message)
+        public static string GetSendMessageOutput(Messages.ISendMessage message)
         {
             MemoryStream stream = new MemoryStream();
 

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class TopicMessage : SendMessage
+    public class TopicMessage : ISendMessage
     {
         string channelName;
         string topic;

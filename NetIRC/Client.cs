@@ -276,7 +276,7 @@ namespace NetIRC
         /// Send a message to the connected server.
         /// </summary>
         /// <param name="message">The NetIRC.SendMessage instance to be sent.</param>
-        public void Send(Messages.SendMessage message)
+        public void Send(Messages.ISendMessage message)
         {
             using (MemoryStream stream = new MemoryStream())
             {
