@@ -4,26 +4,26 @@ namespace NetIRC.Messages.Send
 {
     public class ChannelPrivate : ISendMessage
     {
-        string channelName;
-        string message;
+        private readonly string _channelName;
+        private readonly string _message;
 
         public ChannelPrivate(string channelName, string message)
         {
-            this.channelName = channelName;
-            this.message = message;
+            this._channelName = channelName;
+            this._message = message;
         }
 
         public ChannelPrivate(Channel channel, string message)
         {
-            this.channelName = channel.FullName;
-            this.message = message;
+            this._channelName = channel.FullName;
+            this._message = message;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("PRIVMSG {0} :{1}", this.channelName, this.message);
+            writer.WriteLine("PRIVMSG {0} :{1}", this._channelName, this._message);
 
-            client.ChannelFactory.FromName(this.channelName).TriggerOnSendMessage(this.message);
+            client.ChannelFactory.FromName(this._channelName).TriggerOnSendMessage(this._message);
         }
     }
 }

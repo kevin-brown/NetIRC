@@ -4,36 +4,36 @@ namespace NetIRC.Messages.Send
 {
     public class Invite : ISendMessage
     {
-        string channelName;
-        string nickName;
+        readonly string _channelName;
+        readonly string _nickName;
 
         public Invite(Channel channel, User user)
         {
-            this.channelName = channel.FullName;
-            this.nickName = user.NickName;
+            this._channelName = channel.FullName;
+            this._nickName = user.NickName;
         }
 
         public Invite(Channel channel, string nickName)
         {
-            this.channelName = channel.FullName;
-            this.nickName = nickName;
+            this._channelName = channel.FullName;
+            this._nickName = nickName;
         }
 
         public Invite(string channelName, User user)
         {
-            this.channelName = channelName;
-            this.nickName = user.NickName;
+            this._channelName = channelName;
+            this._nickName = user.NickName;
         }
 
         public Invite(string channelName, string nickName)
         {
-            this.channelName = channelName;
-            this.nickName = nickName;
+            this._channelName = channelName;
+            this._nickName = nickName;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("INVITE {0} {1}", this.nickName, this.channelName);
+            writer.WriteLine("INVITE {0} {1}", this._nickName, this._channelName);
         }
     }
 }

@@ -4,25 +4,25 @@ namespace NetIRC.Messages.Send
 {
     public class UserMessage : ISendMessage
     {
-        private string userName;
-        private string realName;
+        private readonly string _userName;
+        private readonly string _realName;
 
         public UserMessage(string userName, string realName)
         {
-            this.userName = userName;
-            this.realName = realName;
+            this._userName = userName;
+            this._realName = realName;
         }
 
         public UserMessage(User user)
         {
-            this.userName = user.UserName;
-            this.realName = user.RealName;
+            this._userName = user.UserName;
+            this._realName = user.RealName;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
             //TODO: allow mode to be set
-            writer.WriteLine("USER " + this.userName + " 0 - :" + this.realName);
+            writer.WriteLine("USER " + this._userName + " 0 - :" + this._realName);
         }
     }
 }

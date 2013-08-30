@@ -4,24 +4,24 @@ namespace NetIRC.Messages.Send
 {
     public class UserPrivate : ISendMessage
     {
-        private string nick;
-        private string message;
+        private readonly string _nick;
+        private readonly string _message;
 
         public UserPrivate(string nick, string message)
         {
-            this.nick = nick;
-            this.message = message;
+            this._nick = nick;
+            this._message = message;
         }
 
         public UserPrivate(User user, string message)
         {
-            this.nick = user.NickName;
-            this.message = message;
+            this._nick = user.NickName;
+            this._message = message;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("PRIVMSG {0} :{1}", this.nick, this.message);
+            writer.WriteLine("PRIVMSG {0} :{1}", this._nick, this._message);
         }
     }
 }

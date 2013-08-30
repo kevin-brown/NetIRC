@@ -4,40 +4,40 @@ namespace NetIRC.Messages.Send
 {
     public class Part : ISendMessage
     {
-        private string channelName;
-        private string message;
+        private readonly string _channelName;
+        private readonly string _message;
 
         public Part(string channelName)
         {
-            this.channelName = channelName;
+            this._channelName = channelName;
         }
 
         public Part(Channel channel)
         {
-            this.channelName = channel.FullName;
+            this._channelName = channel.FullName;
         }
 
         public Part(string channelName, string message)
         {
-            this.channelName = channelName;
-            this.message = message;
+            this._channelName = channelName;
+            this._message = message;
         }
 
         public Part(Channel channel, string message)
         {
-            this.channelName = channel.FullName;
-            this.message = message;
+            this._channelName = channel.FullName;
+            this._message = message;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (this.message == null)
+            if (this._message == null)
             {
-                writer.WriteLine("PART {0}", this.channelName);
+                writer.WriteLine("PART {0}", this._channelName);
             }
             else
             {
-                writer.WriteLine("PART {0} :{1}", this.channelName, this.message);
+                writer.WriteLine("PART {0} :{1}", this._channelName, this._message);
             }
         }
     }

@@ -4,18 +4,18 @@ namespace NetIRC.Messages.Send.CTCP
 {
     public class VersionReply : ISendMessage
     {
-        private User user;
-        private string version;
+        private readonly User _user;
+        private readonly string _version;
 
         public VersionReply(User user, string version)
         {
-            this.user = user;
-            this.version = version;
+            this._user = user;
+            this._version = version;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("NOTICE " + this.user.NickName + " \x001VERSION " + this.version + "\x001");
+            writer.WriteLine("NOTICE " + this._user.NickName + " \x001VERSION " + this._version + "\x001");
         }
     }
 }

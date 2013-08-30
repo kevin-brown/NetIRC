@@ -4,7 +4,7 @@ namespace NetIRC.Messages.Send
 {
     public class Quit : ISendMessage
     {
-        private string message;
+        private readonly string _message;
 
         public Quit()
         {
@@ -12,18 +12,18 @@ namespace NetIRC.Messages.Send
 
         public Quit(string message)
         {
-            this.message = message;
+            this._message = message;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (this.message == null)
+            if (this._message == null)
             {
                 writer.WriteLine("QUIT");
             }
             else
             {
-                writer.WriteLine("QUIT {0}", this.message);
+                writer.WriteLine("QUIT {0}", this._message);
             }
         }
     }

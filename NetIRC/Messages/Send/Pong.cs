@@ -4,16 +4,16 @@ namespace NetIRC.Messages.Send
 {
     public class Pong : ISendMessage
     {
-        private string extra;
+        private readonly string _extra;
 
         public Pong(string extra)
         {
-            this.extra = extra;
+            this._extra = extra;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("PONG :{0}", this.extra);
+            writer.WriteLine("PONG :{0}", this._extra);
         }
     }
 }

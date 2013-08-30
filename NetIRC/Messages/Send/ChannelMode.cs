@@ -4,61 +4,61 @@ namespace NetIRC.Messages.Send
 {
     public class ChannelMode : ISendMessage
     {
-        private string channelName;
-        private string modes;
-        private string parameters;
+        private readonly string _channelName;
+        private readonly string _modes;
+        private readonly string _parameters;
 
         public ChannelMode(string channelName)
         {
-            this.channelName = channelName;
+            this._channelName = channelName;
         }
 
         public ChannelMode(string channelName, string modes)
         {
-            this.channelName = channelName;
-            this.modes = modes;
+            this._channelName = channelName;
+            this._modes = modes;
         }
 
         public ChannelMode(string channelName, string modes, string parameters)
         {
-            this.channelName = channelName;
-            this.modes = modes;
-            this.parameters = parameters;
+            this._channelName = channelName;
+            this._modes = modes;
+            this._parameters = parameters;
         }
 
         public ChannelMode(Channel channel)
         {
-            this.channelName = channel.FullName;
+            this._channelName = channel.FullName;
         }
 
         public ChannelMode(Channel channel, string modes)
         {
-            this.channelName = channel.FullName;
-            this.modes = modes;
+            this._channelName = channel.FullName;
+            this._modes = modes;
         }
 
         public ChannelMode(Channel channel, string modes, string parameters)
         {
-            this.channelName = channel.FullName;
-            this.modes = modes;
-            this.parameters = parameters;
+            this._channelName = channel.FullName;
+            this._modes = modes;
+            this._parameters = parameters;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (string.IsNullOrEmpty(this.modes))
+            if (string.IsNullOrEmpty(this._modes))
             {
-                writer.WriteLine("MODE {0}", this.channelName);
+                writer.WriteLine("MODE {0}", this._channelName);
             }
 
-            else if (string.IsNullOrEmpty(this.parameters))
+            else if (string.IsNullOrEmpty(this._parameters))
             {
-                writer.WriteLine("MODE {0} {1}", this.channelName, this.modes);
+                writer.WriteLine("MODE {0} {1}", this._channelName, this._modes);
             }
 
             else
             {
-                writer.WriteLine("MODE {0} {1} {2}", this.channelName, this.modes, this.parameters);
+                writer.WriteLine("MODE {0} {1} {2}", this._channelName, this._modes, this._parameters);
             }
         }
     }

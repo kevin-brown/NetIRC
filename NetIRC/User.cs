@@ -160,25 +160,13 @@ namespace NetIRC
         /// <summary>
         /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.
         /// </summary>
-        internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>()
+        internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>
             {
                 {'+', UserRank.Voice},
                 {'%', UserRank.HalfOp},
                 {'@', UserRank.Op},
                 {'&', UserRank.Admin},
                 {'~', UserRank.Owner},
-            };
-
-        /// <summary>
-        /// A dictionary representing the characters that are used to change a user's rank through channel modes.
-        /// </summary>
-        internal static Dictionary<char, UserRank> RankModes = new Dictionary<char, UserRank>()
-            {
-                {'v', UserRank.Voice},
-                {'h', UserRank.HalfOp},
-                {'o', UserRank.Op},
-                {'a', UserRank.Admin},
-                {'q', UserRank.Owner},
             };
 
         public User()

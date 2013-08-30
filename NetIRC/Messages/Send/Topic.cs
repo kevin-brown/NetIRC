@@ -4,40 +4,40 @@ namespace NetIRC.Messages.Send
 {
     public class Topic : ISendMessage
     {
-        string channelName;
-        string topic;
+        private readonly string _channelName;
+        private readonly string _topic;
 
         public Topic(string channelName)
         {
-            this.channelName = channelName;
+            this._channelName = channelName;
         }
 
         public Topic(Channel channel)
         {
-            this.channelName = channel.FullName;
+            this._channelName = channel.FullName;
         }
 
         public Topic(string channelName, string topic)
         {
-            this.channelName = channelName;
-            this.topic = topic;
+            this._channelName = channelName;
+            this._topic = topic;
         }
 
         public Topic(Channel channel, string topic)
         {
-            this.channelName = channel.FullName;
-            this.topic = topic;
+            this._channelName = channel.FullName;
+            this._topic = topic;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (string.IsNullOrEmpty(this.topic))
+            if (string.IsNullOrEmpty(this._topic))
             {
-                writer.WriteLine("TOPIC {0}", this.channelName);
+                writer.WriteLine("TOPIC {0}", this._channelName);
             }
             else
             {
-                writer.WriteLine("TOPIC {0} :{1}", this.channelName, this.topic);
+                writer.WriteLine("TOPIC {0} :{1}", this._channelName, this._topic);
             }
         }
     }

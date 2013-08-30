@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
-using System.Reflection;
 using System.Threading;
 using NetIRC.Messages;
 using NetIRC.Output;
@@ -11,9 +10,8 @@ namespace NetIRC
 {
     public class Client
     {
-        private List<RegisteredMessage> RegisteredMessages = new List<RegisteredMessage>();
-
-        private List<Type> OutputWriters = new List<Type>();
+        private readonly List<RegisteredMessage> _registeredMessages = new List<RegisteredMessage>();
+        private readonly List<Type> _outputWriters = new List<Type>();
 
         private TcpClient TcpClient
         {
@@ -126,8 +124,7 @@ namespace NetIRC
             this.Reader = new StreamReader(this.Stream);
             this.Writer = new StreamWriter(this.Stream) { NewLine = "\r\n", AutoFlush = true };
 
-            this.ReadThread = new Thread(ReadStream);
-            this.ReadThread.IsBackground = true;
+            this.ReadThread = new Thread(this.ReadStream) {IsBackground = true};
             this.ReadThread.Start();
 
             this.Send(new Messages.Send.UserMessage(this.User));
@@ -205,7 +202,7 @@ namespace NetIRC
                 string line = this.Reader.ReadLine();
                 if (String.IsNullOrEmpty(line)) continue;
 
-                foreach (Type writerType in this.OutputWriters)
+                foreach (Type writerType in this._outputWriters)
                 {
                     IWriter instance = (IWriter) Activator.CreateInstance(writerType);
                     instance.ProcessReadMessage(line, this);
@@ -213,7 +210,7 @@ namespace NetIRC
 
                 ParsedMessage message = new ParsedMessage(this, line);
 
-                foreach (RegisteredMessage messageType in this.RegisteredMessages)
+                foreach (RegisteredMessage messageType in this._registeredMessages)
                 {
                     if (messageType.CheckMessage(message))
                     {
@@ -229,7 +226,7 @@ namespace NetIRC
         /// <param name="type">The type of the Message object that messages will be checked against.</param>
         public void RegisterMessage(Type type)
         {
-            this.RegisteredMessages.Add(new RegisteredMessage(this, type));
+            this._registeredMessages.Add(new RegisteredMessage(this, type));
         }
 
         private void RegisterMessages()
@@ -266,7 +263,7 @@ namespace NetIRC
             if (!typeof(IWriter).IsAssignableFrom(type))
                 throw new ArgumentException("type must implement IWriter", "type");
 
-            this.OutputWriters.Add(type);
+            this._outputWriters.Add(type);
         }
 
         private void RegisterWriters()
@@ -297,7 +294,7 @@ namespace NetIRC
                         break;
                     }
 
-                    foreach (Type writerType in this.OutputWriters)
+                    foreach (Type writerType in this._outputWriters)
                     {
                         IWriter instance = (IWriter)Activator.CreateInstance(writerType);
                         instance.ProcessSendMessage(line, this);
@@ -313,9 +310,9 @@ namespace NetIRC
 
         internal void TriggerOnChannelJoin(Channel channel)
         {
-            if (OnChannelJoin != null)
+            if (this.OnChannelJoin != null)
             {
-                OnChannelJoin(this, channel);
+                this.OnChannelJoin(this, channel);
             }
         }
 
@@ -324,9 +321,9 @@ namespace NetIRC
 
         internal void TriggerOnChannelLeave(Channel channel)
         {
-            if (OnChannelLeave != null)
+            if (this.OnChannelLeave != null)
             {
-                OnChannelLeave(this, channel);
+                this.OnChannelLeave(this, channel);
             }
         }
 
@@ -335,9 +332,9 @@ namespace NetIRC
 
         internal void TriggerOnConnect()
         {
-            if (OnConnect != null)
+            if (this.OnConnect != null)
             {
-                OnConnect(this);
+                this.OnConnect(this);
             }
         }
 
@@ -346,9 +343,9 @@ namespace NetIRC
 
         internal void TriggerOnUserMode(string modes)
         {
-            if (OnUserMode != null)
+            if (this.OnUserMode != null)
             {
-                OnUserMode(this, modes);
+                this.OnUserMode(this, modes);
             }
         }
 
@@ -357,9 +354,9 @@ namespace NetIRC
 
         internal void TriggerOnWelcome(string message)
         {
-            if (OnWelcome != null)
+            if (this.OnWelcome != null)
             {
-                OnWelcome(this, message);
+                this.OnWelcome(this, message);
             }
         }
 
@@ -368,9 +365,9 @@ namespace NetIRC
 
         internal void TriggerOnWho(string message)
         {
-            if (OnWho != null)
+            if (this.OnWho != null)
             {
-                OnWho(this, message);
+                this.OnWho(this, message);
             }
         }
 
@@ -379,9 +376,9 @@ namespace NetIRC
 
         public void TriggerOnMessage(User source, string message)
         {
-            if (OnMessage != null)
+            if (this.OnMessage != null)
             {
-                OnMessage(this, source, message);
+                this.OnMessage(this, source, message);
             }
         }
 
@@ -390,9 +387,9 @@ namespace NetIRC
 
         internal void TriggerOnVersion(User source)
         {
-            if (OnVersion != null)
+            if (this.OnVersion != null)
             {
-                OnVersion(this, source);
+                this.OnVersion(this, source);
             }
         }
 
@@ -401,9 +398,9 @@ namespace NetIRC
 
         internal void TriggerOnVersionReply(User source, string version)
         {
-            if (OnVersionReply != null)
+            if (this.OnVersionReply != null)
             {
-                OnVersionReply(this, source, version);
+                this.OnVersionReply(this, source, version);
             }
         }
 
@@ -412,9 +409,9 @@ namespace NetIRC
 
         public void TriggerOnNotice(User user, string notice)
         {
-            if (OnNotice != null)
+            if (this.OnNotice != null)
             {
-                OnNotice(this, user, notice);
+                this.OnNotice(this, user, notice);
             }
         }
 
@@ -422,12 +419,12 @@ namespace NetIRC
 
         public void UnregisterMessage(Type type)
         {
-            this.RegisteredMessages.RemoveAll(message => message.Type == type);
+            this._registeredMessages.RemoveAll(message => message.Type == type);
         }
 
         public void UnregisterWriter(Type type)
         {
-            this.OutputWriters.Remove(type);
+            this._outputWriters.Remove(type);
         }
     }
 }

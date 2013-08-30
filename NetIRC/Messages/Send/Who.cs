@@ -4,21 +4,21 @@ namespace NetIRC.Messages.Send
 {
     public class Who : ISendMessage
     {
-        string target;
+        private readonly string _target;
 
         public Who(string target)
         {
-            this.target = target;
+            this._target = target;
         }
 
         public Who(Channel channel)
         {
-            this.target = channel.FullName;
+            this._target = channel.FullName;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("WHO " + this.target);
+            writer.WriteLine("WHO " + this._target);
         }
     }
 }

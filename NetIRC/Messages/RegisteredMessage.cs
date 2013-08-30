@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
 using NetIRC.Messages;
 
 namespace NetIRC
@@ -33,13 +30,13 @@ namespace NetIRC
 
         public bool CheckMessage(ParsedMessage message)
         {
-            return this._checkMessageDelegate(message, _client);
+            return this._checkMessageDelegate(message, this._client);
         }
 
         public void ProcessMessage(ParsedMessage message)
         {
             IReceiveMessage instance = (IReceiveMessage)Activator.CreateInstance(this.Type);
-            instance.ProcessMessage(message, _client);
+            instance.ProcessMessage(message, this._client);
         }
     }
 }
