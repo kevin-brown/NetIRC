@@ -204,19 +204,19 @@ namespace NetIRC
             }
         }
 
-        public Messages.Send.TopicMessage GetTopic()
+        public Messages.Send.Topic GetTopic()
         {
-            return new Messages.Send.TopicMessage(this);
+            return new Messages.Send.Topic(this);
         }
 
-        public Messages.Send.InviteMessage Invite(User user)
+        public Messages.Send.Invite Invite(User user)
         {
-            return new Messages.Send.InviteMessage(this, user);
+            return new Messages.Send.Invite(this, user);
         }
 
-        public Messages.Send.JoinMessage Join()
+        public Messages.Send.Join Join()
         {
-            return new Messages.Send.JoinMessage(this);
+            return new Messages.Send.Join(this);
         }
 
         internal void JoinUser(User user)
@@ -226,24 +226,24 @@ namespace NetIRC
             this.TriggerOnJoin(user);
         }
 
-        public Messages.Send.KickMessage Kick(User user)
+        public Messages.Send.Kick Kick(User user)
         {
-            return new Messages.Send.KickMessage(this, user);
+            return new Messages.Send.Kick(this, user);
         }
 
-        public Messages.Send.KickMessage Kick(User user, string message)
+        public Messages.Send.Kick Kick(User user, string message)
         {
-            return new Messages.Send.KickMessage(this, user, message);
+            return new Messages.Send.Kick(this, user, message);
         }
 
-        public Messages.Send.PartMessage Part()
+        public Messages.Send.Part Part()
         {
-            return new Messages.Send.PartMessage(this);
+            return new Messages.Send.Part(this);
         }
 
-        public Messages.Send.PartMessage Part(string message)
+        public Messages.Send.Part Part(string message)
         {
-            return new Messages.Send.PartMessage(this, message);
+            return new Messages.Send.Part(this, message);
         }
 
         internal void RemoveUser(User user)
@@ -257,24 +257,24 @@ namespace NetIRC
             }
         }
 
-        public Messages.Send.ChannelNoticeMessage SendNotice(string message)
+        public Messages.Send.ChannelNotice SendNotice(string message)
         {
-            return new Messages.Send.ChannelNoticeMessage(this, message);
+            return new Messages.Send.ChannelNotice(this, message);
         }
 
-        public Messages.Send.ChatMessage SendMessage(string message)
+        public Messages.Send.ChannelPrivate SendMessage(string message)
         {
-            return new Messages.Send.ChatMessage(this, message);
+            return new Messages.Send.ChannelPrivate(this, message);
         }
 
         internal Messages.ISendMessage SendWho()
         {
-            return new Messages.Send.WhoMessage(this.FullName);
+            return new Messages.Send.Who(this.FullName);
         }
 
-        public Messages.Send.TopicMessage SetTopic(string topic)
+        public Messages.Send.Topic SetTopic(string topic)
         {
-            return new Messages.Send.TopicMessage(this, topic);
+            return new Messages.Send.Topic(this, topic);
         }
 
         public delegate void OnActionHandler(Channel source, User user, string action);

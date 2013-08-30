@@ -3,16 +3,16 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class NickMessage : ISendMessage
+    public class Nick : ISendMessage
     {
         private string nickName;
 
-        public NickMessage(string nickName)
+        public Nick(string nickName)
         {
             this.nickName = nickName;
         }
 
-        public NickMessage(User user)
+        public Nick(User user)
         {
             this.nickName = user.NickName;
         }

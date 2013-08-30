@@ -3,16 +3,16 @@ using System.IO;
 
 namespace NetIRC.Messages.Send.CTCP
 {
-    public class VersionMessage : ISendMessage
+    public class Version : ISendMessage
     {
         private string nickName;
 
-        public VersionMessage(string nickName)
+        public Version(string nickName)
         {
             this.nickName = nickName;
         }
 
-        public VersionMessage(User user)
+        public Version(User user)
         {
             this.nickName = user.NickName;
         }

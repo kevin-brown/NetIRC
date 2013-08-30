@@ -7,42 +7,42 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class ChannelModeMessage : ISendMessage
+    public class ChannelMode : ISendMessage
     {
         private string channelName;
         private string modes;
         private string parameters;
 
-        public ChannelModeMessage(string channelName)
+        public ChannelMode(string channelName)
         {
             this.channelName = channelName;
         }
 
-        public ChannelModeMessage(string channelName, string modes)
+        public ChannelMode(string channelName, string modes)
         {
             this.channelName = channelName;
             this.modes = modes;
         }
 
-        public ChannelModeMessage(string channelName, string modes, string parameters)
+        public ChannelMode(string channelName, string modes, string parameters)
         {
             this.channelName = channelName;
             this.modes = modes;
             this.parameters = parameters;
         }
 
-        public ChannelModeMessage(Channel channel)
+        public ChannelMode(Channel channel)
         {
             this.channelName = channel.FullName;
         }
 
-        public ChannelModeMessage(Channel channel, string modes)
+        public ChannelMode(Channel channel, string modes)
         {
             this.channelName = channel.FullName;
             this.modes = modes;
         }
 
-        public ChannelModeMessage(Channel channel, string modes, string parameters)
+        public ChannelMode(Channel channel, string modes, string parameters)
         {
             this.channelName = channel.FullName;
             this.modes = modes;

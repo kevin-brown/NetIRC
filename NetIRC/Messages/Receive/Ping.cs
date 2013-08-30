@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive
         {
             string extra = message.Parameters[0];
 
-            client.Send(new Messages.Send.PongMessage(extra));
+            client.Send(new Messages.Send.Pong(extra));
         }
     }
 }

@@ -3,18 +3,18 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class ChatMessage : ISendMessage
+    public class ChannelPrivate : ISendMessage
     {
         string channelName;
         string message;
 
-        public ChatMessage(string channelName, string message)
+        public ChannelPrivate(string channelName, string message)
         {
             this.channelName = channelName;
             this.message = message;
         }
 
-        public ChatMessage(Channel channel, string message)
+        public ChannelPrivate(Channel channel, string message)
         {
             this.channelName = channel.FullName;
             this.message = message;

@@ -1,20 +1,21 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
-namespace NetIRC.Messages.Send.CTCP
+namespace NetIRC.Messages.Send
 {
-    public class ActionMessage : ISendMessage
+    public class ChannelNotice : ISendMessage
     {
         private string channelName;
         private string message;
 
-        public ActionMessage(string channelName, string message)
+        public ChannelNotice(string channelName, string message)
         {
             this.channelName = channelName;
             this.message = message;
         }
 
-        public ActionMessage(Channel channel, string message)
+        public ChannelNotice(Channel channel, string message)
         {
             this.channelName = channel.FullName;
             this.message = message;
@@ -22,9 +23,9 @@ namespace NetIRC.Messages.Send.CTCP
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("PRIVMSG {0} \x001" + "ACTION {1}\x001", this.channelName, this.message);
+            writer.WriteLine("NOTICE {0} :{1}",this.channelName, this.message);
 
-            client.ChannelFactory.FromName(this.channelName).TriggerOnSendAction(message);
+            client.ChannelFactory.FromName(this.channelName).TriggerOnSendNotice(this.message);
         }
     }
 }

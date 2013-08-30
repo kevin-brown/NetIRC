@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class PongMessage : ISendMessage
+    public class Pong : ISendMessage
     {
         private string extra;
 
-        public PongMessage(string extra)
+        public Pong(string extra)
         {
             this.extra = extra;
         }

@@ -6,18 +6,18 @@ using System.Text;
 
 namespace NetIRC.Messages.Send
 {
-    public class PrivateMessage : ISendMessage
+    public class UserPrivate : ISendMessage
     {
         private string nick;
         private string message;
 
-        public PrivateMessage(string nick, string message)
+        public UserPrivate(string nick, string message)
         {
             this.nick = nick;
             this.message = message;
         }
 
-        public PrivateMessage(User user, string message)
+        public UserPrivate(User user, string message)
         {
             this.nick = user.NickName;
             this.message = message;

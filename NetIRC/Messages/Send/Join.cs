@@ -3,16 +3,16 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class JoinMessage : ISendMessage
+    public class Join : ISendMessage
     {
         private string channelName;
 
-        public JoinMessage(string channelName)
+        public Join(string channelName)
         {
             this.channelName = channelName;
         }
 
-        public JoinMessage(Channel channel)
+        public Join(Channel channel)
         {
             this.channelName = channel.FullName;
         }

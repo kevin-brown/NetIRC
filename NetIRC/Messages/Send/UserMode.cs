@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class UserModeMessage : ISendMessage
+    public class UserMode : ISendMessage
     {
         private string nickName;
         private string modes;
 
-        public UserModeMessage(User user)
+        public UserMode(User user)
         {
             this.nickName = user.NickName;
         }
 
-        public UserModeMessage(User user, string modes)
+        public UserMode(User user, string modes)
         {
             this.nickName = user.NickName;
             this.modes = modes;
         }
 
-        public UserModeMessage(string nickName)
+        public UserMode(string nickName)
         {
             this.nickName = nickName;
         }
 
-        public UserModeMessage(string nickName, string modes)
+        public UserMode(string nickName, string modes)
         {
             this.nickName = nickName;
             this.modes = modes;

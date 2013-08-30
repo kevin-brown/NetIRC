@@ -3,15 +3,15 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class QuitMessage : ISendMessage
+    public class Quit : ISendMessage
     {
         private string message;
 
-        public QuitMessage()
+        public Quit()
         {
         }
 
-        public QuitMessage(string message)
+        public Quit(string message)
         {
             this.message = message;
         }

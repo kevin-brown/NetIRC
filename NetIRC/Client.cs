@@ -98,9 +98,9 @@ namespace NetIRC
             this.RegisterWriters();
         }
 
-        public Messages.Send.AwayMessage Away(string message)
+        public Messages.Send.Away Away(string message)
         {
-            return new Messages.Send.AwayMessage(message);
+            return new Messages.Send.Away(message);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace NetIRC
             this.ReadThread.Start();
 
             this.Send(new Messages.Send.UserMessage(this.User));
-            this.Send(new Messages.Send.NickMessage(this.User));
+            this.Send(new Messages.Send.Nick(this.User));
         }
 
         /// <summary>
@@ -183,19 +183,19 @@ namespace NetIRC
             this.Send(channel.Part());
         }
 
-        public Messages.Send.NotAwayMessage NotAway()
+        public Messages.Send.NotAway NotAway()
         {
-            return new Messages.Send.NotAwayMessage();
+            return new Messages.Send.NotAway();
         }
 
-        public Messages.Send.QuitMessage Quit()
+        public Messages.Send.Quit Quit()
         {
-            return new Messages.Send.QuitMessage();
+            return new Messages.Send.Quit();
         }
 
-        public Messages.Send.QuitMessage Quit(string reason)
+        public Messages.Send.Quit Quit(string reason)
         {
-            return new Messages.Send.QuitMessage(reason);
+            return new Messages.Send.Quit(reason);
         }
 
         private void ReadStream()

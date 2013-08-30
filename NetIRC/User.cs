@@ -207,7 +207,7 @@ namespace NetIRC
             this.UserName = user;
         }
 
-        public Messages.Send.InviteMessage Invite(Channel channel)
+        public Messages.Send.Invite Invite(Channel channel)
         {
             return channel.Invite(this);
         }

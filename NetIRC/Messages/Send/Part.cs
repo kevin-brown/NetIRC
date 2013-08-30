@@ -3,28 +3,28 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class PartMessage : ISendMessage
+    public class Part : ISendMessage
     {
         private string channelName;
         private string message;
 
-        public PartMessage(string channelName)
+        public Part(string channelName)
         {
             this.channelName = channelName;
         }
 
-        public PartMessage(Channel channel)
+        public Part(Channel channel)
         {
             this.channelName = channel.FullName;
         }
 
-        public PartMessage(string channelName, string message)
+        public Part(string channelName, string message)
         {
             this.channelName = channelName;
             this.message = message;
         }
 
-        public PartMessage(Channel channel, string message)
+        public Part(Channel channel, string message)
         {
             this.channelName = channel.FullName;
             this.message = message;

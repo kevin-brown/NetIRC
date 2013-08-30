@@ -3,16 +3,16 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class WhoMessage : ISendMessage
+    public class Who : ISendMessage
     {
         string target;
 
-        public WhoMessage(string target)
+        public Who(string target)
         {
             this.target = target;
         }
 
-        public WhoMessage(Channel channel)
+        public Who(Channel channel)
         {
             this.target = channel.FullName;
         }

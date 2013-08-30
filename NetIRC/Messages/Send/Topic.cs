@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Send
 {
-    public class TopicMessage : ISendMessage
+    public class Topic : ISendMessage
     {
         string channelName;
         string topic;
 
-        public TopicMessage(string channelName)
+        public Topic(string channelName)
         {
             this.channelName = channelName;
         }
 
-        public TopicMessage(Channel channel)
+        public Topic(Channel channel)
         {
             this.channelName = channel.FullName;
         }
 
-        public TopicMessage(string channelName, string topic)
+        public Topic(string channelName, string topic)
         {
             this.channelName = channelName;
             this.topic = topic;
         }
 
-        public TopicMessage(Channel channel, string topic)
+        public Topic(Channel channel, string topic)
         {
             this.channelName = channel.FullName;
             this.topic = topic;

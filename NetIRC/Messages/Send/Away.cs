@@ -3,11 +3,11 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class AwayMessage : ISendMessage
+    public class Away : ISendMessage
     {
         public string reason;
 
-        public AwayMessage(string reason)
+        public Away(string reason)
         {
             this.reason = reason;
         }
