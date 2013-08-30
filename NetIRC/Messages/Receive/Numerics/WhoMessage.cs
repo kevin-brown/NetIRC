@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class WhoMessage : ReceiveNumericMessage
+    class WhoMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
@@ -11,7 +11,7 @@ namespace NetIRC.Messages.Receive.Numerics
         }
 
         //TODO: Do some code cleanup
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             Channel channel = message.GetChannel(message.Parameters[1]);
             User oldUser = message.GetUserFromNick(message.Parameters[5]);

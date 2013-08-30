@@ -2,14 +2,14 @@
 
 namespace NetIRC.Messages.Receive
 {
-    class JoinMessage : ReceiveUserMessage
+    class JoinMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "JOIN";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             Channel channel = message.GetChannel();

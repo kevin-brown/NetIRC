@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive
 {
-    class ChannelModeMessage : ReceiveUserMessage
+    class ChannelModeMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Receive
                    message.IsChannel();
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User setter = message.GetUser();
             Channel channel = message.GetChannel();

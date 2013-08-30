@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIRC.Messages.Receive
 {
-    class UserNoticeMessage : ReceivePrivMessage
+    class UserNoticeMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Receive
                    !message.IsCTCP();
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             string notice = message.Parameters[1];

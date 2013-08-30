@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive.CTCP
 {
-    class ActionMessage : ReceivePrivMessage
+    class ActionMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
@@ -14,7 +14,7 @@ namespace NetIRC.Messages.Receive.CTCP
                    message.HasCTCPParameter();
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             Channel channel = message.GetChannel();

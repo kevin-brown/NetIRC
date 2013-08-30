@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class NamesMessage : ReceiveNumericMessage
+    class NamesMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "353";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User target = message.GetUserFromNick(message.Parameters[0]);
 

@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive
 {
-    class TopicMessage : ReceiveUserMessage
+    class TopicMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "TOPIC";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User user = message.GetUser();
             Channel channel = message.GetChannel();

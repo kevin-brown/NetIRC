@@ -3,14 +3,14 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive
 {
-    class KickMessage : ReceiveUserMessage
+    class KickMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "KICK";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User kicker = message.GetUser();
             Channel channel = message.GetChannel();

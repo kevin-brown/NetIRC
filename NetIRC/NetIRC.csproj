@@ -48,9 +48,6 @@
     <Compile Include="ChannelTopic.cs" />
     <Compile Include="Client.cs" />
     <Compile Include="Messages\ReceiveMessage.cs" />
-    <Compile Include="Messages\ReceiveNumericMessage.cs" />
-    <Compile Include="Messages\ReceivePrivMessage.cs" />
-    <Compile Include="Messages\ReceiveUserMessage.cs" />
     <Compile Include="Messages\Receive\ChannelModeMessage.cs" />
     <Compile Include="Messages\Receive\ChatMessage.cs" />
     <Compile Include="Messages\Receive\CTCP\ActionMessage.cs" />

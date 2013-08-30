@@ -2,14 +2,14 @@
 
 namespace NetIRC.Messages.Receive
 {
-    class PartMessage : ReceiveUserMessage
+    class PartMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "PART";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             Channel channel = message.GetChannel();
             User user = message.GetUser();

@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace NetIRC.Messages.Receive.CTCP
 {
-    class VersionMessage : ReceivePrivMessage
+    class VersionMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
@@ -13,7 +13,7 @@ namespace NetIRC.Messages.Receive.CTCP
                    message.GetCTCPCommand() == "VERSION";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             User target = message.GetUserFromNick(message.Parameters[0]);
 

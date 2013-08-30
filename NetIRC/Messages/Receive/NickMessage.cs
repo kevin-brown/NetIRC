@@ -2,14 +2,14 @@
 
 namespace NetIRC.Messages.Receive
 {
-    class NickMessage : ReceiveUserMessage
+    class NickMessage : ReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
             return message.Command == "NICK";
         }
 
-        public override void ProcessMessage(ParsedMessage message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
             string user = message.GetUser().NickName;
             string nick = message.Parameters[0];
