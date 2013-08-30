@@ -98,11 +98,6 @@ namespace NetIRC
             this.RegisterWriters();
         }
 
-        public Messages.Send.Away Away()
-        {
-            return new Messages.Send.Away();
-        }
-
         public Messages.Send.Away Away(string message)
         {
             return new Messages.Send.Away(message);
@@ -188,9 +183,9 @@ namespace NetIRC
             this.Send(channel.Part());
         }
 
-        public Messages.Send.Back Back()
+        public Messages.Send.NotAway NotAway()
         {
-            return new Messages.Send.Back();
+            return new Messages.Send.NotAway();
         }
 
         public Messages.Send.Quit Quit()

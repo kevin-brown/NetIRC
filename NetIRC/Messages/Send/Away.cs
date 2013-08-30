@@ -5,11 +5,7 @@ namespace NetIRC.Messages.Send
 {
     public class Away : ISendMessage
     {
-        private string reason;
-
-        public Away()
-        {
-        }
+        public string reason;
 
         public Away(string reason)
         {
@@ -18,15 +14,7 @@ namespace NetIRC.Messages.Send
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (string.IsNullOrEmpty(this.reason))
-            {
-                writer.WriteLine("AWAY");
-            }
-
-            else
-            {
-                writer.WriteLine("AWAY :{0}", this.reason);
-            }
+            writer.WriteLine("AWAY :{0}", this.reason);
         }
     }
 }
