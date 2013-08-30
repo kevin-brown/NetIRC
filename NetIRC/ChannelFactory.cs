@@ -17,6 +17,11 @@ namespace NetIRC
             _client = client;
         }
 
+        public void RemoveName(string name)
+        {
+            this._store.Remove(name);
+        }
+
         public Channel FromName(string name)
         {
             if (this._store.ContainsKey(name))

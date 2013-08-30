@@ -26,16 +26,16 @@ namespace NetIRC
         
         public readonly ChannelTopic Topic = new ChannelTopic();
 
-        public Dictionary<string, User> Users
+        public ReadOnlyDictionary<string, User> Users
         {
             get
             {
                 if (this.Client != null)
                 {
-                    return Client.UserFactory.InChannel(this.Name);
+                    return Client.UserFactory.InChannel(this.Name).AsReadOnly();
                 }
 
-                return new Dictionary<string, User>();
+                return new Dictionary<string, User>().AsReadOnly();
             }
         }
 
@@ -252,8 +252,20 @@ namespace NetIRC
             {
                 user._channels.Remove(this.Name);
                 user._ranks.Remove(this.Name);
+            }
+        }
 
-                this.TriggerOnLeave(user);
+        internal void LeaveUser(User user)
+        {
+            this.RemoveUser(user);
+            this.TriggerOnLeave(user);
+        }
+
+        internal void ClearUsers()
+        {
+            foreach (User user in this.Users.Values)
+            {
+                this.RemoveUser(user);
             }
         }
 

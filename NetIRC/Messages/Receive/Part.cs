@@ -18,7 +18,9 @@ namespace NetIRC.Messages.Receive
 
             if (user == client.User)
             {
+                client.ChannelFactory.RemoveName(channel.Name);
                 client.TriggerOnChannelLeave(channel);
+                channel.ClearUsers();
             }
 
             client.Send(channel.SendWho());

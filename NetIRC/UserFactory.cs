@@ -16,13 +16,9 @@ namespace NetIRC
             _client = client;
         }
 
-        internal User RemoveNick(string nick)
+        internal void RemoveNick(string nick)
         {
-            User user = FromNick(nick);
-
             this._store.Remove(nick);
-
-            return user;
         }
 
         internal User ChangeNick(string original, string future)

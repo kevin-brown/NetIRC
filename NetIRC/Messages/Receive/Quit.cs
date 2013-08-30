@@ -15,7 +15,7 @@ namespace NetIRC.Messages.Receive
             User user = message.GetUser();
             string reason = message.Parameters[0];
 
-            client.UserFactory.RemoveNick(user.UserName);
+            client.UserFactory.RemoveNick(user.NickName);
             user.TriggerOnQuit(reason);
             user._channels.Clear();
         }
