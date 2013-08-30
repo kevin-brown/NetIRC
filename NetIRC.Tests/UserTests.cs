@@ -43,7 +43,7 @@ namespace NetIRC.Tests
             User user = new User("user");
             Channel channel = new Channel("channel");
 
-            Messages.Send.InviteMessage invite = user.Invite(channel);
+            Messages.Send.Invite invite = user.Invite(channel);
 
             string output = TestHelpers.GetSendMessageOutput(invite);
 

@@ -1,5 +1,3 @@
-using System;
-
 namespace NetIRC
 {
     public enum ChannelType

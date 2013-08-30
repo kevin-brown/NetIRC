@@ -1,25 +1,28 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class UserMessage : SendMessage
+    public class UserMessage : ISendMessage
     {
-        private User User;
+        private readonly string _userName;
+        private readonly string _realName;
+
+        public UserMessage(string userName, string realName)
+        {
+            this._userName = userName;
+            this._realName = realName;
+        }
 
         public UserMessage(User user)
         {
-            this.User = user;
+            this._userName = user.UserName;
+            this._realName = user.RealName;
         }
 
-        public void Send(StreamWriter writer)
+        public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("USER " + this.User.UserName + " 8 - :" + this.User.RealName);
-        }
-
-        public bool CheckMessage(string message, Server server)
-        {
-            throw new NotImplementedException();
+            //TODO: allow mode to be set
+            writer.WriteLine("USER " + this._userName + " 0 - :" + this._realName);
         }
     }
 }

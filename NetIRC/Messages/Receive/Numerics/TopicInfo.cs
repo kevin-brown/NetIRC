@@ -1,33 +1,32 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class TopicInfo : ReceiveNumericMessage
+    class TopicInfo : IReceiveMessage
     {
-        public static bool CheckMessage(string message, Server server)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, server, 333);
+            return message.Command == "333";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
-            Channel channel = ChannelFactory.FromName(parts[3].Substring(1));
+            if (target == client.User)
+            {
+                Channel channel = message.GetChannel(message.Parameters[1]);
+                User user = message.GetUser(message.Parameters[2]);
+                int timestamp = int.Parse(message.Parameters[3]);
 
-            User user = UserFactory.FromUserMask(parts[4]);
+                DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                time = time.AddSeconds(timestamp);
 
-            DateTime time = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-            time = time.AddSeconds(int.Parse(parts[5]));
+                channel.Topic.Author = user;
+                channel.Topic.LastUpdated = time.ToLocalTime();
+                channel.TriggerOnTopicChange(channel.Topic);
+            }
 
-            channel.Topic.Author = user;
-            channel.Topic.LastUpdated = time.ToLocalTime();
-
-            channel.TriggerOnTopicChange(channel.Topic);
         }
     }
 }

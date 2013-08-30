@@ -1,29 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace NetIRC
 {
     public class Channel
     {
+        internal Client Client;
+
+        /// <summary>
+        /// Name of the channel without its prefix
+        /// </summary>
         public string Name
         {
             get;
             private set;
         }
 
+        /// <summary>
+        /// Full name of the channel with it's prefix (usually '#')
+        /// </summary>
+        public string FullName
+        {
+            get { return Channel.TypeChars[this.Type] + this.Name; } 
+        }
+        
         public readonly ChannelTopic Topic = new ChannelTopic();
 
-        public Dictionary<string, User> Users
+        public ReadOnlyDictionary<string, User> Users
         {
             get
             {
-                return UserFactory.InChannel(this.Name);
+                if (this.Client != null)
+                {
+                    return this.Client.UserFactory.InChannel(this.Name).AsReadOnly();
+                }
+
+                return new Dictionary<string, User>().AsReadOnly();
             }
         }
 
         public readonly ChannelType Type;
 
-        internal static Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>()
+        internal static Dictionary<ChannelType, char> TypeChars = new Dictionary<ChannelType, char>
             {
                 {ChannelType.Network, '#'},
                 {ChannelType.Local, '&'},
@@ -176,29 +193,29 @@ namespace NetIRC
                 return;
             }
 
-            user.Channels.Add(this);
+            user._channels.Add(this.Name, this);
 
             this.TriggerOnUserAdded(user);
 
-            if (!user.Rank.ContainsKey(this.Name))
+            if (!user._ranks.ContainsKey(this.Name))
             {
-                user.Rank.Add(this.Name, UserRank.None);
+                user._ranks.Add(this.Name, UserRank.None);
             }
         }
 
-        public Messages.Send.TopicMessage GetTopic()
+        public Messages.Send.Topic GetTopic()
         {
-            return new Messages.Send.TopicMessage(this);
+            return new Messages.Send.Topic(this);
         }
 
-        public Messages.Send.InviteMessage Invite(User user)
+        public Messages.Send.Invite Invite(User user)
         {
-            return new Messages.Send.InviteMessage(this, user);
+            return new Messages.Send.Invite(this, user);
         }
 
-        public Messages.Send.JoinMessage Join()
+        public Messages.Send.Join Join()
         {
-            return new Messages.Send.JoinMessage(this);
+            return new Messages.Send.Join(this);
         }
 
         internal void JoinUser(User user)
@@ -208,54 +225,67 @@ namespace NetIRC
             this.TriggerOnJoin(user);
         }
 
-        public Messages.Send.KickMessage Kick(User user)
+        public Messages.Send.Kick Kick(User user)
         {
-            return new Messages.Send.KickMessage(this, user);
+            return new Messages.Send.Kick(this, user);
         }
 
-        public Messages.Send.KickMessage Kick(User user, string message)
+        public Messages.Send.Kick Kick(User user, string message)
         {
-            return new Messages.Send.KickMessage(this, user, message);
+            return new Messages.Send.Kick(this, user, message);
         }
 
-        public Messages.Send.PartMessage Part()
+        public Messages.Send.Part Part()
         {
-            return new Messages.Send.PartMessage(this);
+            return new Messages.Send.Part(this);
         }
 
-        public Messages.Send.PartMessage Part(string message)
+        public Messages.Send.Part Part(string message)
         {
-            return new Messages.Send.PartMessage(this, message);
+            return new Messages.Send.Part(this, message);
         }
 
         internal void RemoveUser(User user)
         {
             if (this.Users.ContainsKey(user.NickName))
             {
-                user.Channels.Remove(this);
-
-                this.TriggerOnLeave(user);
+                user._channels.Remove(this.Name);
+                user._ranks.Remove(this.Name);
             }
         }
 
-        public Messages.Send.NoticeMessage SendNotice(string message)
+        internal void LeaveUser(User user)
         {
-            return new Messages.Send.NoticeMessage(this, message);
+            this.RemoveUser(user);
+            this.TriggerOnLeave(user);
         }
 
-        public Messages.Send.ChatMessage SendMessage(string message)
+        internal void ClearUsers()
         {
-            return new Messages.Send.ChatMessage(this, message);
+            foreach (User user in this.Users.Values)
+            {
+                this.RemoveUser(user);
+            }
         }
 
-        internal Messages.SendMessage SendWho()
+        public Messages.Send.ChannelNotice SendNotice(string message)
         {
-            return new Messages.Send.WhoMessage("#" + this.Name);
+            return new Messages.Send.ChannelNotice(this, message);
         }
 
-        public Messages.Send.TopicMessage SetTopic(string topic)
+        public Messages.Send.ChannelPrivate SendMessage(string message)
         {
-            return new Messages.Send.TopicMessage(this, topic);
+            return new Messages.Send.ChannelPrivate(this, message);
+        }
+
+        internal Messages.ISendMessage SendWho()
+        {
+            return new Messages.Send.Who(this.FullName);
+        }
+
+        public Messages.Send.Topic SetTopic(string topic)
+        {
+            return new Messages.Send.Topic(this, topic);
         }
 
         public delegate void OnActionHandler(Channel source, User user, string action);
@@ -263,9 +293,9 @@ namespace NetIRC
 
         internal void TriggerOnAction(User user, string action)
         {
-            if (OnAction != null)
+            if (this.OnAction != null)
             {
-                OnAction(this, user, action);
+                this.OnAction(this, user, action);
             }
         }
 
@@ -274,9 +304,9 @@ namespace NetIRC
 
         internal void TriggerOnSendAction(string action)
         {
-            if (OnSendAction != null)
+            if (this.OnSendAction != null)
             {
-                OnSendAction(this, action);
+                this.OnSendAction(this, action);
             }
         }
 
@@ -285,9 +315,9 @@ namespace NetIRC
 
         internal void TriggerOnJoin(User user)
         {
-            if (OnJoin != null)
+            if (this.OnJoin != null)
             {
-                OnJoin(this, user);
+                this.OnJoin(this, user);
             }
         }
 
@@ -296,9 +326,9 @@ namespace NetIRC
 
         internal void TriggerOnKick(User kicker, User user, string reason)
         {
-            if (OnKick != null)
+            if (this.OnKick != null)
             {
-                OnKick(this, kicker, user, reason);
+                this.OnKick(this, kicker, user, reason);
             }
         }
 
@@ -307,9 +337,9 @@ namespace NetIRC
 
         internal void TriggerOnLeave(User user)
         {
-            if (OnLeave != null)
+            if (this.OnLeave != null)
             {
-                OnLeave(this, user);
+                this.OnLeave(this, user);
             }
         }
 
@@ -318,9 +348,9 @@ namespace NetIRC
 
         internal void TriggerOnMessage(User user, string message)
         {
-            if (OnMessage != null)
+            if (this.OnMessage != null)
             {
-                OnMessage(this, user, message);
+                this.OnMessage(this, user, message);
             }
         }
 
@@ -329,9 +359,9 @@ namespace NetIRC
 
         internal void TriggerOnSendMessage(string message)
         {
-            if (OnSendMessage != null)
+            if (this.OnSendMessage != null)
             {
-                OnSendMessage(this, message);
+                this.OnSendMessage(this, message);
             }
         }
 
@@ -340,9 +370,9 @@ namespace NetIRC
 
         internal void TriggerOnNotice(User user, string notice)
         {
-            if (OnNotice != null)
+            if (this.OnNotice != null)
             {
-                OnNotice(this, user, notice);
+                this.OnNotice(this, user, notice);
             }
         }
 
@@ -351,9 +381,9 @@ namespace NetIRC
 
         internal void TriggerOnSendNotice(string notice)
         {
-            if (OnSendNotice != null)
+            if (this.OnSendNotice != null)
             {
-                OnSendNotice(this, notice);
+                this.OnSendNotice(this, notice);
             }
         }
 
@@ -362,9 +392,9 @@ namespace NetIRC
 
         internal void TriggerOnTopicChange(ChannelTopic topic)
         {
-            if (OnTopicChange != null)
+            if (this.OnTopicChange != null)
             {
-                OnTopicChange(this, topic);
+                this.OnTopicChange(this, topic);
             }
         }
 
@@ -373,9 +403,9 @@ namespace NetIRC
 
         internal void TriggerOnMode(User setter, string modes, string[] parameters)
         {
-            if (OnMode != null)
+            if (this.OnMode != null)
             {
-                OnMode(this, setter, modes, parameters);
+                this.OnMode(this, setter, modes, parameters);
             }
         }
 
@@ -384,9 +414,9 @@ namespace NetIRC
 
         internal void TriggerOnWho(string message)
         {
-            if (OnWho != null)
+            if (this.OnWho != null)
             {
-                OnWho(this, message);
+                this.OnWho(this, message);
             }
         }
 
@@ -395,9 +425,9 @@ namespace NetIRC
 
         internal void TriggerOnUserAdded(User user)
         {
-            if (OnUserAdded != null)
+            if (this.OnUserAdded != null)
             {
-                OnUserAdded(this, user);
+                this.OnUserAdded(this, user);
             }
         }
     }
