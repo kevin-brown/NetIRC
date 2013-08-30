@@ -7,24 +7,21 @@ namespace NetIRC.Messages.Receive
 {
     class PrivateMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveUserMessage.CheckCommand(message, "PRIVMSG") &&
-                (ReceivePrivMessage.GetChannel(client, message) == null) &&
-                !ReceivePrivMessage.IsCTCP(message);
+            return message.Command == "PRIVMSG" &&
+                   !message.IsChannel() &&
+                   !message.IsCTCP();
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            User target = client.UserFactory.FromNick(parts[2]);
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
             if (target == client.User)
             {
-                User user = ReceiveUserMessage.GetUser(client, message);
-
-                string line = String.Join(" ", parts.Skip(3).ToArray()).Substring(1);
+                User user = message.GetUser();
+                string line = message.Parameters[1];
 
                 client.TriggerOnMessage(user, line);
             }

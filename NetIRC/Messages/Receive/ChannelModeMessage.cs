@@ -8,77 +8,57 @@ namespace NetIRC.Messages.Receive
 {
     class ChannelModeMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            return ReceiveUserMessage.CheckCommand(message, "MODE") &&
-                Channel.TypeChars.Values.Contains(parts[2][0]) == true; //it is a channel
+            return message.Command == "MODE" &&
+                   message.IsChannel();
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User setter = message.GetUser();
+            Channel channel = message.GetChannel();
+            string modes = message.Parameters[1];
+            string[] parameters = message.Parameters[2].Split(' ');
 
-            User setter = ReceiveUserMessage.GetUser(client, message);
-            Channel channel = client.Channels[parts[2].Remove(0, 1)];
-
-            string modes = parts[3];
-
-            ParseModes(client, channel, modes, parts.Skip(4).ToArray());
-
-            channel.TriggerOnMode(setter, modes, parts.Skip(4).ToArray());
+            ParseModes(client, channel, modes, parameters);
+            channel.TriggerOnMode(setter, modes, parameters);
         }
 
         public void ParseModes(Client client, Channel target, string modes, string[] parameters)
         {
             bool addMode = true;
             int paramIndex = 0;
-            User userTarget = null;
-            string param = null;
-            for (int i = 0; i < modes.Length; i++)
+            foreach (char mode in modes)
             {
-                switch (modes[i])
+                User userTarget;
+                string param;
+
+                switch (mode)
                 {
-                    case '+': addMode = true;
+                    case '+': 
+                        addMode = true;
                         break;
-                    case '-': addMode = false;
+                    case '-': 
+                        addMode = false;
                         break;
                     case 'i':
-                        if (addMode)
-                            target.IsInviteOnly = true;
-                        else
-                            target.IsInviteOnly = false;
+                        target.IsInviteOnly = addMode;
                         break;
                     case 'm':
-                        if (addMode)
-                            target.IsModerated = true;
-                        else
-                            target.IsModerated = false;
+                        target.IsModerated = addMode;
                         break;
                     case 'n':
-                        if (addMode)
-                            target.NoOutsideMessages = true;
-                        else
-                            target.NoOutsideMessages = false;
+                        target.NoOutsideMessages = addMode;
                         break;
                     case 'p':
-                        if (addMode)
-                            target.IsPrivate = true;
-                        else
-                            target.IsPrivate = false;
+                        target.IsPrivate = addMode;
                         break;
                     case 's':
-                        if (addMode)
-                            target.IsSecret = true;
-                        else
-                            target.IsSecret = false;
+                        target.IsSecret = addMode;
                         break;
                     case 't':
-                        if (addMode)
-                            target.IsTopicLocked = true;
-                        else
-                            target.IsTopicLocked = false;
+                        target.IsTopicLocked = addMode;
                         break;
                     case 'v':
                         if (paramIndex < parameters.Length)
@@ -198,8 +178,6 @@ namespace NetIRC.Messages.Receive
                         {
                             target.UserLimit = -1;
                         }
-                        break;
-                    default:
                         break;
                 }
             }

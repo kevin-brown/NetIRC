@@ -4,21 +4,16 @@ namespace NetIRC.Messages.Receive
 {
     class PingMessage : ReceiveMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            if (message.StartsWith("PING"))
-            {
-                return true;
-            }
-
-            return false;
+            return message.Command == "PING";
         }
 
-        public void ProcessMessage(string message, Client client)
+        public void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] args = message.Split(' ');
+            string extra = message.Parameters[0];
 
-            client.Send(new Messages.Send.PongMessage(args[1]));
+            client.Send(new Messages.Send.PongMessage(extra));
         }
     }
 }

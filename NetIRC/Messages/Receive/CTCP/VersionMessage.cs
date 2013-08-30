@@ -5,42 +5,21 @@ namespace NetIRC.Messages.Receive.CTCP
 {
     class VersionMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
-            {
-                return false;
-            }
-
-            if (ReceivePrivMessage.GetChannel(client, message) != null)
-            {
-                return false;
-            }
-
-            if (!ReceivePrivMessage.IsCTCP(message))
-            {
-                return false;
-            }
-
-            string[] parts = message.Split(' ');
-
-            if (parts.Length > 4)
-            {
-                return false;
-            }
-
-            return ReceivePrivMessage.CheckCTCP(message, "VERSION");
+            return message.Command == "PRIVMSG" &&
+                   !message.IsChannel() &&
+                   message.IsCTCP() &&
+                   message.GetCTCPCommand() == "VERSION";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            User target = client.UserFactory.FromNick(parts[2]);
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
             if (target == client.User)
             {
-                User user = ReceiveUserMessage.GetUser(client, message);
+                User user = message.GetUser();
 
                 client.TriggerOnVersion(user);
             }

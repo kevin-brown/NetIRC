@@ -4,24 +4,22 @@ namespace NetIRC.Messages.Receive
 {
     class JoinMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveUserMessage.CheckCommand(message, "JOIN");
+            return message.Command == "JOIN";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-            Channel channel = client.ChannelFactory.FromName(parts[2].ToLower().Substring(2));
+            User user = message.GetUser();
+            Channel channel = message.GetChannel();
 
-            User user = ReceiveUserMessage.GetUser(client, message);
+            channel.JoinUser(user);
 
             if (user == client.User)
             {
                 client.TriggerOnChannelJoin(channel);
             }
-
-            channel.JoinUser(user);
 
             client.Send(channel.SendWho());
         }

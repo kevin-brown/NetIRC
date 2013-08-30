@@ -8,73 +8,55 @@ namespace NetIRC.Messages.Receive
 {
     class UserModeMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            return ReceiveUserMessage.CheckCommand(message, "MODE") &&
-                Channel.TypeChars.Values.Contains(parts[2][0]) == false; //it's not a channel
+            return message.Command == "MODE" &&
+                   !message.IsChannel();
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
-            string modes = parts[3];
+            if (target == client.User)
+            {
+                string modes = message.Parameters[1];
 
-            ParseModes(client.User, modes);
-
-            client.TriggerOnUserMode(modes);
+                ParseModes(client.User, modes);
+                client.TriggerOnUserMode(modes);
+            }
         }
 
         public void ParseModes(User user, string modes)
         {
             bool addMode = true;
-            for (int i = 0; i < modes.Length; i++)
+            foreach (char mode in modes)
             {
-                switch (modes[i])
+                switch (mode)
                 {
-                    case '+': addMode = true;
+                    case '+': 
+                        addMode = true;
                         break;
-                    case '-': addMode = false;
+                    case '-': 
+                        addMode = false;
                         break;
                     case 'a':
-                        if (addMode)
-                            user.IsAway = true;
-                        else
-                            user.IsAway = false;
+                        user.IsAway = addMode;
                         break;
                     case 'i':
-                        if (addMode)
-                            user.IsInvisible = true;
-                        else
-                            user.IsInvisible = false;
+                        user.IsInvisible = addMode;
                         break;
                     case 's':
-                        if (addMode)
-                            user.IsReceivingServerNotices = true;
-                        else
-                            user.IsReceivingServerNotices = false;
+                        user.IsReceivingServerNotices = addMode;
                         break;
                     case 'w':
-                        if (addMode)
-                            user.IsReceivingWallOps = true;
-                        else
-                            user.IsReceivingWallOps = false;
+                        user.IsReceivingWallOps = addMode;
                         break;
                     case 'r':
-                        if (addMode)
-                            user.IsRestricted = true;
-                        else
-                            user.IsRestricted = false;
+                        user.IsRestricted = addMode;
                         break;
                     case 'o':
-                        if (addMode)
-                            user.IsOperator = true;
-                        else
-                            user.IsOperator = false;
-                        break;
-                    default:
+                        user.IsOperator = addMode;
                         break;
                 }
             }

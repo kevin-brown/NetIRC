@@ -4,19 +4,15 @@ namespace NetIRC.Messages.Receive
 {
     class NickMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveUserMessage.CheckCommand(message, "NICK");
+            return message.Command == "NICK";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            string user = ReceiveUserMessage.GetUser(client, message).NickName;
-
-            string nick = parts[2];
-
+            string user = message.GetUser().NickName;
+            string nick = message.Parameters[0];
             User newUser = client.UserFactory.ChangeNick(user, nick);
 
             newUser.TriggerOnNickNameChange(user);

@@ -5,35 +5,20 @@ namespace NetIRC.Messages.Receive.CTCP
 {
     class ActionMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "PRIVMSG"))
-            {
-                return false;
-            }
-
-            if (ReceivePrivMessage.GetChannel(client, message) == null)
-            {
-                return false;
-            }
-
-            if (!ReceivePrivMessage.IsCTCP(message))
-            {
-                return false;
-            }
-            
-            return ReceivePrivMessage.CheckCTCP(message, "ACTION");
+            return message.Command == "PRIVMSG" &&
+                   message.IsChannel() &&
+                   message.IsCTCP() &&
+                   message.GetCTCPCommand() == "ACTION" &&
+                   message.HasCTCPParameter();
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-
-            string action = String.Join(" ", parts.Skip(4).ToArray());
-            action = action.Substring(0, action.Length - 1);
-
-            Channel channel = ReceivePrivMessage.GetChannel(client, message);
-            User user = ReceiveUserMessage.GetUser(client, message);
+            User user = message.GetUser();
+            Channel channel = message.GetChannel();
+            string action = message.GetCTCPParameter();
 
             channel.TriggerOnAction(user, action);
         }

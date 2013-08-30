@@ -5,19 +5,22 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class WelcomeMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, client, 001);
+            return message.Command == "001";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            client.TriggerOnConnect();
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
-            string[] parts = message.Split(' ');
-            string welcome = string.Join(" ", parts.Skip(3));
+            if (target == client.User)
+            {
+                string welcome = message.Parameters[1];
 
-            client.TriggerOnWelcome(welcome);
+                client.TriggerOnConnect();
+                client.TriggerOnWelcome(welcome);
+            }
         }
     }
 }

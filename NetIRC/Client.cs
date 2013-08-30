@@ -201,11 +201,7 @@ namespace NetIRC
             while (this.TcpClient != null && this.TcpClient.Connected)
             {
                 string line = this.Reader.ReadLine();
-
-                if (String.IsNullOrEmpty(line))
-                {
-                    continue;
-                }
+                if (String.IsNullOrEmpty(line)) continue;
 
                 foreach (Type writerType in this.OutputWriters)
                 {
@@ -213,15 +209,17 @@ namespace NetIRC
                     processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
                 }
 
+                ParsedMessage message = new ParsedMessage(this, line);
+
                 foreach (Type messageType in this.RegisteredMessages)
                 {
                     MethodInfo checkMessage = messageType.GetMethod("CheckMessage");
-                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] {line, this});
+                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] { message, this });
 
                     if (shouldProcess)
                     {
                         MethodInfo processMessage = messageType.GetMethod("ProcessMessage");
-                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[2] { line, this });
+                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[2] { message, this });
                     }
                 }
             }

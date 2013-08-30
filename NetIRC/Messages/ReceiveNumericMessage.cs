@@ -27,6 +27,6 @@ namespace NetIRC.Messages
             return false;
         }
 
-        abstract public void ProcessMessage(string message, Client client);
+        abstract public void ProcessMessage(ParsedMessage message, Client client);
     }
 }

@@ -8,18 +8,21 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class NoTopic : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, client, 331);
+            return message.Command == "331";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
-            Channel channel = client.ChannelFactory.FromName(parts[3].Substring(1));
+            if (target == client.User)
+            {
+                Channel channel = message.GetChannel(message.Parameters[1]);
 
-            channel.Topic.ClearTopic();
+                channel.Topic.ClearTopic();
+            }
         }
     }
 }

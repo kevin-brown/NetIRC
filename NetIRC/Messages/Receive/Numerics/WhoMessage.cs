@@ -5,33 +5,31 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class WhoMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, client, 352);
+            return message.Command == "352";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        //TODO: Do some code cleanup
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            Channel channel = message.GetChannel(message.Parameters[1]);
+            User oldUser = message.GetUserFromNick(message.Parameters[5]);
 
-            Channel channel = client.ChannelFactory.FromName(parts[3].ToLower().Substring(1));
+            oldUser.HostName = message.Parameters[3];
+            oldUser.UserName = message.Parameters[2];
 
-            User oldUser = client.UserFactory.FromNick(parts[7]);
-
-            oldUser.HostName = parts[5];
-            oldUser.UserName = parts[4];
-
-            if (parts[8].Length > 1)
+            if (message.Parameters[6].Length > 1)
             {
-                char rankChar = parts[8][1];
+                char rankChar = message.Parameters[6][1];
 
                 if (rankChar == '*')
                 {
                     oldUser.IsOperator = true;
 
-                    if (parts[8].Length > 2)
+                    if (message.Parameters[6].Length > 2)
                     {
-                        rankChar = parts[8][2];
+                        rankChar = message.Parameters[6][2];
                     }
                 }
                 else
@@ -46,19 +44,10 @@ namespace NetIRC.Messages.Receive.Numerics
                     oldUser._ranks[channel.Name] = rank;
                 }
             }
+            oldUser.RealName = string.Join(" ", message.Parameters.Skip(8)).Trim();
 
-            string realName = "";
-
-            for (int i = 10; i < parts.Length; i++)
-            {
-                realName += parts[i] + " ";
-            }
-
-            realName = realName.Trim();
-            oldUser.RealName = realName;
-
-            client.TriggerOnWho(string.Join(" ", parts.Skip(3)));
-            channel.TriggerOnWho(string.Join(" ", parts.Skip(3)));
+            client.TriggerOnWho(string.Join(" ", message.Parameters.Skip(3)));
+            channel.TriggerOnWho(string.Join(" ", message.Parameters.Skip(3)));
         }
     }
 }

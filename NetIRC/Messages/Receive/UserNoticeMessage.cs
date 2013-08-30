@@ -7,33 +7,17 @@ namespace NetIRC.Messages.Receive
 {
     class UserNoticeMessage : ReceivePrivMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            if (!ReceiveUserMessage.CheckCommand(message, "NOTICE"))
-            {
-                return false;
-            }
-
-            if (ReceivePrivMessage.GetChannel(client, message) != null)
-            {
-                return false;
-            }
-
-            if (ReceivePrivMessage.IsCTCP(message))
-            {
-                return false;
-            }
-
-            return true;
+            return message.Command == "NOTICE" &&
+                   !message.IsChannel() &&
+                   !message.IsCTCP();
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-
-            string[] parts = message.Split(' ');
-
-            User user = ReceiveUserMessage.GetUser(client, message);
-            string notice = String.Join(" ", parts.Skip(3).ToArray()).Substring(1);
+            User user = message.GetUser();
+            string notice = message.Parameters[1];
 
             client.TriggerOnNotice(user, notice);
         }

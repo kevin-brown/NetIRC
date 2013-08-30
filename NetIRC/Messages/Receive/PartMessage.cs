@@ -4,17 +4,15 @@ namespace NetIRC.Messages.Receive
 {
     class PartMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveUserMessage.CheckCommand(message, "PART");
+            return message.Command == "PART";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
-            Channel channel = client.ChannelFactory.FromName(parts[2].ToLower().Substring(1));
-
-            User user = ReceiveUserMessage.GetUser(client, message);
+            Channel channel = message.GetChannel();
+            User user = message.GetUser();
 
             channel.RemoveUser(user);
 

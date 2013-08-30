@@ -5,23 +5,19 @@ namespace NetIRC.Messages.Receive
 {
     class QuitMessage : ReceiveUserMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveUserMessage.CheckCommand(message, "QUIT");
+            return message.Command == "QUIT";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User user = message.GetUser();
+            string reason = message.Parameters[0];
 
-            string user = ReceiveUserMessage.GetUser(client, message).NickName;
-
-            string reason = String.Join(" ", parts.Skip(2).ToArray()).Substring(1);
-
-            User newUser = client.UserFactory.RemoveNick(user);
-
-            newUser.TriggerOnQuit(reason);
-            newUser._channels.Clear();
+            client.UserFactory.RemoveNick(user.UserName);
+            user.TriggerOnQuit(reason);
+            user._channels.Clear();
         }
     }
 }

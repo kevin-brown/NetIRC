@@ -79,6 +79,14 @@ namespace NetIRC
         }
 
         /// <summary>
+        /// Gets or generates a User object from the UserFactory
+        /// </summary>
+        public User GetUserFromNick(string nick)
+        {
+            return _client.UserFactory.FromNick(nick);
+        }
+
+        /// <summary>
         /// Gets or generates a Channel object from the ChannelFactory
         /// </summary>
         public Channel GetChannel(string channel)
@@ -126,7 +134,7 @@ namespace NetIRC
         /// </summary>
         public bool IsUser()
         {
-            return GetUser() != null;
+            return IsUser(Parameters[0]);
         }
 
         /// <summary>
@@ -134,7 +142,7 @@ namespace NetIRC
         /// </summary>
         public bool IsChannel()
         {
-            return GetChannel() != null;
+            return IsChannel(Parameters[0]);
         }
 
         /// <summary>
@@ -185,17 +193,37 @@ namespace NetIRC
         /// <summary>
         /// Gets the CTCP arguments 
         /// </summary>
-        public static string[] GetCTCPArguments(string message)
+        public static string GetCTCPParameter(string message)
         {
-            return GetCTCP(message).Split(' ').Skip(1).ToArray();
+            string ctcp = GetCTCP(message);
+            if (ctcp.Contains(' '))
+                return string.Join(" ", ctcp.Split(' ').Skip(1));
+
+            return null;
         }
 
         /// <summary>
         /// Gets the CTCP arguments 
         /// </summary>
-        public string[] GetCTCPArguments()
+        public string GetCTCPParameter()
         {
-            return GetCTCPArguments(Parameters[1]);
+            return GetCTCPParameter(Parameters[1]);
+        }
+
+        /// <summary>
+        /// Checks if the ctcp message contains parameters
+        /// </summary>
+        public static bool HasCTCPParameter(string message)
+        {
+            return GetCTCPParameter(message) != null;
+        }
+
+        /// <summary>
+        /// Checks if the ctcp message contains parameters
+        /// </summary>
+        public  bool HasCTCPParameter()
+        {
+            return HasCTCPParameter(Parameters[1]);
         }
 
         /// <summary>

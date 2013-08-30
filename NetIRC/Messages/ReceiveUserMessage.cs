@@ -34,6 +34,6 @@ namespace NetIRC.Messages
             return client.UserFactory.FromUserMask(userMask);
         }
 
-        abstract public void ProcessMessage(string message, Client client);
+        abstract public void ProcessMessage(ParsedMessage message, Client client);
     }
 }

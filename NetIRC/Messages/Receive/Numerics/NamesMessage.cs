@@ -5,40 +5,62 @@ namespace NetIRC.Messages.Receive.Numerics
 {
     class NamesMessage : ReceiveNumericMessage
     {
-        public static bool CheckMessage(string message, Client client)
+        public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return ReceiveNumericMessage.CheckNumeric(message, client, 353);
+            return message.Command == "353";
         }
 
-        public override void ProcessMessage(string message, Client client)
+        public override void ProcessMessage(ParsedMessage message, Client client)
         {
-            string[] parts = message.Split(' ');
+            User target = message.GetUserFromNick(message.Parameters[0]);
 
-            Channel channel = client.ChannelFactory.FromName(parts[4].ToLower().Substring(1));
-            parts[5] = parts[5].Substring(1);
-
-            for (int i = 5; i < parts.Length; i++)
+            if (target == client.User)
             {
-                if (string.IsNullOrEmpty(parts[i]))
+                char chanType = Convert.ToChar(message.Parameters[1]);
+                Channel channel = message.GetChannel(message.Parameters[2]);
+
+                switch (chanType)
                 {
-                    break;
+                    case '=':
+                        channel.IsPrivate = false;
+                        channel.IsSecret = false;
+                        break;
+                    case '*':
+                        channel.IsPrivate = true;
+                        channel.IsSecret = false;
+                        break;
+                    case '@':
+                        channel.IsSecret = true;
+                        break;
                 }
 
-                UserRank rank = UserRank.None;
+                
+                string[] users = message.Parameters[3].Split(' ');
 
-                if (!Char.IsLetter(parts[i].ToCharArray()[0]))
+                foreach (string userStr in users)
                 {
-                    char firstChar = parts[i][0];
-                    rank = User.RankChars[firstChar];
+                    if (string.IsNullOrEmpty(userStr))
+                    {
+                        break;
+                    }
 
-                    parts[i] = parts[i].Substring(1);
+                    UserRank rank = UserRank.None;
+                    string nick = userStr;
+
+                    char firstChar = userStr[0];
+                    if (User.RankChars.ContainsKey(firstChar))
+                    {
+                        rank = User.RankChars[firstChar];
+                        nick = nick.Substring(1);
+                    }
+
+                    User user = client.UserFactory.FromNick(nick);
+
+                    user._ranks[channel.Name] = rank;
+                    channel.AddUser(user);
                 }
-
-                User user = client.UserFactory.FromNick(parts[i]);
-                user._ranks[channel.Name] = rank;
-
-                channel.AddUser(user);
             }
         }
+
     }
 }
