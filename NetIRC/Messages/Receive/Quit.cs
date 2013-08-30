@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace NetIRC.Messages.Receive
+﻿namespace NetIRC.Messages.Receive
 {
     class Quit : IReceiveMessage
     {

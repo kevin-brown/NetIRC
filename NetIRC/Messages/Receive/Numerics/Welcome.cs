@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace NetIRC.Messages.Receive.Numerics
+﻿namespace NetIRC.Messages.Receive.Numerics
 {
     class Welcome : IReceiveMessage
     {

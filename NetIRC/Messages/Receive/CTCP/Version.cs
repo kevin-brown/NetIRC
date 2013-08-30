@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace NetIRC.Messages.Receive.CTCP
+﻿namespace NetIRC.Messages.Receive.CTCP
 {
     class Version : IReceiveMessage
     {

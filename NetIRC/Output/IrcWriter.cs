@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetIRC.Output
+﻿namespace NetIRC.Output
 {
     class IrcWriter : IWriter
     {

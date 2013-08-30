@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace NetIRC.Messages.Receive
+﻿namespace NetIRC.Messages.Receive
 {
     class Nick : IReceiveMessage
     {
