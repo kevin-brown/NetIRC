@@ -82,7 +82,7 @@
     <Compile Include="Messages\Send\Kick.cs" />
     <Compile Include="Messages\Send\Motd.cs" />
     <Compile Include="Messages\Send\Nick.cs" />
-    <Compile Include="Messages\Send\NotAway.cs" />
+    <Compile Include="Messages\Send\Back.cs" />
     <Compile Include="Messages\Send\ChannelNotice.cs" />
     <Compile Include="Messages\Send\Part.cs" />
     <Compile Include="Messages\Send\Pong.cs" />

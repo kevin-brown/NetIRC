@@ -3,11 +3,11 @@ using System.IO;
 
 namespace NetIRC.Messages.Send
 {
-    public class NotAway : ISendMessage
+    public class Back : ISendMessage
     {
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("AWAY");
+            writer.WriteLine("BACK");
         }
     }
 }
