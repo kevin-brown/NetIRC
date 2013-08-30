@@ -4,12 +4,14 @@ using System.IO;
 using System.Net.Sockets;
 using System.Reflection;
 using System.Threading;
+using NetIRC.Messages;
+using NetIRC.Output;
 
 namespace NetIRC
 {
     public class Client
     {
-        private List<Type> RegisteredMessages = new List<Type>();
+        private List<RegisteredMessage> RegisteredMessages = new List<RegisteredMessage>();
 
         private List<Type> OutputWriters = new List<Type>();
 
@@ -205,21 +207,17 @@ namespace NetIRC
 
                 foreach (Type writerType in this.OutputWriters)
                 {
-                    MethodInfo processMethod = writerType.GetMethod("ProcessReadMessage");
-                    processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] { line, this });
+                    Writer instance = (Writer) Activator.CreateInstance(writerType);
+                    instance.ProcessReadMessage(line, this);
                 }
 
                 ParsedMessage message = new ParsedMessage(this, line);
 
-                foreach (Type messageType in this.RegisteredMessages)
+                foreach (RegisteredMessage messageType in this.RegisteredMessages)
                 {
-                    MethodInfo checkMessage = messageType.GetMethod("CheckMessage");
-                    bool shouldProcess = (bool)checkMessage.Invoke(null, new object[2] { message, this });
-
-                    if (shouldProcess)
+                    if (messageType.CheckMessage(message))
                     {
-                        MethodInfo processMessage = messageType.GetMethod("ProcessMessage");
-                        processMessage.Invoke(Activator.CreateInstance(messageType), new object[2] { message, this });
+                        messageType.ProcessMessage(message);
                     }
                 }
             }
@@ -231,36 +229,36 @@ namespace NetIRC
         /// <param name="type">The type of the Message object that messages will be checked against.</param>
         public void RegisterMessage(Type type)
         {
-            this.RegisteredMessages.Add(type);
+            this.RegisteredMessages.Add(new RegisteredMessage(this, type));
         }
 
         private void RegisterMessages()
         {
-            this.RegisteredMessages.Add(typeof(Messages.Receive.PingMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.JoinMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.PartMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.NickMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.TopicMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.QuitMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.KickMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.UserModeMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.ChannelModeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.PingMessage));
+            this.RegisterMessage(typeof(Messages.Receive.JoinMessage));
+            this.RegisterMessage(typeof(Messages.Receive.PartMessage));
+            this.RegisterMessage(typeof(Messages.Receive.NickMessage));
+            this.RegisterMessage(typeof(Messages.Receive.TopicMessage));
+            this.RegisterMessage(typeof(Messages.Receive.QuitMessage));
+            this.RegisterMessage(typeof(Messages.Receive.KickMessage));
+            this.RegisterMessage(typeof(Messages.Receive.UserModeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelModeMessage));
 
-            this.RegisteredMessages.Add(typeof(Messages.Receive.ChatMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.ChannelNoticeMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.PrivateMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.UserNoticeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.ChatMessage));
+            this.RegisterMessage(typeof(Messages.Receive.ChannelNoticeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.PrivateMessage));
+            this.RegisterMessage(typeof(Messages.Receive.UserNoticeMessage));
 
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.ActionMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.CTCP.VersionReplyMessage));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.ActionMessage));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionMessage));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionReplyMessage));
 
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WelcomeMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NamesMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.WhoMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicMessage));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.TopicInfo));
-            this.RegisteredMessages.Add(typeof(Messages.Receive.Numerics.NoTopic));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.WelcomeMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.NamesMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.WhoMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicMessage));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicInfo));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.NoTopic));
         }
 
         public void RegisterWriter(Type type)
@@ -270,8 +268,8 @@ namespace NetIRC
 
         private void RegisterWriters()
         {
-            this.OutputWriters.Add(typeof(Output.ConsoleWriter));
-            this.OutputWriters.Add(typeof(Output.IrcWriter));
+            this.RegisterWriter(typeof(Output.ConsoleWriter));
+            this.RegisterWriter(typeof(Output.IrcWriter));
         }
 
         /// <summary>
@@ -298,8 +296,8 @@ namespace NetIRC
 
                     foreach (Type writerType in this.OutputWriters)
                     {
-                        MethodInfo processMethod = writerType.GetMethod("ProcessSendMessage");
-                        processMethod.Invoke(Activator.CreateInstance(writerType), new object[2] {line, this});
+                        Writer instance = (Writer)Activator.CreateInstance(writerType);
+                        instance.ProcessSendMessage(line, this);
                     }
                 }
             }
@@ -421,7 +419,7 @@ namespace NetIRC
 
         public void UnregisterMessage(Type type)
         {
-            this.RegisteredMessages.Remove(type);
+            this.RegisteredMessages.RemoveAll(message => message.Type == type);
         }
 
         public void UnregisterWriter(Type type)

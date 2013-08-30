@@ -98,9 +98,10 @@
     <Compile Include="Output\ConsoleWriter.cs" />
     <Compile Include="Output\IrcWriter.cs" />
     <Compile Include="Output\Writer.cs" />
-    <Compile Include="ParsedMessage.cs" />
+    <Compile Include="Messages\ParsedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReadOnlyDictionary.cs" />
+    <Compile Include="Messages\RegisteredMessage.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserFactory.cs" />
     <Compile Include="UserRank.cs" />
