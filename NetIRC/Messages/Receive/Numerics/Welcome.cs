@@ -1,10 +1,10 @@
 ﻿namespace NetIRC.Messages.Receive.Numerics
 {
-    class NoTopic : IReceiveMessage
+    class Welcome : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "331";
+            return message.Command == "001";
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
@@ -13,9 +13,10 @@
 
             if (target == client.User)
             {
-                Channel channel = message.GetChannel(message.Parameters[1]);
+                string welcome = message.Parameters[1];
 
-                channel.Topic.ClearTopic();
+                client.TriggerOnConnect();
+                client.TriggerOnWelcome(welcome);
             }
         }
     }

@@ -65,7 +65,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.TopicMessage topic = channel.GetTopic();
+            Messages.Send.Topic topic = channel.GetTopic();
 
             string output = TestHelpers.GetSendMessageOutput(topic);
 
@@ -78,7 +78,7 @@ namespace NetIRC.Tests
             Channel channel = new Channel("#channel");
             User user = new User("user");
 
-            Messages.Send.InviteMessage invite = channel.Invite(user);
+            Messages.Send.Invite invite = channel.Invite(user);
 
             string output = TestHelpers.GetSendMessageOutput(invite);
 
@@ -90,7 +90,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.JoinMessage join = channel.Join();
+            Messages.Send.Join join = channel.Join();
 
             string output = TestHelpers.GetSendMessageOutput(join);
 
@@ -103,7 +103,7 @@ namespace NetIRC.Tests
             Channel channel = new Channel("#channel");
             User user = new User("user");
 
-            Messages.Send.KickMessage kick = channel.Kick(user);
+            Messages.Send.Kick kick = channel.Kick(user);
 
             string output = TestHelpers.GetSendMessageOutput(kick);
 
@@ -116,7 +116,7 @@ namespace NetIRC.Tests
             Channel channel = new Channel("#channel");
             User user = new User("user");
 
-            Messages.Send.KickMessage kick = channel.Kick(user, "reason");
+            Messages.Send.Kick kick = channel.Kick(user, "reason");
 
             string output = TestHelpers.GetSendMessageOutput(kick);
 
@@ -128,7 +128,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.PartMessage part = channel.Part();
+            Messages.Send.Part part = channel.Part();
 
             string output = TestHelpers.GetSendMessageOutput(part);
 
@@ -140,7 +140,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.PartMessage part = channel.Part("reason");
+            Messages.Send.Part part = channel.Part("reason");
 
             string output = TestHelpers.GetSendMessageOutput(part);
 
@@ -152,7 +152,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.NoticeMessage notice = channel.SendNotice("message");
+            Messages.Send.ChannelNotice notice = channel.SendNotice("message");
 
             string output = TestHelpers.GetSendMessageOutput(notice);
 
@@ -164,7 +164,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.ChatMessage message = channel.SendMessage("message");
+            Messages.Send.ChannelPrivate message = channel.SendMessage("message");
 
             string output = TestHelpers.GetSendMessageOutput(message);
 
@@ -176,7 +176,7 @@ namespace NetIRC.Tests
         {
             Channel channel = new Channel("#channel");
 
-            Messages.Send.TopicMessage topic = channel.SetTopic("test topic");
+            Messages.Send.Topic topic = channel.SetTopic("test topic");
 
             string output = TestHelpers.GetSendMessageOutput(topic);
 

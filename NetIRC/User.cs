@@ -37,7 +37,7 @@ namespace NetIRC
 
                 this._userName = value;
 
-                this.TriggerOnUserNameChange(this._userName);
+                this.TriggerOnUserNameChange(original);
             }
         }
 
@@ -131,38 +131,42 @@ namespace NetIRC
             internal set;
         }
 
+        internal readonly Dictionary<string, Channel> _channels = new Dictionary<string, Channel>(StringComparer.InvariantCultureIgnoreCase);
+
         /// <summary>
         /// The list of channels that the user is in.
         /// </summary>
-        public readonly List<Channel> Channels = new List<Channel>();
+        public ReadOnlyDictionary<string, Channel> Channels
+        {
+            get
+            {
+                return this._channels.AsReadOnly();
+            }
+        }
+
+        internal readonly Dictionary<string, UserRank> _ranks = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
 
         /// <summary>
         /// A dictionary that contains the current ranks for the user in each of their channels.
         /// </summary>
-        public readonly Dictionary<string, UserRank> Rank = new Dictionary<string, UserRank>(StringComparer.InvariantCultureIgnoreCase);
+        public ReadOnlyDictionary<string, UserRank> Ranks
+        {
+            get 
+            { 
+                return this._ranks.AsReadOnly();
+            }
+        }
 
         /// <summary>
         /// A dictionary that represents the characters associated with specific ranks in WHO and NAMES messages.
         /// </summary>
-        internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>()
+        internal static Dictionary<char, UserRank> RankChars = new Dictionary<char, UserRank>
             {
                 {'+', UserRank.Voice},
                 {'%', UserRank.HalfOp},
                 {'@', UserRank.Op},
                 {'&', UserRank.Admin},
                 {'~', UserRank.Owner},
-            };
-
-        /// <summary>
-        /// A dictionary representing the characters that are used to change a user's rank through channel modes.
-        /// </summary>
-        internal static Dictionary<char, UserRank> RankModes = new Dictionary<char, UserRank>()
-            {
-                {'v', UserRank.Voice},
-                {'h', UserRank.HalfOp},
-                {'o', UserRank.Op},
-                {'a', UserRank.Admin},
-                {'q', UserRank.Owner},
             };
 
         public User()
@@ -191,7 +195,7 @@ namespace NetIRC
             this.UserName = user;
         }
 
-        public Messages.Send.InviteMessage Invite(Channel channel)
+        public Messages.Send.Invite Invite(Channel channel)
         {
             return channel.Invite(this);
         }
@@ -201,9 +205,9 @@ namespace NetIRC
 
         internal void TriggerOnHostNameChange(string original)
         {
-            if (OnHostNameChange != null)
+            if (this.OnHostNameChange != null)
             {
-                OnHostNameChange(this, original);
+                this.OnHostNameChange(this, original);
             }
         }
 
@@ -212,9 +216,9 @@ namespace NetIRC
 
         internal void TriggerOnNickNameChange(string original)
         {
-            if (OnNickNameChange != null)
+            if (this.OnNickNameChange != null)
             {
-                OnNickNameChange(this, original);
+                this.OnNickNameChange(this, original);
             }
         }
 
@@ -223,9 +227,9 @@ namespace NetIRC
 
         internal void TriggerOnQuit(string reason)
         {
-            if (OnQuit != null)
+            if (this.OnQuit != null)
             {
-                OnQuit(this, reason);
+                this.OnQuit(this, reason);
             }
         }
 
@@ -234,31 +238,9 @@ namespace NetIRC
 
         internal void TriggerOnUserNameChange(string original)
         {
-            if (OnUserNameChange != null)
+            if (this.OnUserNameChange != null)
             {
-                OnUserNameChange(this, original);
-            }
-        }
-
-        public delegate void OnVersionHandler(User target, User source);
-        public event OnVersionHandler OnVersion;
-
-        internal void TriggerOnVersion(User source)
-        {
-            if (OnVersion != null)
-            {
-                OnVersion(this, source);
-            }
-        }
-
-        public delegate void OnVersionReplyHandler(User target, User source, string version);
-        public event OnVersionReplyHandler OnVersionReply;
-
-        internal void TriggerOnVersionReply(User source, string version)
-        {
-            if (OnVersionReply != null)
-            {
-                OnVersionReply(this, source, version);
+                this.OnUserNameChange(this, original);
             }
         }
     }
