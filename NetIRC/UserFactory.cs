@@ -48,22 +48,20 @@ namespace NetIRC
 
         public User FromUserMask(string userMask)
         {
-            Match matches = Regex.Match(userMask, @"^([A-Za-z0-9_\-\[\]\\^{}|`]+)!([A-Za-z0-9_\-\~]+)\@([A-Za-z0-9\.\-]+)", RegexOptions.IgnoreCase);
+            Match matches = Regex.Match(userMask, @"^(?<nickname>[a-z0-9_\-\[\]\\^{}|`]+)!(?<username>[a-z0-9_\-\~]+)\@(?<hostname>[a-z0-9\.\-]+)", RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture);
 
             if (!matches.Success)
             {
                 return null;
             }
 
-            User user = FromNick(matches.Groups[1].Value);
+            string nickname = matches.Groups["nickname"].Value;
+            string username = matches.Groups["username"].Value;
+            string hostname = matches.Groups["hostname"].Value;
 
-            if (user == null)
-            {
-                string nick = matches.Groups[1].Value;
-
-                user = new User(nick, matches.Groups[3].Value, matches.Groups[2].Value);
-                this._store[nick] = user;
-            }
+            User user = this.FromNick(nickname);
+            user.UserName = username;
+            user.HostName = hostname;
 
             return user;
         }
