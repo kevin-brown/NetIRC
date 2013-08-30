@@ -21,7 +21,7 @@ namespace NetIRC.Messages.Receive
             string modes = message.Parameters[1];
             string[] parameters = message.Parameters[2].Split(' ');
 
-            ParseModes(client, channel, modes, parameters);
+            this.ParseModes(client, channel, modes, parameters);
             channel.TriggerOnMode(setter, modes, parameters);
         }
 

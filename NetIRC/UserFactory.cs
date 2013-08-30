@@ -13,7 +13,7 @@ namespace NetIRC
 
         public UserFactory(Client client)
         {
-            _client = client;
+            this._client = client;
         }
 
         internal void RemoveNick(string nick)
@@ -23,7 +23,7 @@ namespace NetIRC
 
         internal User ChangeNick(string original, string future)
         {
-            User user = FromNick(original);
+            User user = this.FromNick(original);
 
             this._store[future] = user;
             this._store.Remove(user.NickName);

@@ -14,7 +14,7 @@ namespace NetIRC
 
         public ChannelFactory(Client client)
         {
-            _client = client;
+            this._client = client;
         }
 
         public void RemoveName(string name)
@@ -29,7 +29,7 @@ namespace NetIRC
                 return this._store[name];
             }
 
-            Channel channel = new Channel(name) {Client = _client};
+            Channel channel = new Channel(name) {Client = this._client};
             this._store[name] = channel;
 
             return channel;

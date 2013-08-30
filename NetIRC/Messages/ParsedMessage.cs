@@ -34,7 +34,7 @@ namespace NetIRC.Messages
         {
             get
             {
-                return Parameters.Length;
+                return this.Parameters.Length;
             }
         }
 
@@ -57,16 +57,16 @@ namespace NetIRC.Messages
 
             if (messageMatch.Success)
             {
-                Prefix = messageMatch.Groups["prefix"].Value;
-                Command = messageMatch.Groups["command"].Value;
+                this.Prefix = messageMatch.Groups["prefix"].Value;
+                this.Command = messageMatch.Groups["command"].Value;
 
                 string paramsStr = messageMatch.Groups["params"].Value;
                 if (!String.IsNullOrEmpty(paramsStr))
-                    Parameters = paramsStr.Split(' ');
+                    this.Parameters = paramsStr.Split(' ');
 
                 string trail = messageMatch.Groups["trail"].Value;
                 if (!String.IsNullOrEmpty(trail))
-                    Parameters = Parameters.Concat(new[] {trail}).ToArray();
+                    this.Parameters = this.Parameters.Concat(new[] {trail}).ToArray();
             }
         }
 
@@ -75,7 +75,7 @@ namespace NetIRC.Messages
         /// </summary>
         public User GetUser(string userMask)
         {
-            return _client.UserFactory.FromUserMask(userMask);
+            return this._client.UserFactory.FromUserMask(userMask);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace NetIRC.Messages
         /// </summary>
         public User GetUserFromNick(string nick)
         {
-            return _client.UserFactory.FromNick(nick);
+            return this._client.UserFactory.FromNick(nick);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace NetIRC.Messages
             if (!Channel.TypeChars.Values.Contains(channel[0]))
                 return null;
 
-            return _client.ChannelFactory.FromName(channel.Substring(1));
+            return this._client.ChannelFactory.FromName(channel.Substring(1));
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace NetIRC.Messages
         /// </summary>
         public User GetUser()
         {
-            return GetUser(Prefix);
+            return this.GetUser(this.Prefix);
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace NetIRC.Messages
         /// </summary>
         public Channel GetChannel()
         {
-            return GetChannel(Parameters[0]);
+            return this.GetChannel(this.Parameters[0]);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsUser(string userMask)
         {
-            return GetUser(userMask) != null;
+            return this.GetUser(userMask) != null;
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsChannel(string channel)
         {
-            return GetChannel(channel) != null;
+            return this.GetChannel(channel) != null;
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsUser()
         {
-            return IsUser(Parameters[0]);
+            return this.IsUser(this.Parameters[0]);
         }
 
         /// <summary>
@@ -142,7 +142,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsChannel()
         {
-            return IsChannel(Parameters[0]);
+            return this.IsChannel(this.Parameters[0]);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsNumeric()
         {
-            return Command.Length == 3 && Command.All(char.IsDigit);
+            return this.Command.Length == 3 && this.Command.All(char.IsDigit);
         }
 
         /// <summary>
@@ -171,7 +171,7 @@ namespace NetIRC.Messages
         /// </summary>
         public string GetCTCP()
         {
-            return GetCTCP(Parameters[1]);
+            return GetCTCP(this.Parameters[1]);
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace NetIRC.Messages
         /// </summary>
         public string GetCTCPCommand()
         {
-            return GetCTCPCommand(Parameters[1]);
+            return GetCTCPCommand(this.Parameters[1]);
         }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace NetIRC.Messages
         /// </summary>
         public string GetCTCPParameter()
         {
-            return GetCTCPParameter(Parameters[1]);
+            return GetCTCPParameter(this.Parameters[1]);
         }
 
         /// <summary>
@@ -223,7 +223,7 @@ namespace NetIRC.Messages
         /// </summary>
         public  bool HasCTCPParameter()
         {
-            return HasCTCPParameter(Parameters[1]);
+            return HasCTCPParameter(this.Parameters[1]);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsCTCP()
         {
-            return IsCTCP(Parameters[1]);
+            return IsCTCP(this.Parameters[1]);
         }
     }
 }

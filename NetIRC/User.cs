@@ -140,7 +140,7 @@ namespace NetIRC
         {
             get
             {
-                return _channels.AsReadOnly();
+                return this._channels.AsReadOnly();
             }
         }
 
@@ -153,7 +153,7 @@ namespace NetIRC
         {
             get 
             { 
-                return _ranks.AsReadOnly();
+                return this._ranks.AsReadOnly();
             }
         }
 
@@ -217,9 +217,9 @@ namespace NetIRC
 
         internal void TriggerOnHostNameChange(string original)
         {
-            if (OnHostNameChange != null)
+            if (this.OnHostNameChange != null)
             {
-                OnHostNameChange(this, original);
+                this.OnHostNameChange(this, original);
             }
         }
 
@@ -228,9 +228,9 @@ namespace NetIRC
 
         internal void TriggerOnNickNameChange(string original)
         {
-            if (OnNickNameChange != null)
+            if (this.OnNickNameChange != null)
             {
-                OnNickNameChange(this, original);
+                this.OnNickNameChange(this, original);
             }
         }
 
@@ -239,9 +239,9 @@ namespace NetIRC
 
         internal void TriggerOnQuit(string reason)
         {
-            if (OnQuit != null)
+            if (this.OnQuit != null)
             {
-                OnQuit(this, reason);
+                this.OnQuit(this, reason);
             }
         }
 
@@ -250,9 +250,9 @@ namespace NetIRC
 
         internal void TriggerOnUserNameChange(string original)
         {
-            if (OnUserNameChange != null)
+            if (this.OnUserNameChange != null)
             {
-                OnUserNameChange(this, original);
+                this.OnUserNameChange(this, original);
             }
         }
     }

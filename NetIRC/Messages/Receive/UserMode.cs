@@ -22,7 +22,7 @@ namespace NetIRC.Messages.Receive
             {
                 string modes = message.Parameters[1];
 
-                ParseModes(client.User, modes);
+                this.ParseModes(client.User, modes);
                 client.TriggerOnUserMode(modes);
             }
         }

@@ -19,17 +19,17 @@ namespace NetIRC
 
         public ReadOnlyDictionary()
         {
-            _dictionary = new Dictionary<TKey, TValue>();
+            this._dictionary = new Dictionary<TKey, TValue>();
         }
 
         public ReadOnlyDictionary(Dictionary<TKey, TValue> dictionary)
         {
-            _dictionary = dictionary;
+            this._dictionary = dictionary;
         }
 
         public bool ContainsValue(TValue value)
         {
-            return _dictionary.ContainsValue(value);
+            return this._dictionary.ContainsValue(value);
         }
 
         #region IDictionary<TKey,TValue> Members
@@ -41,12 +41,12 @@ namespace NetIRC
 
         public bool ContainsKey(TKey key)
         {
-            return _dictionary.ContainsKey(key);
+            return this._dictionary.ContainsKey(key);
         }
 
         public ICollection<TKey> Keys
         {
-            get { return _dictionary.Keys; }
+            get { return this._dictionary.Keys; }
         }
 
         bool IDictionary<TKey, TValue>.Remove(TKey key)
@@ -56,19 +56,19 @@ namespace NetIRC
 
         public bool TryGetValue(TKey key, out TValue value)
         {
-            return _dictionary.TryGetValue(key, out value);
+            return this._dictionary.TryGetValue(key, out value);
         }
 
         public ICollection<TValue> Values
         {
-            get { return _dictionary.Values; }
+            get { return this._dictionary.Values; }
         }
 
         public TValue this[TKey key]
         {
             get
             {
-                return _dictionary[key];
+                return this._dictionary[key];
             }
         }
 
@@ -100,17 +100,17 @@ namespace NetIRC
 
         public bool Contains(KeyValuePair<TKey, TValue> item)
         {
-            return ((IDictionary)_dictionary).Contains(item);
+            return ((IDictionary)this._dictionary).Contains(item);
         }
 
         public void CopyTo(KeyValuePair<TKey, TValue>[] array, int arrayIndex)
         {
-            ((IDictionary)_dictionary).CopyTo(array, arrayIndex);
+            ((IDictionary)this._dictionary).CopyTo(array, arrayIndex);
         }
 
         public int Count
         {
-            get { return _dictionary.Count; }
+            get { return this._dictionary.Count; }
         }
 
         public bool IsReadOnly
@@ -129,7 +129,7 @@ namespace NetIRC
 
         public IEnumerator<KeyValuePair<TKey, TValue>> GetEnumerator()
         {
-            return _dictionary.GetEnumerator();
+            return this._dictionary.GetEnumerator();
         }
 
         #endregion
@@ -138,7 +138,7 @@ namespace NetIRC
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         #endregion
