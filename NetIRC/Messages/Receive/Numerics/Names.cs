@@ -58,8 +58,9 @@ namespace NetIRC.Messages.Receive.Numerics
                     user._ranks[channel.Name] = rank;
                     channel.AddUser(user);
                 }
+
+                channel.TriggerOnNames(users);
             }
         }
-
     }
 }

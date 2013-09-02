@@ -430,5 +430,16 @@ namespace NetIRC
                 this.OnUserAdded(this, user);
             }
         }
+
+        public delegate void OnNamesHandler(Channel source, string[] users);
+        public event OnNamesHandler OnNames;
+
+        public void TriggerOnNames(string[] users)
+        {
+            if (this.OnNames != null)
+            {
+                this.OnNames(this, users);
+            }
+        }
     }
 }
