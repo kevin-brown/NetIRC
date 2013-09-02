@@ -12,7 +12,7 @@
             Channel channel = message.GetChannel();
             User user = message.GetUser();
 
-            channel.RemoveUser(user);
+            channel.LeaveUser(user);
 
             if (user == client.User)
             {
