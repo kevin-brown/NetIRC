@@ -40,7 +40,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 {
                     UserRank rank = User.RankChars[rankChar];
 
-                    oldUser._ranks[channel.Name] = rank;
+                    channel.SetRank(oldUser, rank);
                 }
             }
             oldUser.RealName = string.Join(" ", message.Parameters.Skip(8)).Trim();

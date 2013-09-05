@@ -186,6 +186,12 @@ namespace NetIRC
             this.UserLimit = -1;
         }
 
+        internal void SetRank(User user, UserRank rank)
+        {
+            user._ranks[this.Name] = rank;
+            this.TriggerOnRank(this, user, rank);
+        }
+
         internal void AddUser(User user)
         {
             if (this.Users.ContainsKey(user.NickName))
@@ -434,12 +440,21 @@ namespace NetIRC
         public delegate void OnNamesHandler(Channel source, string[] users);
         public event OnNamesHandler OnNames;
 
-        public void TriggerOnNames(string[] users)
+        internal void TriggerOnNames(string[] users)
         {
             if (this.OnNames != null)
             {
                 this.OnNames(this, users);
             }
+        }
+
+        public delegate void OnRankHandler(Channel source, User user, UserRank rank);
+        public event OnRankHandler OnRank;
+
+        internal virtual void TriggerOnRank(Channel source, User user, UserRank rank)
+        {
+            OnRankHandler handler = this.OnRank;
+            if (handler != null) handler(source, user, rank);
         }
     }
 }
