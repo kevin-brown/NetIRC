@@ -136,11 +136,11 @@ namespace NetIRC
         /// </summary>
         public void Disconnect()
         {
-            this.ReadThread.Abort();
-
             this.Reader.Close();
             this.Writer.Close();
             this.TcpClient.Close();
+
+            this.Reader = null;
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace NetIRC
 
         private void ReadStream()
         {
-            while (this.TcpClient != null && this.TcpClient.Connected)
+            while (this.Reader != null && !this.Reader.EndOfStream)
             {
                 string line = this.Reader.ReadLine();
                 if (String.IsNullOrEmpty(line)) continue;
@@ -218,6 +218,8 @@ namespace NetIRC
                     }
                 }
             }
+
+            this.TriggerOnDisconnect();
         }
 
         /// <summary>
@@ -335,6 +337,17 @@ namespace NetIRC
             if (this.OnConnect != null)
             {
                 this.OnConnect(this);
+            }
+        }
+
+        public delegate void OnDisconnectHandler(Client client);
+        public event OnDisconnectHandler OnDisconnect;
+
+        private void TriggerOnDisconnect()
+        {
+            if (this.OnDisconnect != null)
+            {
+                this.OnDisconnect(this);
             }
         }
 
