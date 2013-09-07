@@ -240,11 +240,11 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.Topic));
             this.RegisterMessage(typeof(Messages.Receive.Quit));
             this.RegisterMessage(typeof(Messages.Receive.Kick));
-            this.RegisterMessage(typeof(Messages.Receive.UserMode));
-            this.RegisterMessage(typeof(Messages.Receive.ChannelMode));
 
+            this.RegisterMessage(typeof(Messages.Receive.ChannelMode));
             this.RegisterMessage(typeof(Messages.Receive.ChannelPrivate));
             this.RegisterMessage(typeof(Messages.Receive.ChannelNotice));
+            this.RegisterMessage(typeof(Messages.Receive.UserMode));
             this.RegisterMessage(typeof(Messages.Receive.UserPrivate));
             this.RegisterMessage(typeof(Messages.Receive.UserNotice));
 
@@ -258,6 +258,8 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Topic));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicInfo));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.NoTopic));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.NowAway));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.UnAway));
         }
 
         public void RegisterWriter(Type type)

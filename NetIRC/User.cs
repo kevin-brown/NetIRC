@@ -77,13 +77,20 @@ namespace NetIRC
             internal set;
         }
 
+        private bool _isAway;
+
         /// <summary>
         /// The user is away.
         /// </summary>
         public bool IsAway
         {
-            get;
-            internal set;
+            get { return this._isAway; }
+            internal set
+            {
+                if (this._isAway == value) return;
+                this._isAway = value;
+                this.TriggerOnIsAwayChange();
+            }
         }
 
         /// <summary>
@@ -241,6 +248,17 @@ namespace NetIRC
             if (this.OnUserNameChange != null)
             {
                 this.OnUserNameChange(this, original);
+            }
+        }
+
+        public delegate void OnIsAwayChangeHandler(User user);
+        public event OnIsAwayChangeHandler OnIsAwayChange;
+
+        internal void TriggerOnIsAwayChange()
+        {
+            if (this.OnIsAwayChange != null)
+            {
+                this.OnIsAwayChange(this);
             }
         }
     }
