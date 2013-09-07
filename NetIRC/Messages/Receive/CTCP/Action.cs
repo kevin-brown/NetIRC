@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive.CTCP
 {
-    class Action : IReceiveMessage
+    public class Action : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

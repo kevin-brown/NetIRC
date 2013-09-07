@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive
 {
-    class ChannelNotice : IReceiveMessage
+    public class ChannelNotice : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

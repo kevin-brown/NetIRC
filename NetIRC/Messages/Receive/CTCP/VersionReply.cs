@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive.CTCP
 {
-    class VersionReply : IReceiveMessage
+    public class VersionReply : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

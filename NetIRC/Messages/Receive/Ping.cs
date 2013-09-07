@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive
 {
-    class Ping : IReceiveMessage
+    public class Ping : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

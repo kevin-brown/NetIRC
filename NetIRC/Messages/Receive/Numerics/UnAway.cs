@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class UnAway : IReceiveMessage
+    public class UnAway : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

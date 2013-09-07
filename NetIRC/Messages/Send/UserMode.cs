@@ -4,41 +4,41 @@ namespace NetIRC.Messages.Send
 {
     public class UserMode : ISendMessage
     {
-        private readonly string _nickName;
-        private readonly string _modes;
+        public string NickName { get; set; }
+        public string Modes { get; set; }
 
         public UserMode(User user)
         {
-            this._nickName = user.NickName;
+            this.NickName = user.NickName;
         }
 
         public UserMode(User user, string modes)
         {
-            this._nickName = user.NickName;
-            this._modes = modes;
+            this.NickName = user.NickName;
+            this.Modes = modes;
         }
 
         public UserMode(string nickName)
         {
-            this._nickName = nickName;
+            this.NickName = nickName;
         }
 
         public UserMode(string nickName, string modes)
         {
-            this._nickName = nickName;
-            this._modes = modes;
+            this.NickName = nickName;
+            this.Modes = modes;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (string.IsNullOrEmpty(this._modes))
+            if (string.IsNullOrEmpty(this.Modes))
             {
-                writer.WriteLine("MODE {0}", this._nickName);
+                writer.WriteLine("MODE {0}", this.NickName);
             }
 
             else
             {
-                writer.WriteLine("MODE {0} {1}", this._nickName, this._modes);
+                writer.WriteLine("MODE {0} {1}", this.NickName, this.Modes);
             }
         }
     }

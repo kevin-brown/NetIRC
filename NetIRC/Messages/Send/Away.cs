@@ -4,16 +4,16 @@ namespace NetIRC.Messages.Send
 {
     public class Away : ISendMessage
     {
-        private readonly string _reason;
+        public string Reason { get; set; }
 
         public Away(string reason)
         {
-            this._reason = reason;
+            this.Reason = reason;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("AWAY :{0}", this._reason);
+            writer.WriteLine("AWAY :{0}", this.Reason);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace NetIRC.Messages.Receive.Numerics
 {
-    class Who : IReceiveMessage
+    public class Who : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

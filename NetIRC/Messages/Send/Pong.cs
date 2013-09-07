@@ -4,7 +4,7 @@ namespace NetIRC.Messages.Send
 {
     public class Pong : ISendMessage
     {
-        private readonly string _extra;
+        public string _extra { get; set; }
 
         public Pong(string extra)
         {

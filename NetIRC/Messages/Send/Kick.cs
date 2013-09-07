@@ -4,71 +4,71 @@ namespace NetIRC.Messages.Send
 {
     public class Kick : ISendMessage
     {
-        private readonly string _channelName;
-        private readonly string _nickName;
-        private readonly string _message;
+        public string ChannelName { get; set; }
+        public string NickName { get; set; }
+        public string Message { get; set; }
 
         public Kick(Channel channel, User user)
         {
-            this._channelName = channel.FullName;
-            this._nickName = user.NickName;
+            this.ChannelName = channel.FullName;
+            this.NickName = user.NickName;
         }
 
         public Kick(Channel channel, User user, string message)
         {
-            this._channelName = channel.FullName;
-            this._nickName = user.NickName;
-            this._message = message;
+            this.ChannelName = channel.FullName;
+            this.NickName = user.NickName;
+            this.Message = message;
         }
 
         public Kick(string channelName, User user)
         {
-            this._channelName = channelName;
-            this._nickName = user.NickName;
+            this.ChannelName = channelName;
+            this.NickName = user.NickName;
         }
 
         public Kick(string channelName, User user, string message)
         {
-            this._channelName = channelName;
-            this._nickName = user.NickName;
-            this._message = message;
+            this.ChannelName = channelName;
+            this.NickName = user.NickName;
+            this.Message = message;
         }
 
         public Kick(Channel channel, string nickName)
         {
-            this._channelName = channel.FullName;
-            this._nickName = nickName;
+            this.ChannelName = channel.FullName;
+            this.NickName = nickName;
         }
 
         public Kick(Channel channel, string nickName, string message)
         {
-            this._channelName = channel.FullName;
-            this._nickName = nickName;
-            this._message = message;
+            this.ChannelName = channel.FullName;
+            this.NickName = nickName;
+            this.Message = message;
         }
 
         public Kick(string channelName, string nickName)
         {
-            this._channelName = channelName;
-            this._nickName = nickName;
+            this.ChannelName = channelName;
+            this.NickName = nickName;
         }
 
         public Kick(string channelName, string nickName, string message)
         {
-            this._channelName = channelName;
-            this._nickName = nickName;
-            this._message = message;
+            this.ChannelName = channelName;
+            this.NickName = nickName;
+            this.Message = message;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            if (string.IsNullOrEmpty(this._message))
+            if (string.IsNullOrEmpty(this.Message))
             {
-                writer.WriteLine("KICK {0} {1}", this._channelName, this._nickName);
+                writer.WriteLine("KICK {0} {1}", this.ChannelName, this.NickName);
             }
             else
             {
-                writer.WriteLine("KICK {0} {1} :{2}", this._channelName, this._nickName, this._message);
+                writer.WriteLine("KICK {0} {1} :{2}", this.ChannelName, this.NickName, this.Message);
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive
 {
-    class Join : IReceiveMessage
+    public class Join : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {

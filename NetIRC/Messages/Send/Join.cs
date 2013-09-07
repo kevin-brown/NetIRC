@@ -4,21 +4,21 @@ namespace NetIRC.Messages.Send
 {
     public class Join : ISendMessage
     {
-        private readonly string _channelName;
+        public string ChannelName { get; set; }
 
         public Join(string channelName)
         {
-            this._channelName = channelName;
+            this.ChannelName = channelName;
         }
 
         public Join(Channel channel)
         {
-            this._channelName = channel.FullName;
+            this.ChannelName = channel.FullName;
         }
 
         public void Send(StreamWriter writer, Client client)
         {
-            writer.WriteLine("JOIN {0}", this._channelName);
+            writer.WriteLine("JOIN {0}", this.ChannelName);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace NetIRC.Messages.Receive.Numerics
 {
-    class Welcome : IReceiveMessage
+    public class Welcome : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
