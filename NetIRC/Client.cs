@@ -282,6 +282,10 @@ namespace NetIRC
         /// <param name="message">The NetIRC.SendMessage instance to be sent.</param>
         public void Send(Messages.ISendMessage message)
         {
+            SendMessageEventArgs e = new SendMessageEventArgs(message);
+            this.TriggerOnSend(e);
+            if (e.Message == null) return;
+
             using (MemoryStream stream = new MemoryStream())
             {
                 message.Send(new StreamWriter(stream) {AutoFlush = true}, this);
@@ -427,6 +431,17 @@ namespace NetIRC
             if (this.OnNotice != null)
             {
                 this.OnNotice(this, user, notice);
+            }
+        }
+
+        public delegate void OnSendHandler(Client client, SendMessageEventArgs e);
+        public event OnSendHandler OnSend;
+
+        protected virtual void TriggerOnSend(SendMessageEventArgs e)
+        {
+            if (this.OnSend != null)
+            {
+                this.OnSend(this, e);
             }
         }
 
