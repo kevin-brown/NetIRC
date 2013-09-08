@@ -92,7 +92,7 @@ namespace NetIRC.Messages
             if (!Channel.TypeChars.Values.Contains(channel[0]))
                 return null;
 
-            return this._client.ChannelFactory.FromName(channel.Substring(1));
+            return this._client.ChannelFactory.FromName(channel);
         }
 
         /// <summary>
