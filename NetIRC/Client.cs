@@ -248,9 +248,11 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.UserPrivate));
             this.RegisterMessage(typeof(Messages.Receive.UserNotice));
 
-            this.RegisterMessage(typeof(Messages.Receive.CTCP.Action));
             this.RegisterMessage(typeof(Messages.Receive.CTCP.Version));
             this.RegisterMessage(typeof(Messages.Receive.CTCP.VersionReply));
+
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.ChannelAction));
+            this.RegisterMessage(typeof(Messages.Receive.CTCP.UserAction));
 
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Welcome));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Names));
@@ -426,7 +428,7 @@ namespace NetIRC
         public delegate void OnNoticeHandler(Client client, User source, string notice);
         public event OnNoticeHandler OnNotice;
 
-        public void TriggerOnNotice(User user, string notice)
+        internal void TriggerOnNotice(User user, string notice)
         {
             if (this.OnNotice != null)
             {
@@ -442,6 +444,17 @@ namespace NetIRC
             if (this.OnSend != null)
             {
                 this.OnSend(this, e);
+            }
+        }
+
+        public delegate void OnActionHandler(Client client, User source, string action);
+        public event OnActionHandler OnAction;
+
+        internal void TriggerOnAction(User user, string action)
+        {
+            if (this.OnAction != null)
+            {
+                this.OnAction(this, user, action);
             }
         }
 

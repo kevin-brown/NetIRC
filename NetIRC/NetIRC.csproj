@@ -50,7 +50,8 @@
     <Compile Include="Messages\IReceiveMessage.cs" />
     <Compile Include="Messages\Receive\ChannelMode.cs" />
     <Compile Include="Messages\Receive\ChannelPrivate.cs" />
-    <Compile Include="Messages\Receive\CTCP\Action.cs" />
+    <Compile Include="Messages\Receive\CTCP\ChannelAction.cs" />
+    <Compile Include="Messages\Receive\CTCP\UserAction.cs" />
     <Compile Include="Messages\Receive\CTCP\Version.cs" />
     <Compile Include="Messages\Receive\CTCP\VersionReply.cs" />
     <Compile Include="Messages\Receive\Join.cs" />
