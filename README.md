@@ -8,10 +8,10 @@ Most IRC frameworks don't allow you to send custom messages, and usually do not 
 
 ## How can I create a custom message to send?
 
-In order to create custom messages, you just need to sub-class the `NetIRC.Messages.SendMessage` class.
+In order to create custom messages, you just need to implement the `NetIRC.Messages.ISendMessage` interface.
 
 ```csharp
-class CustomMessage : NetIRC.Messages.SendMessage
+class Custom : NetIRC.Messages.ISendMessage
 {
     public void Send(StreamWriter writer)
     {
@@ -26,19 +26,19 @@ The `Send` method is called when the message is passed into `Client.Send()`.  Yo
 Client client = new Client()
 
 client.Connect(/* connection options */);
-client.Send(new CustomMessage());
+client.Send(new Custom());
 ```
 
 ## I can change how messages are received?
 
-NetIRC uses custom `ReceiveMessage` classes to detect and parse received messages.  These messages can be enabled and disabled at any time, including the messages that are provided with NetIRC.  Custom receive messages must sub-class the `ReceiveMessage` class.
+NetIRC uses custom `IReceiveMessage` classes to detect and parse received messages.  These messages can be enabled and disabled at any time, including the messages that are provided with NetIRC.  Custom receive messages must implement  the `IReceiveMessage` interface.
 
 ```csharp
-class AwesomeMessage : NetIRC.Messages.ReceiveMessage
+class Awesome : NetIRC.Messages.IReceiveMessage
 {
-    public static bool CheckMessage(string message, Server server)
+    public static bool CheckMessage(NetIRC.Messages.ParsedMessage message, Server server)
     {
-        if (message.Contains("awesome"))
+        if (message.Command == "awesome")
         {
             return true;
         }
@@ -46,7 +46,7 @@ class AwesomeMessage : NetIRC.Messages.ReceiveMessage
         return false;
     }
     
-    public override void ProcessMessage(string message, Client client)
+    public override void ProcessMessage(NetIRC.Messages.ParsedMessage message, Client client)
     {
         Console.output("An awesome message was detected");
     }
@@ -59,12 +59,12 @@ You must define two methods, `CheckMessage` and `ProcessMessage`.  `CheckMessage
 
 Messages must be registered to the internal queue in order to process incoming messages.  The queue is not global to all clients, but is unique to the client that the message is registered through.  In order to register a message, you would call the `RegisterMessage` method of your `Client`:
 ```csharp
-client.RegisterMessage(typeof(AwesomeMessage));
+client.RegisterMessage(typeof(Awesome));
 ```
 Internally, the default set of messages which trigger the events are registered using this method.  You can unregister messages using the `UnregisterMessage` method of your `Client`:
 ```csharp
-client.UnregisterMessage(typeof(AwesomeMessage));
-client.UnregisterMessage(typeof(NetIRC.Messages.Receive.ChatMessage));
+client.UnregisterMessage(typeof(Awesome));
+client.UnregisterMessage(typeof(NetIRC.Messages.Receive.Chat));
 ```
 This means that if you want to completely override one of the default messages, all you have to do is unregister the NetIRC version and register your own.
 
@@ -72,4 +72,4 @@ This means that if you want to completely override one of the default messages, 
 
 NetIRC provides a way of processing messages which are sent and received through `OutputWriter` classes.  By default, there are two writers which are registered, `IrcWriter` and `ConsoleWriter`.  `IrcWriter` handles the sending of the actual messages and `ConsoleWriter` outputs all received and sent messages to the console.
 
-Output writers must sub-class `NetIRC.Output.OutputWriter` and must be registered to a `Client`.  The process of registering and unregistering writers is similar to messages.
+Output writers must implement `NetIRC.Output.IOutputWriter` and must be registered to a `Client`.  The process of registering and unregistering writers is similar to messages.
