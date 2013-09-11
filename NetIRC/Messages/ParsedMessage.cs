@@ -49,7 +49,7 @@ namespace NetIRC.Messages
             this.Parameters = new string[0];
 
             Regex parsingRegex =
-                new Regex(@"^(:(?<prefix>\S+) )?(?<command>\S+)( (?!:)(?<params>.+?))?( :(?<trail>.+))?$",
+                new Regex(@"^(:(?<prefix>\S+) )?(?<command>\S+)( (?!:)(?<params>.+?))?( :(?<trail>.*))?$",
                           RegexOptions.ExplicitCapture);
             Match messageMatch = parsingRegex.Match(message);
 
