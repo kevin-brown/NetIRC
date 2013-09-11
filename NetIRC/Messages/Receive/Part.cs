@@ -12,7 +12,11 @@
             Channel channel = message.GetChannel();
             User user = message.GetUser();
 
-            channel.LeaveUser(user);
+            string reason = null;
+            if (message.Parameters.Length >= 2)
+                reason = message.Parameters[1];
+
+            channel.LeaveUser(user, reason);
 
             if (user == client.User)
             {

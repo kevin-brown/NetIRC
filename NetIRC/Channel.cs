@@ -260,10 +260,10 @@ namespace NetIRC
             }
         }
 
-        internal void LeaveUser(User user)
+        internal void LeaveUser(User user, string reason)
         {
             this.RemoveUser(user);
-            this.TriggerOnLeave(user);
+            this.TriggerOnLeave(user, reason);
         }
 
         internal void ClearUsers()
@@ -338,14 +338,14 @@ namespace NetIRC
             }
         }
 
-        public delegate void OnLeaveHandler(Channel source, User user);
+        public delegate void OnLeaveHandler(Channel source, User user, string reason);
         public event OnLeaveHandler OnLeave;
 
-        internal void TriggerOnLeave(User user)
+        internal void TriggerOnLeave(User user, string reason)
         {
             if (this.OnLeave != null)
             {
-                this.OnLeave(this, user);
+                this.OnLeave(this, user, reason);
             }
         }
 
