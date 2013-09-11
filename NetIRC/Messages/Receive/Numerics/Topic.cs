@@ -16,7 +16,7 @@
                 Channel channel = message.GetChannel(message.Parameters[1]);
                 
                 string topic = null;
-                if (message.Parameters.Length > 3)
+                if (message.Parameters.Length >= 3)
                     topic= message.Parameters[2];
 
                 channel.Topic.Message = topic;
