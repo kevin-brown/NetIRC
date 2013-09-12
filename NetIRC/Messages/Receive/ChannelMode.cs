@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace NetIRC.Messages.Receive
 {
@@ -15,7 +16,7 @@ namespace NetIRC.Messages.Receive
             User setter = message.GetUser();
             Channel channel = message.GetChannel();
             string modes = message.Parameters[1];
-            string[] parameters = message.Parameters[2].Split(' ');
+            string[] parameters = message.Parameters.Skip(2).ToArray();
 
             this.ParseModes(client, channel, modes, parameters);
             channel.TriggerOnMode(setter, modes, parameters);
