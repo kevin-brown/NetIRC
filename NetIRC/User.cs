@@ -93,6 +93,25 @@ namespace NetIRC
             }
         }
 
+        public string _awayMessage;
+
+        /// <summary>
+        /// The current away message of the user.
+        /// </summary>
+        public string AwayMessage
+        {
+            get { return this._awayMessage; }
+            internal set
+            {
+                if (this._awayMessage == value) return;
+
+                string original = this._hostName;
+
+                this._awayMessage = value;
+                this.TriggerOnAwayMessageChange(original);
+            }
+        }
+
         /// <summary>
         /// The user is marked as invisible.
         /// </summary>
@@ -259,6 +278,17 @@ namespace NetIRC
             if (this.OnIsAwayChange != null)
             {
                 this.OnIsAwayChange(this);
+            }
+        }
+
+        public delegate void OnAwayMessageChangeHandler(User user, string original);
+        public event OnAwayMessageChangeHandler OnAwayMessageChange;
+
+        internal void TriggerOnAwayMessageChange(string original)
+        {
+            if (this.OnAwayMessageChange != null)
+            {
+                this.OnAwayMessageChange(this, original);
             }
         }
     }
