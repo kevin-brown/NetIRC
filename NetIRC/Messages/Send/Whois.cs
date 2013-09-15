@@ -6,7 +6,7 @@ using System.Text;
 
 namespace NetIRC.Messages.Send
 {
-    class Whois
+    public class Whois : ISendMessage
     {
         public string Nick { get; set; }
         public string Server { get; set; }
