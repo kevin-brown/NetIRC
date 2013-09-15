@@ -384,7 +384,7 @@ namespace NetIRC
         }
 
         public delegate void OnWhoHandler(Client client, User user, string message);
-        public event OnWelcomeHandler OnWho;
+        public event OnWhoHandler OnWho;
 
         internal void TriggerOnWho(User user, string message)
         {
