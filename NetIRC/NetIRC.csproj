@@ -96,6 +96,7 @@
     <Compile Include="Messages\Send\UserMessage.cs" />
     <Compile Include="Messages\Send\UserMode.cs" />
     <Compile Include="Messages\Send\Who.cs" />
+    <Compile Include="Messages\Send\Whois.cs" />
     <Compile Include="Output\ConsoleWriter.cs" />
     <Compile Include="Output\IrcWriter.cs" />
     <Compile Include="Output\IWriter.cs" />
