@@ -40,8 +40,8 @@ namespace NetIRC.Messages.Receive.Numerics
                 }
             }
 
-            client.TriggerOnWho(string.Join(" ", message.Parameters.Skip(3)));
-            channel.TriggerOnWho(string.Join(" ", message.Parameters.Skip(3)));
+            client.TriggerOnWho(user, string.Join(" ", message.Parameters.Skip(3)));
+            channel.TriggerOnWho(user, string.Join(" ", message.Parameters.Skip(3)));
         }
     }
 }

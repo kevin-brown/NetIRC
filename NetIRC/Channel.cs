@@ -415,14 +415,14 @@ namespace NetIRC
             }
         }
 
-        public delegate void OnWhoHandler(Channel source, string message);
+        public delegate void OnWhoHandler(Channel source, User user, string message);
         public event OnWhoHandler OnWho;
 
-        internal void TriggerOnWho(string message)
+        internal void TriggerOnWho(User user, string message)
         {
             if (this.OnWho != null)
             {
-                this.OnWho(this, message);
+                this.OnWho(this, user, message);
             }
         }
 

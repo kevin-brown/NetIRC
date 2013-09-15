@@ -383,14 +383,14 @@ namespace NetIRC
             }
         }
 
-        public delegate void OnWhoHandler(Client client, string message);
+        public delegate void OnWhoHandler(Client client, User user, string message);
         public event OnWelcomeHandler OnWho;
 
-        internal void TriggerOnWho(string message)
+        internal void TriggerOnWho(User user, string message)
         {
             if (this.OnWho != null)
             {
-                this.OnWho(this, message);
+                this.OnWho(this, user, message);
             }
         }
 
