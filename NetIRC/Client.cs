@@ -197,7 +197,8 @@ namespace NetIRC
 
         private void ReadStream()
         {
-            while (this.Reader != null && !this.Reader.EndOfStream)
+            while (this.TcpClient != null && this.TcpClient.Connected &&
+                   this.Reader != null && !this.Reader.EndOfStream)
             {
                 string line = this.Reader.ReadLine();
                 if (String.IsNullOrEmpty(line)) continue;
