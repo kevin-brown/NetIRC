@@ -16,7 +16,7 @@ namespace NetIRC.Messages.Receive.IRCv3
         {
             User user = message.GetUser();
 
-            if (message.Parameters.Length >= 1)
+            if (message.Parameters.Length == 0)
             {
                 user.IsAway = false;
                 user.AwayMessage = null;

@@ -137,10 +137,10 @@ namespace NetIRC
             this.ReadThread.Start();
 
             this.Send(new Messages.Send.UserMessage(user));
+            this.Send(new Messages.Send.Nick(user));
             if (capabilities.Length > 0)
                 this.Send(new Messages.Send.IRCv3.CapabilityRequest(capabilities));
             this.Send(new Messages.Send.IRCv3.CapabilityEnd());
-            this.Send(new Messages.Send.Nick(user));
         }
 
         /// <summary>
