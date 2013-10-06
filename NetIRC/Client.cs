@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Sockets;
 using System.Threading;
+using NetIRC.IRCv3;
 using NetIRC.Messages;
 using NetIRC.Output;
 
@@ -69,6 +70,12 @@ namespace NetIRC
             }
         }
 
+        public Capability[] Capabilities
+        {
+            get;
+            private set;
+        }
+
         internal ChannelFactory ChannelFactory
         {
             get;
@@ -108,16 +115,18 @@ namespace NetIRC
         /// <param name="port">The port to connect to on the server.</param>
         /// <param name="ssl">True for SSL, false if not.</param>
         /// <param name="user">The NetIRC.User to use for connecting to the server.</param>
-        public void Connect(string server, int port, bool ssl, User user)
+        /// <param name="capabilities">The capabilities to request from the server.</param>
+        public void Connect(string server, int port, bool ssl, User user, params Capability[] capabilities)
         {
             this.User = user;
+            this.HostName = server;
+            this.Port = port;
+            this.Capabilities = capabilities;
+
             this.UserFactory.SetUser(user.NickName, user);
 
             this.TcpClient = new TcpClient();
             this.TcpClient.Connect(server, port);
-
-            this.HostName = server;
-            this.Port = port;
 
             this.Stream = this.TcpClient.GetStream();
 
@@ -127,8 +136,11 @@ namespace NetIRC
             this.ReadThread = new Thread(this.ReadStream) {IsBackground = true};
             this.ReadThread.Start();
 
-            this.Send(new Messages.Send.UserMessage(this.User));
-            this.Send(new Messages.Send.Nick(this.User));
+            this.Send(new Messages.Send.UserMessage(user));
+            if (capabilities.Length > 0)
+                this.Send(new Messages.Send.IRCv3.CapabilityRequest(capabilities));
+            this.Send(new Messages.Send.IRCv3.CapabilityEnd());
+            this.Send(new Messages.Send.Nick(user));
         }
 
         /// <summary>
@@ -264,6 +276,8 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.Numerics.NoTopic));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.NowAway));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.UnAway));
+
+            this.RegisterMessage(typeof(Messages.Receive.IRCv3.Away));
         }
 
         public void RegisterWriter(Type type)

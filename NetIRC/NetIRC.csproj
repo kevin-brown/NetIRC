@@ -47,6 +47,7 @@
     <Compile Include="ChannelFactory.cs" />
     <Compile Include="ChannelTopic.cs" />
     <Compile Include="Client.cs" />
+    <Compile Include="IRCv3\Capability.cs" />
     <Compile Include="Messages\IReceiveMessage.cs" />
     <Compile Include="Messages\Receive\ChannelMode.cs" />
     <Compile Include="Messages\Receive\ChannelPrivate.cs" />
@@ -82,6 +83,8 @@
     <Compile Include="Messages\Send\CTCP\Version.cs" />
     <Compile Include="Messages\Send\CTCP\VersionReply.cs" />
     <Compile Include="Messages\Send\Invite.cs" />
+    <Compile Include="Messages\Send\IRCv3\CapabilityEnd.cs" />
+    <Compile Include="Messages\Send\IRCv3\CapabilityRequest.cs" />
     <Compile Include="Messages\Send\Join.cs" />
     <Compile Include="Messages\Send\Kick.cs" />
     <Compile Include="Messages\Send\Motd.cs" />
@@ -109,6 +112,9 @@
     <Compile Include="UserFactory.cs" />
     <Compile Include="UserRank.cs" />
     <Compile Include="ChannelType.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Messages\Receive\IRCv3\Away.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
