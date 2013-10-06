@@ -15,7 +15,7 @@ namespace NetIRC.Messages.Send.IRCv3
             this.Capability = capability;
         }
 
-        public CapabilityRequest(IEnumerable<Capability> capabilities)
+        public CapabilityRequest(IEnumerable<string> capabilities)
         {
             this.Capability = String.Join(" ", capabilities);
         }

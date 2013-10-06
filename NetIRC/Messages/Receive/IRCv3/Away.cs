@@ -26,7 +26,6 @@ namespace NetIRC.Messages.Receive.IRCv3
                 user.IsAway = true;
                 user.AwayMessage = message.Parameters[0];
             }
-
         }
     }
 }

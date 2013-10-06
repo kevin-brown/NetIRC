@@ -23,6 +23,11 @@ namespace NetIRC.IRCv3
             return new Capability(str);
         }
 
+        public static implicit operator string(Capability capability)
+        {
+            return capability.ToString();
+        }
+
         public static bool operator ==(Capability x, Capability y)
         {
             if (ReferenceEquals(x, null))

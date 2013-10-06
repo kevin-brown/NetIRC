@@ -69,13 +69,7 @@ namespace NetIRC
                 return this.ChannelFactory.HasUser(this.User);
             }
         }
-
-        public Capability[] Capabilities
-        {
-            get;
-            private set;
-        }
-
+        
         internal ChannelFactory ChannelFactory
         {
             get;
@@ -116,12 +110,11 @@ namespace NetIRC
         /// <param name="ssl">True for SSL, false if not.</param>
         /// <param name="user">The NetIRC.User to use for connecting to the server.</param>
         /// <param name="capabilities">The capabilities to request from the server.</param>
-        public void Connect(string server, int port, bool ssl, User user, params Capability[] capabilities)
+        public void Connect(string server, int port, bool ssl, User user)
         {
             this.User = user;
             this.HostName = server;
             this.Port = port;
-            this.Capabilities = capabilities;
 
             this.UserFactory.SetUser(user.NickName, user);
 
@@ -138,9 +131,6 @@ namespace NetIRC
 
             this.Send(new Messages.Send.UserMessage(user));
             this.Send(new Messages.Send.Nick(user));
-            if (capabilities.Length > 0)
-                this.Send(new Messages.Send.IRCv3.CapabilityRequest(capabilities));
-            this.Send(new Messages.Send.IRCv3.CapabilityEnd());
         }
 
         /// <summary>
