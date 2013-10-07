@@ -21,6 +21,7 @@ namespace NetIRC.Messages.Receive.Numerics
                 // string info = message.Parameters[1];
 
                 client.User.IsAway = false;
+                client.User.AwayMessage = null;
             }
         }
     }
