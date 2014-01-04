@@ -68,10 +68,20 @@ namespace NetIRC.Messages
             }
         }
 
+
         /// <summary>
         /// Gets or generates a User object from the UserFactory
         /// </summary>
-        public User GetUser(string userMask)
+        public User GetUser(string userString)
+        {
+            return this.GetUserFromMask(userString) ??
+                   this.GetUserFromNick(userString);
+        }
+
+        /// <summary>
+        /// Gets or generates a User object from the UserFactory
+        /// </summary>
+        public User GetUserFromMask(string userMask)
         {
             return this._client.UserFactory.FromUserMask(userMask);
         }
@@ -116,7 +126,7 @@ namespace NetIRC.Messages
         /// </summary>
         public bool IsUser(string userMask)
         {
-            return this.GetUser(userMask) != null;
+            return this.GetUserFromMask(userMask) != null;
         }
 
         /// <summary>
