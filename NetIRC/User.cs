@@ -203,14 +203,11 @@ namespace NetIRC
         public User(string nick)
         {
             this.NickName = nick;
-            this.RealName = nick;
-            this.UserName = nick;
         }
 
         public User(string nick, string user)
         {
             this.NickName = nick;
-            this.RealName = nick;
             this.UserName = user;
         }
 
