@@ -93,7 +93,7 @@ namespace NetIRC
             }
         }
 
-        public string _awayMessage;
+        private string _awayMessage;
 
         /// <summary>
         /// The current away message of the user.
