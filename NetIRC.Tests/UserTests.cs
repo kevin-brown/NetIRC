@@ -13,8 +13,6 @@ namespace NetIRC.Tests
             User user = new User("nick");
 
             Assert.AreEqual("nick", user.NickName);
-            Assert.AreEqual("nick", user.UserName);
-            Assert.AreEqual("nick", user.RealName);
         }
 
         [TestMethod]
@@ -23,7 +21,6 @@ namespace NetIRC.Tests
             User user = new User("nick", "user");
 
             Assert.AreEqual("nick", user.NickName);
-            Assert.AreEqual("nick", user.RealName);
             Assert.AreEqual("user", user.UserName);
         }
 
