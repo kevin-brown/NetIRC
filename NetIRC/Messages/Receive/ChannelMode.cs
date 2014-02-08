@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace NetIRC.Messages.Receive
@@ -18,18 +19,19 @@ namespace NetIRC.Messages.Receive
             string modes = message.Parameters[1];
             string[] parameters = message.Parameters.Skip(2).ToArray();
 
-            this.ParseModes(client, channel, modes, parameters);
-            channel.TriggerOnMode(setter, modes, parameters);
+            List<KeyValuePair<string, string>> changes = this.ParseModes(client, channel, modes, parameters);
+            channel.TriggerOnMode(setter, changes);
         }
 
-        public void ParseModes(Client client, Channel target, string modes, string[] parameters)
+        public List<KeyValuePair<string, string>> ParseModes(Client client, Channel target, string modes, string[] parameters)
         {
+            List<KeyValuePair<string, string>> changes = new List<KeyValuePair<string,string>>();
             bool addMode = true;
             int paramIndex = 0;
             foreach (char mode in modes)
             {
                 User userTarget;
-                string param;
+                string param = null;
 
                 switch (mode)
                 {
@@ -41,21 +43,27 @@ namespace NetIRC.Messages.Receive
                         break;
                     case 'i':
                         target.IsInviteOnly = addMode;
+                        param = null;
                         break;
                     case 'm':
                         target.IsModerated = addMode;
+                        param = null;
                         break;
                     case 'n':
                         target.NoOutsideMessages = addMode;
+                        param = null;
                         break;
                     case 'p':
                         target.IsPrivate = addMode;
+                        param = null;
                         break;
                     case 's':
                         target.IsSecret = addMode;
+                        param = null;
                         break;
                     case 't':
                         target.IsTopicLocked = addMode;
+                        param = null;
                         break;
                     case 'v':
                         if (paramIndex < parameters.Length)
@@ -177,7 +185,18 @@ namespace NetIRC.Messages.Receive
                         }
                         break;
                 }
+
+                if (mode != '+' && mode != '-')
+                {
+                    if (addMode)
+                        changes.Add(new KeyValuePair<string, string>("+" + mode.ToString(), param));
+
+                    else
+                        changes.Add(new KeyValuePair<string, string>("-" + mode.ToString(), param));
+                }
             }
+
+            return changes;
         }
     }
 }
