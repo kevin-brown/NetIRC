@@ -393,6 +393,17 @@ namespace NetIRC
             }
         }
 
+        public delegate void OnTopicHandler(Channel source, ChannelTopic topic);
+        public event OnTopicHandler OnTopic;
+
+        internal void TriggerOnTopic(ChannelTopic topic)
+        {
+            if (this.OnTopic != null)
+            {
+                this.OnTopic(this, topic);
+            }
+        }
+
         public delegate void OnTopicChangeHandler(Channel source, ChannelTopic topic);
         public event OnTopicChangeHandler OnTopicChange;
 
