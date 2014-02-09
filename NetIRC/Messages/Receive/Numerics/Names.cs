@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace NetIRC.Messages.Receive.Numerics
 {
@@ -46,14 +47,15 @@ namespace NetIRC.Messages.Receive.Numerics
                     UserRank rank = UserRank.None;
                     string nick = userStr;
 
-                    char firstChar = userStr[0];
-                    if (User.RankChars.ContainsKey(firstChar))
-                    {
-                        rank = User.RankChars[firstChar];
-                        nick = nick.Substring(1);
-                    }
+                    char[] ranks = userStr.TakeWhile(c => User.RankChars.ContainsKey(c)).ToArray(); // Take all the user statuses
+                    nick = new string(userStr.SkipWhile(c => User.RankChars.ContainsKey(c)).ToArray()); // Take the remaining nick
 
                     User user = client.UserFactory.FromNick(nick);
+
+                    foreach (char rankChar in ranks)
+                    {
+                        rank = rank | User.RankChars[rankChar];
+                    }
 
                     channel.SetRank(user, rank);
                     channel.AddUser(user);

@@ -5,6 +5,7 @@ namespace NetIRC.IRCv3
     public sealed class Capability
     {
         public static readonly Capability AwayNotify = new Capability("away-notify");
+        public static readonly Capability MultiPrefix = new Capability("multi-prefix");
         
         private readonly String _name;
 
