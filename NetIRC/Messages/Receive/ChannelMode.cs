@@ -43,32 +43,27 @@ namespace NetIRC.Messages.Receive
                         break;
                     case 'i':
                         target.IsInviteOnly = addMode;
-                        param = null;
                         break;
                     case 'm':
                         target.IsModerated = addMode;
-                        param = null;
                         break;
                     case 'n':
                         target.NoOutsideMessages = addMode;
-                        param = null;
                         break;
                     case 'p':
                         target.IsPrivate = addMode;
-                        param = null;
                         break;
                     case 's':
                         target.IsSecret = addMode;
-                        param = null;
                         break;
                     case 't':
                         target.IsTopicLocked = addMode;
-                        param = null;
                         break;
                     case 'v':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
+                            param = parameters[paramIndex];
+                            userTarget = client.UserFactory.FromNick(param);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     target.SetRank(userTarget, userTarget.Ranks[target.Name] | UserRank.Voice);
@@ -80,7 +75,8 @@ namespace NetIRC.Messages.Receive
                     case 'h':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
+                            param = parameters[paramIndex];
+                            userTarget = client.UserFactory.FromNick(param);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     target.SetRank(userTarget, userTarget.Ranks[target.Name] | UserRank.HalfOp);
@@ -92,7 +88,8 @@ namespace NetIRC.Messages.Receive
                     case 'o':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
+                            param = parameters[paramIndex];
+                            userTarget = client.UserFactory.FromNick(param);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     target.SetRank(userTarget, userTarget.Ranks[target.Name] | UserRank.Op);
@@ -104,7 +101,8 @@ namespace NetIRC.Messages.Receive
                     case 'a':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
+                            param = parameters[paramIndex];
+                            userTarget = client.UserFactory.FromNick(param);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     target.SetRank(userTarget, userTarget.Ranks[target.Name] | UserRank.Admin);
@@ -116,7 +114,8 @@ namespace NetIRC.Messages.Receive
                     case 'q':
                         if (paramIndex < parameters.Length)
                         {
-                            userTarget = client.UserFactory.FromNick(parameters[paramIndex]);
+                            param = parameters[paramIndex];
+                            userTarget = client.UserFactory.FromNick(param);
                             if (target.Users.ContainsValue(userTarget))
                                 if (addMode)
                                     target.SetRank(userTarget, userTarget.Ranks[target.Name] | UserRank.Owner);
