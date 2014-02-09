@@ -32,8 +32,6 @@ namespace NetIRC.Messages.Receive.Numerics
                     default:
                         if (User.RankChars.ContainsKey(c))
                         {
-                            UserRank rank = User.RankChars[c];
-
                             channel.SetRank(user, user.Ranks[channel.Name] | User.RankChars[c]);
                         }
                         break;
