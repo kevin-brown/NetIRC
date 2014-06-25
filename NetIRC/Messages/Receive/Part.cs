@@ -25,7 +25,10 @@
                 channel.ClearUsers();
             }
 
-            client.Send(channel.SendWho());
+            else
+            {
+                client.Send(channel.SendWho());
+            }
         }
     }
 }
