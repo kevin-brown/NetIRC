@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NetIRC.Messages.Receive.Numerics
+namespace NetIRC.Messages.Receive.Numerics.Reply
 {
     public class TopicInfo : IReceiveMessage
     {

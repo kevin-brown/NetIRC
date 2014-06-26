@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NetIRC.Messages.Receive.Numerics
+namespace NetIRC.Messages.Receive.Numerics.Reply
 {
     public class Away : IReceiveMessage
     {

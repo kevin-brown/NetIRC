@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NetIRC.Messages.Receive.Numerics
+namespace NetIRC.Messages.Receive.Numerics.Reply
 {
-    public class NowAway : IReceiveMessage
+    public class UnAway : IReceiveMessage
     {
         public static bool CheckMessage(ParsedMessage message, Client client)
         {
-            return message.Command == "306";
+            return message.Command == "305";
         }
 
         public void ProcessMessage(ParsedMessage message, Client client)
@@ -20,7 +20,8 @@ namespace NetIRC.Messages.Receive.Numerics
             {
                 // string info = message.Parameters[1];
 
-                client.User.IsAway = true;
+                client.User.IsAway = false;
+                client.User.AwayMessage = null;
             }
         }
     }

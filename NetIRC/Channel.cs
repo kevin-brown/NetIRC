@@ -467,5 +467,14 @@ namespace NetIRC
             OnRankHandler handler = this.OnRank;
             if (handler != null) handler(source, user, rank);
         }
+
+        public delegate void OnChannelOperatorNeededHandler(Channel source, string reason);
+        public event OnChannelOperatorNeededHandler OnChannelOperatorNeeded;
+
+        internal virtual void TriggerOnChannelOperatorNeeded(Channel source, string reason)
+        {
+            OnChannelOperatorNeededHandler handler = this.OnChannelOperatorNeeded;
+            if (handler != null) handler(source, reason);
+        }
     }
 }

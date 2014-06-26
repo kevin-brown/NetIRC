@@ -257,15 +257,17 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.CTCP.ChannelAction));
             this.RegisterMessage(typeof(Messages.Receive.CTCP.UserAction));
 
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.Away));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.Welcome));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.Names));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.Who));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.Topic));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.TopicInfo));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.NoTopic));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.NowAway));
-            this.RegisterMessage(typeof(Messages.Receive.Numerics.UnAway));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Away));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Welcome));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Names));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Who));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Topic));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.TopicInfo));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.NoTopic));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.NowAway));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.UnAway));
+
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Error.ChannelOperatorNeeded));
 
             this.RegisterMessage(typeof(Messages.Receive.IRCv3.Away));
         }
