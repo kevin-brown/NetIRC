@@ -65,6 +65,9 @@
     <Compile Include="Messages\Receive\Kick.cs" />
     <Compile Include="Messages\Receive\Numerics\Error\ChannelOperatorNeeded.cs" />
     <Compile Include="Messages\Receive\Numerics\Reply\Away.cs" />
+    <Compile Include="Messages\Receive\Numerics\Reply\Banlist.cs" />
+    <Compile Include="Messages\Receive\Numerics\Reply\Exceptlist.cs" />
+    <Compile Include="Messages\Receive\Numerics\Reply\Invitelist.cs" />
     <Compile Include="Messages\Receive\Numerics\Reply\NowAway.cs" />
     <Compile Include="Messages\Receive\Numerics\Reply\UnAway.cs" />
     <Compile Include="Messages\Receive\UserPrivate.cs" />

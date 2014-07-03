@@ -258,6 +258,9 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.CTCP.UserAction));
 
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Away));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Banlist));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Exceptlist));
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Invitelist));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Welcome));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Names));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.Who));
