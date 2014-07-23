@@ -199,30 +199,39 @@ namespace NetIRC
 
         private void ReadStream()
         {
-            while (this.TcpClient != null && this.TcpClient.Connected &&
-                   this.Reader != null && !this.Reader.EndOfStream)
+            try
             {
-                string line = this.Reader.ReadLine();
-                if (String.IsNullOrEmpty(line)) continue;
-
-                foreach (Type writerType in this._outputWriters)
+                while (this.TcpClient != null && this.TcpClient.Connected &&
+                       this.Reader != null && !this.Reader.EndOfStream)
                 {
-                    IWriter instance = (IWriter) Activator.CreateInstance(writerType);
-                    instance.ProcessReadMessage(line, this);
-                }
+                    string line = this.Reader.ReadLine();
+                    if (String.IsNullOrEmpty(line)) continue;
 
-                ParsedMessage message = new ParsedMessage(this, line);
-
-                foreach (RegisteredMessage messageType in this._registeredMessages)
-                {
-                    if (messageType.CheckMessage(message))
+                    foreach (Type writerType in this._outputWriters)
                     {
-                        messageType.ProcessMessage(message);
+                        IWriter instance = (IWriter)Activator.CreateInstance(writerType);
+                        instance.ProcessReadMessage(line, this);
+                    }
+
+                    ParsedMessage message = new ParsedMessage(this, line);
+
+                    foreach (RegisteredMessage messageType in this._registeredMessages)
+                    {
+                        if (messageType.CheckMessage(message))
+                        {
+                            messageType.ProcessMessage(message);
+                        }
                     }
                 }
             }
-
-            this.TriggerOnDisconnect();
+            catch (IOException ex)
+            {
+                Console.WriteLine("Received IOException: " + ex.Message);
+            }
+            finally
+            {
+                this.TriggerOnDisconnect();
+            }
         }
 
         /// <summary>
