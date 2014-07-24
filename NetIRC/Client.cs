@@ -279,6 +279,7 @@ namespace NetIRC
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.NowAway));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Reply.UnAway));
 
+            this.RegisterMessage(typeof(Messages.Receive.Numerics.Error.CannotSendToChannel));
             this.RegisterMessage(typeof(Messages.Receive.Numerics.Error.ChannelOperatorNeeded));
 
             this.RegisterMessage(typeof(Messages.Receive.IRCv3.Away));

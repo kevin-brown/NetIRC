@@ -468,6 +468,15 @@ namespace NetIRC
             if (handler != null) handler(source, user, rank);
         }
 
+        public delegate void OnCannotSendToChannelHandler(Channel source, string reason);
+        public event OnCannotSendToChannelHandler OnCannotSendToChannel;
+
+        internal virtual void TriggerOnCannotSendToChannel(Channel source, string reason)
+        {
+            OnCannotSendToChannelHandler handler = this.OnCannotSendToChannel;
+            if (handler != null) handler(source, reason);
+        }
+
         public delegate void OnChannelOperatorNeededHandler(Channel source, string reason);
         public event OnChannelOperatorNeededHandler OnChannelOperatorNeeded;
 

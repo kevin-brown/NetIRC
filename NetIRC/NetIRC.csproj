@@ -63,6 +63,7 @@
     <Compile Include="Messages\Receive\CTCP\VersionReply.cs" />
     <Compile Include="Messages\Receive\Join.cs" />
     <Compile Include="Messages\Receive\Kick.cs" />
+    <Compile Include="Messages\Receive\Numerics\Error\CannotSendToChannel.cs" />
     <Compile Include="Messages\Receive\Numerics\Error\ChannelOperatorNeeded.cs" />
     <Compile Include="Messages\Receive\Numerics\Reply\Away.cs" />
     <Compile Include="Messages\Receive\Numerics\Reply\Banlist.cs" />
